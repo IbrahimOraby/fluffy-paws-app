@@ -1,2 +1,29 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+}
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true;
+
+  /* Custom CSS Variables */
+  --primary-color: #BE5985;
+  --light-color: #fcf6f8;
+  --secondary-color: #9FB3DF;
+
+  /* Text Contrast Customizations */
+  --white-color: #ffffff;
+  --black-color: #000000;
+}
+
+@font-face {
+  font-family: "outlit";
+  src: url("./assets/fonts/Outfit/Outfit-VariableFont_wght.ttf")
+    format("truetype");
+  font-style: normal;
+}
+
+body {
+  font-family: "Outlit", sans-serif;
+}
+
