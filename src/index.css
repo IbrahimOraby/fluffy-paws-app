@@ -2,19 +2,6 @@
 @plugin "daisyui" {
   themes: light --default;
 }
-@plugin "daisyui/theme" {
-  name: "mytheme";
-  default: true;
-
-  /* Custom CSS Variables */
-  --primary-color: #BE5985;
-  --light-color: #fcf6f8;
-  --secondary-color: #9FB3DF;
-
-  /* Text Contrast Customizations */
-  --white-color: #ffffff;
-  --black-color: #000000;
-}
 
 @font-face {
   font-family: "outlit";
@@ -27,3 +14,15 @@ body {
   font-family: "Outlit", sans-serif;
 }
 
+@theme {
+  /* Custom CSS Variables */
+  --color-primary-color: #be5985;
+  --color-light-color: #fcf6f8;
+  --color-secondary-color: #9fb3df;
+
+  --color-hover-color:#9b476b;
+
+  /* Text Contrast Customizations */
+  --color-white-color: #ffffff;
+  --color-black-color: #000000;
+}
