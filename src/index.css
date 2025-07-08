@@ -7,9 +7,10 @@
   default: true;
 
   /* Custom CSS Variables */
-  --primary-color: #BE5985;
+  --primary-color: #be5985;
   --light-color: #fcf6f8;
-  --secondary-color: #9FB3DF;
+  --secondary-color: #9fb3df;
+  --light-gray: #5d5d5d;
 
   /* Text Contrast Customizations */
   --white-color: #ffffff;
@@ -26,4 +27,3 @@
 body {
   font-family: "Outlit", sans-serif;
 }
-
