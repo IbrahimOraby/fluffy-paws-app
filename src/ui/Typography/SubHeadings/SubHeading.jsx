@@ -1,6 +1,6 @@
 import React from "react";
 
-function SmallSubHeading({ children, className = "", ...props }) {
+function SubHeading({ children, className = "", ...props }) {
 	return (
 		<p
 			className={`text-sm tracking-tight leading-[1.2] font-semibold ${className}`}
@@ -11,4 +11,4 @@ function SmallSubHeading({ children, className = "", ...props }) {
 	);
 }
 
-export default SmallSubHeading;
+export default SubHeading;

@@ -1,28 +1,40 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default;
+	themes: light --default;
 }
 
 @font-face {
-  font-family: "outlit";
-  src: url("./assets/fonts/Outfit/Outfit-VariableFont_wght.ttf")
-    format("truetype");
-  font-style: normal;
+	font-family: "outlit";
+	src: url("./assets/fonts/Outfit/Outfit-VariableFont_wght.ttf")
+		format("truetype");
+	font-style: normal;
 }
 
 body {
-  font-family: "Outlit", sans-serif;
+	font-family: "Outlit", sans-serif;
 }
 
 @theme {
-  /* Custom CSS Variables */
-  --color-primary-color: #be5985;
-  --color-light-color: #fcf6f8;
-  --color-secondary-color: #9fb3df;
+	/* Custom CSS Variables */
+	--color-primary-color: #be5985;
+	--color-light-color: #fcf6f8;
+	--color-secondary-color: #9fb3df;
 
-  --color-hover-color:#9b476b;
+	--color-hover-color: #9b476b;
 
-  /* Text Contrast Customizations */
-  --color-white-color: #ffffff;
-  --color-black-color: #000000;
+	/* Text Contrast Customizations */
+	--color-white-color: #ffffff;
+	--color-black-color: #000000;
+
+	/* Custom Font Sizes*/
+	--text-header-lg: 3rem;
+	--text-header-md: 2rem;
+	--text-header-sm: 1.125rem;
+	--text-subheader-lg: 1.125rem;
+	--text-subheader-md: 1rem;
+	--text-subheader-sm: 0.875rem;
+	--text-paragraph-lg: 1.125rem;
+	--text-paragraph-md: 1rem;
+	--text-paragraph-sm: 0.875rem;
+	--text-paragraph-xs: 0.75rem;
 }
