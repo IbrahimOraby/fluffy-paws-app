@@ -5,10 +5,13 @@ import SmallHeading from "./Headings/SmallHeading";
 import MediumParagraph from "./Paragraphs/MediumParagraph";
 import SmallParagraph from "./Paragraphs/SmallParagraph";
 import LargeParagraph from "./Paragraphs/LargeParagraph";
+import LargeSubHeading from "./SubHeadings/LargeSubHeading";
+import MediumSubHeading from "./SubHeadings/MediumSubHeading";
+import SmallSubHeading from "./SubHeadings/SmallSubHeading";
 
 function Typography() {
 	return (
-		<>
+		<div className="p-24">
 			<LargeHeading>ِAyo, I'm Large</LargeHeading>
 			<br />
 			<hr />
@@ -32,8 +35,22 @@ function Typography() {
 			<SmallParagraph>
 				It's kinda weird, but I've always been this small 😞
 			</SmallParagraph>
+			<SmallParagraph className="text-emerald-600">
+				I'm also small 😞
+			</SmallParagraph>
 			<div className="bg-green-700 my-18">-</div>
-		</>
+			<LargeSubHeading>ِAyo, I'm Large</LargeSubHeading>
+			<br />
+			<hr />
+			<br />
+			<MediumSubHeading>Hey guys, I'm Medium</MediumSubHeading>
+			<br />
+			<hr />
+			<br />
+			<SmallSubHeading>
+				It's kinda weird, but I've always been this small 😞
+			</SmallSubHeading>
+		</div>
 	);
 }
 

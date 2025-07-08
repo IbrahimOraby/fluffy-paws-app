@@ -1,8 +1,8 @@
 import React from "react";
 
-function SmallParagraph({ children, ...props }) {
+function SmallParagraph({ children, className = "", ...props }) {
 	return (
-		<p className="text-sm font-normal leading-[1.5]" {...props}>
+		<p className={`text-sm font-normal leading-[1.5] ${className}`} {...props}>
 			{children || "Default Small Paragraph"}
 		</p>
 	);

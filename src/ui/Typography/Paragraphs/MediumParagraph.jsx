@@ -1,8 +1,11 @@
 import React from "react";
 
-function MediumParagraph({ children, ...props }) {
+function MediumParagraph({ children, className = "", ...props }) {
 	return (
-		<p className="text-base font-normal leading-[1.5]" {...props}>
+		<p
+			className={`text-base font-normal leading-[1.5] ${className}`}
+			{...props}
+		>
 			{children || "Medium Large Paragraph"}
 		</p>
 	);

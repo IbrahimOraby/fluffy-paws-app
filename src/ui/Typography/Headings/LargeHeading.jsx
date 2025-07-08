@@ -1,9 +1,9 @@
 import React from "react";
 
-function LargeHeading({ children, ...props }) {
+function LargeHeading({ children, className = "", ...props }) {
 	return (
 		<h2
-			className="text-5xl tracking-tight leading-[1.2] font-semibold"
+			className={`text-5xl tracking-tight leading-[1.2] font-semibold ${className}`}
 			{...props}
 		>
 			{children || "Default Large Heading"}
