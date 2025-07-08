@@ -1,16 +1,11 @@
-import Avatar from "./ui/Avatar/Avatar";
-import Badge from "./ui/Badge/Badge";
-import ActionLink from "./ui/Links/ActionLink";
-import FooterLink from "./ui/Links/FooterLink";
-
 export default function App() {
-  return (
-    <>
-      <p className="text-whiteColor">Hello Pets</p>
-      <h1 style={{ fontWeight: 900 }}>hello</h1>
-      <div style={{ color: "var(--primary-color)",fontWeight:500 }}>
-        This uses --color-primary
-      </div>
-    </>
-  );
+	return (
+		<>
+			<p style={{ fontWeight: 100 }}>Hello Pets</p>
+			<h1 style={{ fontWeight: 900 }}>hello</h1>
+			<div style={{ color: "var(--primary-color)", fontWeight: 500 }}>
+				This uses --color-primary
+			</div>
+		</>
+	);
 }
