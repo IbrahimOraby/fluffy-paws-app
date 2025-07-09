@@ -1,3 +1,5 @@
+import Typography from "./ui/Typography/Typography";
+
 export default function App() {
 	return (
 		<>
@@ -6,6 +8,7 @@ export default function App() {
 			<div style={{ color: "var(--primary-color)", fontWeight: 500 }}>
 				This uses --color-primary
 			</div>
+			<Typography></Typography>
 		</>
 	);
 }
