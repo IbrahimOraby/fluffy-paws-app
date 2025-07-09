@@ -1,13 +1,14 @@
 import React from "react";
 
-function SubHeading({ children, className = "", ...props }) {
+function SubHeading({ children, type = "p", className = "", ...props }) {
+	const Element = type;
 	return (
-		<p
+		<Element
 			className={`text-sm tracking-tight leading-[1.2] font-semibold ${className}`}
 			{...props}
 		>
 			{children || "Default Small SubHeading"}
-		</p>
+		</Element>
 	);
 }
 
