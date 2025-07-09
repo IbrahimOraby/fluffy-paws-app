@@ -19,8 +19,9 @@ body {
 	--color-primary-color: #be5985;
 	--color-light-color: #fcf6f8;
 	--color-secondary-color: #9fb3df;
-
 	--color-hover-color: #9b476b;
+	--color-error-color:#e7000b;
+
 
 	/* Text Contrast Customizations */
 	--color-white-color: #ffffff;
