@@ -1,4 +1,4 @@
-import Typography from "./ui/Typography/Typography";
+import { StaticBuildingIcon } from "./ui/Icons/StaticIcons";
 
 export default function App() {
 	return (
@@ -7,6 +7,7 @@ export default function App() {
 			<h1 style={{ fontWeight: 900 }}>hello</h1>
 			<div style={{ color: "var(--primary-color)", fontWeight: 500 }}>
 				This uses --color-primary
+<StaticBuildingIcon/>
 			</div>
 			<Typography></Typography>
 		</>
