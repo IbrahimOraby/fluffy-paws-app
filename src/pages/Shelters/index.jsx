@@ -1,8 +1,11 @@
 import React from 'react'
+import ShelterCard from './components/ShelterCard'
 
 const Shelters = () => {
   return (
-    <div>Shelters</div>
+    <>
+    <ShelterCard/>
+    </>
   )
 }
 

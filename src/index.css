@@ -17,11 +17,13 @@ body {
 @theme {
 	/* Custom CSS Variables */
 	--color-primary-color: #be5985;
+	--color-primary-color-100:#fff3f7;
 	--color-light-color: #fcf6f8;
 	--color-secondary-color: #9fb3df;
 	--color-hover-color: #9b476b;
+	--color-light-hover-color:#ffecf2;
 	--color-error-color:#e7000b;
-
+	--color-paragraph-color:#565656;
 
 	/* Text Contrast Customizations */
 	--color-white-color: #ffffff;
