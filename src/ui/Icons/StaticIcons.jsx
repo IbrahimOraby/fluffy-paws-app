@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Search,
   Mail,
@@ -23,12 +22,13 @@ import {
 
 const createStaticIcon =
   (IconComponent) =>
-  ({ size = 24, color = "var(--light-gray)" }) => {
+  ({ size = 24, color = "var(--light-gray)", fill="none" }) => {
     return (
       <IconComponent
         size={size}
         style={{
           color,
+          fill:fill
         }}
       />
     );
