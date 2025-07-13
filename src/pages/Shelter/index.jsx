@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Reviews from "../../ui/Reviews/Reviews";
 
 const Shelter = () => {
   return (
-    <div>Shelter</div>
-  )
-}
+    <>
+      
+      <Reviews></Reviews>
+    </>
+  );
+};
 
-export default Shelter
+export default Shelter;
