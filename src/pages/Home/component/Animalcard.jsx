@@ -5,17 +5,17 @@ import Paragraph from '../../../ui/Typography/Paragraph/Paragraph'
 export default function Animalcard({ icon ,description,title ,className=''} ) {
   return (
   <>
-  <div className={`card card-side p-3  ${className}`}>
+  <div className={`card card-side p-3 gap-5  ${className}`}>
   <figure >
    <span className='contents'>
     {icon}
    </span>
   </figure>
-  <div className="card-body ">
+  <div className="card-body p-1">
    
-    <Heading className="card-title justify-center">{title}</Heading>
+    <Heading className="card-title ">{title}</Heading>
    
-    <Paragraph className='flex justify-center'>{description}</Paragraph>
+    <Paragraph className='flex '>{description}</Paragraph>
   
   </div>
 </div>

@@ -2,16 +2,18 @@ import React from 'react'
 import Paragraph from '../../../ui/Typography/Paragraph/Paragraph'
 import Heading from '../../../ui/Typography/Heading/Heading'
 
-export default function IconWithTextBlock({p='',h='' ,icon}) {
+export default function IconWithTextBlock({p='',h='' ,pclass='', hclass='',icon ,iconclass=''}) {
   return (
     <>
-    <div className='flex gap-1.5'>
+    <div className='flex gap-4 
+'>
         <div>
-            <span>{icon}</span>
+            <span className={iconclass}>{icon}</span>
         </div>
         <div>
-            {p && <Paragraph className="text-gray-500">{p}</Paragraph>}
-            {h && <Heading>{h}</Heading>}
+            {h && <Heading className={hclass}>{h}</Heading>}
+            {p && <Paragraph className={pclass}>{p}</Paragraph>}
+          
         </div>
     </div>
     </>

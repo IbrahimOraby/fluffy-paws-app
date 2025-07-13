@@ -1,3 +1,4 @@
+import Index from "./pages/Home/Index";
 import { StaticBuildingIcon } from "./ui/Icons/StaticIcons";
 
 export default function App() {
@@ -9,7 +10,8 @@ export default function App() {
 				This uses --color-primary
 <StaticBuildingIcon/>
 			</div>
-			<Typography></Typography>
+      <Index></Index>
+			
 		</>
 	);
 }
