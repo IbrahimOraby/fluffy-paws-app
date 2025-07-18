@@ -21,7 +21,7 @@ export default function CalendarInput({width='w-full'}) {
   return (
     <div className={`relative`}>
    
-      <div className="flex items-center gap-2 border px-3 py-2 rounded-md shadow-sm w-[150px] s">
+      <div className="flex items-center gap-2 border px-3 py-2 rounded-md shadow-sm w-[120px] md:w-[145px]">
          <div
           onClick={toggleCalendar}
           className="w-5 h-5 text-gray-500 cursor-pointer flex items-center justify-center"

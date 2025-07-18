@@ -7,7 +7,7 @@ const Rating = ({rating,reviewsNum}) => {
     <div className="flex items-center">
     <StaticStarIcon size={24} color="#F7C457" fill="#F7C457"/>
     <Paragraph className="ml-1">{rating} </Paragraph>
-    <Paragraph className="ml-1 text-paragraph-color text-paragraph-sm">({reviewsNum})</Paragraph>
+    <Paragraph className="ml-1 text-paragraph-color text-paragraph-sm flex items-center">({reviewsNum})</Paragraph>
     </div>
   )
 }

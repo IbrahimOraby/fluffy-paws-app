@@ -23,7 +23,7 @@ const FiltersMenu = () => {
         placeholder={"1 Puppy"}
         width="w-full"
       />
-      <div className="flex gap-5 justify-between">
+      <div className="flex gap-5 justify-evenly">
         <CalendarInput />
         <CalendarInput />
       </div>
