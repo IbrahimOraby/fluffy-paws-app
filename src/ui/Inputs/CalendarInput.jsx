@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 
-export default function CalendarInput() {
+export default function CalendarInput({width='w-full'}) {
   const [selected, setSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);
   };
@@ -20,9 +19,9 @@ export default function CalendarInput() {
   };
 
   return (
-    <div className="relative w-fit">
+    <div className={`relative`}>
    
-      <div className="flex items-center gap-2 border px-3 py-2 rounded-md shadow-sm w-52">
+      <div className="flex items-center gap-2 border px-3 py-2 rounded-md shadow-sm w-[150px] s">
          <div
           onClick={toggleCalendar}
           className="w-5 h-5 text-gray-500 cursor-pointer flex items-center justify-center"
@@ -37,7 +36,7 @@ export default function CalendarInput() {
           readOnly
           value={formatDate(selected)}
           placeholder="DD / MMM"
-          className="grow outline-none text-sm cursor-pointer"
+          className="grow outline-none text-sm cursor-pointer w-[100%]"
           onClick={toggleCalendar}
         />
        
