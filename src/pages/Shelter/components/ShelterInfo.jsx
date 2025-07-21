@@ -12,8 +12,8 @@ export default function ShelterInfo() {
   }, []);
 
   return (
-    <div className="grid grid-cols-12 mb-12 px-4 md:px-0">
-      <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8 ">
+    <div className="grid grid-cols-12 mb-12 px-8 md:px-0">
+      <div className="col-span-12 col-start-1 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 ">
         <SubHeading className="text-subheader-lg mb-2">{info.name}</SubHeading>
         <div className="flex items-center gap-1 mb-4">
           <StaticStarIcon size={18} color="#F7C457" fill="#F7C457" />
