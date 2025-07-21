@@ -11,14 +11,35 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 
 export default function App() {
-	return (
-		<>
-			<p style={{ fontWeight: 100 }}>Hello Pets</p>
-			<h1 style={{ fontWeight: 900 }}>hello</h1>
-			<div style={{ color: "var(--primary-color)", fontWeight: 500 }}>
-				This uses --color-primary
-			</div>
-			<Typography></Typography>
-		</>
-	);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorBoundary />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        { path: "/shelters", element: <Shelters /> },
+        { path: "/shelter", element: <Shelter /> },
+		{ path: "/profile", element: <Profile /> },
+		{ path: "/signup", element: <Signup /> },
+		{ path: "/signin", element: <Signin /> },
+
+
+      ],
+    },
+  ]);
+  return (
+    <RouterProvider router={router}>
+      <p style={{ fontWeight: 100 }}>Hello Pets</p>
+      <h1 style={{ fontWeight: 900 }}>hello</h1>
+      <div style={{ color: "var(--primary-color)", fontWeight: 500 }}>
+        This uses --color-primary
+      </div>
+      <Typography></Typography>
+    </RouterProvider>
+  );
+// >>>>>>> c0a530f10b18ffc25ba561dc5cf2bcd397db1df8
 }

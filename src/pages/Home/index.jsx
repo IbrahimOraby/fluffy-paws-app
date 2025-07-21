@@ -1,7 +1,20 @@
 import React from 'react'
+import Animalcard from './Components/Animalcard'
+import { StaticDogIcon, StaticHeartIcon } from '../../ui/Icons/StaticIcons'
+import Options from './Components/Options'
 
-export default function Index() {
+import Iconwithpandh from './Components/IconWithTextBlock'
+import Cardwithbgimg from './Components/BackgroundImageCard'
+
+const Home = () => {
   return (
-    <div>Index</div>
+    <>
+  <Animalcard title="Small Dog" description="Under 6 months" icon={<StaticDogIcon />} className='w-50 bg-base-100 shadow-sm ' />
+<Options/>
+<Iconwithpandh icon={<StaticHeartIcon color='red'/>} h={'its heart icon for test'}></Iconwithpandh>
+<Cardwithbgimg/>
+</>
   )
 }
+
+export default Home
