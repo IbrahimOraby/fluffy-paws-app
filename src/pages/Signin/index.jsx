@@ -1,26 +1,21 @@
-import React from "react";
-import Inputs from "../../ui/Inputs/Inputs";
-import { Formik, Form, useField } from "formik";
-import FilledButton from "../../ui/Buttons/FilledButton";
+import { Formik, Form } from "formik";
 import { loginSchema } from "../../schemas/userSchema";
-import { handleLoginSubmit } from "../../handlers/formHandlers";
-import Paragraph from "./../../ui/Typography/Paragraph/Paragraph";
-import MyPasswordInput from "../Signup/components/MyPasswordInput";
+import { handleGoogleAuth, handleLoginSubmit } from "../../handlers/formHandlers";
+
 import { GoogleStaticIcon } from "../../ui/Icons/StaticIcons";
 import GoogleAuthButton from "../../ui/Buttons/GoogleAuthButton";
 import SubHeading from "../../ui/Typography/SubHeadings/SubHeading";
 import ActionLink from "../../ui/Links/ActionLink";
+import Paragraph from "./../../ui/Typography/Paragraph/Paragraph";
+import FilledButton from "../../ui/Buttons/FilledButton";
 
-const MyTextInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <Inputs label={label} field={field} meta={meta} {...props} />
-    </>
-  );
-};
+import MyPasswordInput from "../Signup/components/MyPasswordInput";
+import MyTextInput from "./../Signup/components/MyTextInput";
+
+import { useNavigate } from "react-router";
 
 const Signin = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex justify-center items-center">
@@ -30,13 +25,12 @@ const Signin = () => {
             password: "",
           }}
           validationSchema={loginSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            handleLoginSubmit(values, setSubmitting, resetForm);
+          onSubmit={(values, { setSubmitting, setFieldError }) => {
+            handleLoginSubmit(values, setSubmitting, setFieldError, navigate);
           }}
-          //   validateOnChange={false}
           validateOnBlur={true}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, errors, setFieldError }) => (
             <Form className="rounded-xl w-xl border-2 border-base-300 px-8 py-8 flex flex-col gap-4 items-center">
               <Paragraph
                 type="h1"
@@ -52,10 +46,12 @@ const Signin = () => {
                 <Paragraph className="text-paragraph-sm text-paragraph-color">
                   Enter the following details to login to your account
                 </Paragraph>
-				<Paragraph className="text-paragraph-sm text-paragraph-color font-semibold">
-                  Don't have an account? <ActionLink path={'/signup'} className="text-paragraph-md">Sign up</ActionLink>
+                <Paragraph className="text-paragraph-sm text-paragraph-color font-semibold">
+                  Don't have an account?{" "}
+                  <ActionLink path={"/signup"} className="text-paragraph-md">
+                    Sign up
+                  </ActionLink>
                 </Paragraph>
-
               </div>
 
               <div className="w-full ">
@@ -63,7 +59,6 @@ const Signin = () => {
                   label="Email Address"
                   name="email"
                   type="email"
-                  placeholder="jane@formik.com"
                   className="mb-0 w-full"
                 />
 
@@ -72,6 +67,19 @@ const Signin = () => {
                   name="password"
                   className="mb-0 w-full"
                 />
+                {
+                  /* Display general error if exists
+                    e.g "service is down - invalid credential"
+                  */
+
+                  <div
+                    className={`text-error text-sm-color h-6 mb-2 ${
+                      errors.general ? "visible" : "invisible"
+                    }`}
+                  >
+                    {errors.general}
+                  </div>
+                }
 
                 <FilledButton
                   className="w-full bg-primary-color hover:bg-hover-color text-white rounded-lg"
@@ -83,6 +91,8 @@ const Signin = () => {
               </div>
               <div className="divider">OR</div>
               <GoogleAuthButton
+              type="button"
+              onClick={()=>{handleGoogleAuth(setFieldError, navigate)}}
                 icon={<GoogleStaticIcon />}
                 className="btn bg-white text-black border-gray-400 hover:border-black w-full font-normal text-base"
               >

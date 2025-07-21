@@ -1,35 +1,42 @@
 import { Formik, Form } from "formik";
-import FilledButton from "../../ui/Buttons/FilledButton";
 import { signupSchema } from "../../schemas/userSchema";
-import {  handleSignupSubmit } from "../../handlers/formHandlers";
+import {
+  handleGoogleAuth,
+  handleSignupSubmit,
+} from "../../handlers/formHandlers";
+import { GoogleStaticIcon } from "../../ui/Icons/StaticIcons";
+
+import ActionLink from "../../ui/Links/ActionLink";
 import Paragraph from "./../../ui/Typography/Paragraph/Paragraph";
 import SubHeading from "./../../ui/Typography/SubHeadings/SubHeading";
+import FilledButton from "../../ui/Buttons/FilledButton";
+import GoogleAuthButton from "../../ui/Buttons/GoogleAuthButton";
+
 import MyTextInput from "./components/MyTextInput";
 import MyPasswordInput from "./components/MyPasswordInput";
-import GoogleAuthButton from "../../ui/Buttons/GoogleAuthButton";
-import { GoogleStaticIcon } from "../../ui/Icons/StaticIcons";
-import ActionLink from "../../ui/Links/ActionLink";
 
+import { useNavigate } from "react-router";
 
 const Signup = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex justify-center items-center">
         <Formik
           initialValues={{
             email: "",
-			firstName: "",
-			secondName: "",	
+            firstName: "",
+            lastName: "",
             password: "",
           }}
           validationSchema={signupSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            handleSignupSubmit(values, setSubmitting, resetForm);
+          onSubmit={(values, { setSubmitting, setFieldError }) => {
+            handleSignupSubmit(values, setSubmitting, setFieldError, navigate);
           }}
           //   validateOnChange={false}
           validateOnBlur={true}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, errors, setFieldError }) => (
             <Form className="rounded-xl w-lg border-2 border-base-300 px-8 py-8 flex flex-col gap-4 items-center">
               <Paragraph
                 type="h1"
@@ -45,10 +52,12 @@ const Signup = () => {
                 <Paragraph className="text-paragraph-sm text-paragraph-color">
                   Enter the following details to create your account
                 </Paragraph>
-				<Paragraph className="text-paragraph-sm text-paragraph-color font-semibold">
-                  Do you have an account? <ActionLink path={'/signin'} className="text-paragraph-md">Log in</ActionLink>
+                <Paragraph className="text-paragraph-sm text-paragraph-color font-semibold">
+                  Do you have an account?{" "}
+                  <ActionLink path={"/signin"} className="text-paragraph-md">
+                    Log in
+                  </ActionLink>
                 </Paragraph>
-
               </div>
 
               <div className="w-full ">
@@ -67,8 +76,8 @@ const Signup = () => {
                   className="mb-0 w-full"
                 />{" "}
                 <MyTextInput
-                  label="Second Name"
-                  name="secondName"
+                  label="Last Name"
+                  name="lastName"
                   type="string"
                   placeholder="Doe"
                   className="mb-0 w-full"
@@ -77,8 +86,21 @@ const Signup = () => {
                   label="Password"
                   name="password"
                   className="mb-0 w-full"
-				  placeholder="Must have at least 6 characters and one special character"
+                  placeholder="Must have at least 6 characters and one special character"
                 />
+                {
+                  /* Display general error if exists
+                    e.g "service is down"
+                  */
+
+                  <div
+                    className={`text-error text-sm-color h-6 mb-2 ${
+                      errors.general ? "visible" : "invisible"
+                    }`}
+                  >
+                    {errors.general}
+                  </div>
+                }
                 <FilledButton
                   className="w-full bg-primary-color hover:bg-hover-color text-white rounded-lg"
                   type="submit"
@@ -88,15 +110,15 @@ const Signup = () => {
                 </FilledButton>
               </div>
               <div className="divider">OR</div>
-			  <GoogleAuthButton
+              <GoogleAuthButton
+                type="button"
+                onClick={() => handleGoogleAuth(setFieldError, navigate)}
                 icon={<GoogleStaticIcon />}
                 className="btn bg-white text-black border-gray-400 hover:border-black w-full font-normal text-base"
               >
                 Continue with google
               </GoogleAuthButton>
-
             </Form>
-			
           )}
         </Formik>
       </div>

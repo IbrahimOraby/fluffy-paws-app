@@ -46,6 +46,7 @@ export const signUpUser = async (userName, email, password) => {
 			password
 		);
 		await updateProfile(userCredential.user, { displayName: userName });
+
 		return userCredential;
 	} catch (error) {
 		throw {
