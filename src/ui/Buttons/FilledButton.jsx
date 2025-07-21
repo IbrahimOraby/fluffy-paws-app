@@ -1,17 +1,25 @@
 import React from "react";
 
-export default function FilledButton({ title }) {
-  return (
-    <>
-      <button class="btn 
+export default function FilledButton({
+	title,
+	type = "button",
+	className = ""
+}) {
+	return (
+		<>
+			<button
+				className={`btn 
       capitalize
        bg-primary-color
         border-0
         text-white
         hover:bg-hover-color
-        ">
-        {title}
-      </button>
-    </>
-  );
+        ${className}
+        `}
+				type={type}
+			>
+				{title}
+			</button>
+		</>
+	);
 }

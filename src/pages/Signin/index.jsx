@@ -5,9 +5,6 @@ import * as Yup from "yup";
 import FilledButton from "../../ui/Buttons/FilledButton";
 
 const MyTextInput = ({ label, ...props }) => {
-	// useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-	// which we can spread on <input>. We can use field meta to show an error
-	// message if the field is invalid and it has been touched (i.e. visited)
 	const [field, meta] = useField(props);
 	return (
 		<>
@@ -19,34 +16,21 @@ const MyTextInput = ({ label, ...props }) => {
 const Signin = () => {
 	return (
 		<>
-			<div className="flex justify-center items-center">
+			<div
+				className="flex justify-center items-center"
+			>
 				<Formik
 					initialValues={{
-						firstName: "",
-						lastName: "",
 						email: "",
-						acceptedTerms: false, // added for our checkbox
-						jobType: "" // added for our select
+						password: ""
 					}}
 					validationSchema={Yup.object({
-						firstName: Yup.string()
-							.max(15, "Must be 15 characters or less")
-							.required("Required"),
-						lastName: Yup.string()
-							.max(20, "Must be 20 characters or less")
-							.required("Required"),
 						email: Yup.string()
 							.email("Invalid email address")
 							.required("Required"),
-						acceptedTerms: Yup.boolean()
-							.required("Required")
-							.oneOf([true], "You must accept the terms and conditions."),
-						jobType: Yup.string()
-							.oneOf(
-								["designer", "development", "product", "other"],
-								"Invalid Job Type"
-							)
-							.required("Required")
+						password: Yup.string()
+							.required("Password is required")
+							.min(6, "Password must be at least 6 characters")
 					})}
 					onSubmit={(values, { setSubmitting }) => {
 						setTimeout(() => {
@@ -55,29 +39,27 @@ const Signin = () => {
 						}, 400);
 					}}
 				>
-					<Form className="border bg-base-300 px-16 py-8">
-						<MyTextInput
-							label="First Name"
-							name="firstName"
-							type="text"
-							placeholder="Jane"
-						/>
-
-						<MyTextInput
-							label="Last Name"
-							name="lastName"
-							type="text"
-							placeholder="Doe"
-						/>
-
+					<Form className="rounded-xl bg-base-200 px-16 py-8">
 						<MyTextInput
 							label="Email Address"
 							name="email"
 							type="email"
 							placeholder="jane@formik.com"
+							className="mb-0"
 						/>
 
-						<FilledButton title="Sign Up"></FilledButton>
+						<MyTextInput
+							label="Password"
+							name="password"
+							type="password"
+							className="mb-0"
+						/>
+
+						<FilledButton
+							title="Sign In"
+							type="submit"
+							className="w-full"
+						></FilledButton>
 					</Form>
 				</Formik>
 			</div>
