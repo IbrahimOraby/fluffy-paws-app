@@ -1,31 +1,37 @@
 import React from "react";
 
-function Inputs({ label, field, meta, className = "", ...props }) {
-	// Fallback to props.name if no field is provided
-	const inputName = field?.name || props.name || props.id || "";
+function Inputs({ label, field, meta, className = "", children, ...props }) {
+  // Fallback to props.name if no field is provided
+  const inputName = field?.name || props.name || props.id || "";
 
-	return (
-		<div className="flex flex-col gap-1 mb-4">
-			{label && (
-				<label htmlFor={inputName} className={className}>
-					{label}
-				</label>
-			)}
-			<input
-				type="text"
-				id={inputName}
-				name={inputName}
-				className={`input border px-3 py-2 rounded-md outline-none 
-          ${meta?.touched && meta?.error ? `border-red-500` : ``} 
-          ${className}`}
-				{...(field || {})} // If field is passed (Formik), spread it
-				{...props} // Props like value, onChange, placeholder, etc.
-			/>
-			<div className="text-sm text-red-500">
-				{meta?.touched && meta?.error ? meta.error : "\u00A0"}
-			</div>
-		</div>
-	);
+  return (
+    <div className="flex flex-col gap-1 mb-4">
+      {label && (
+        <label htmlFor={inputName} className={className}>
+          {label}
+        </label>
+      )}
+      <div className="relative">
+        <input
+          className={`input input-bordered w-full focus:outline-none  ${
+            meta?.touched && meta?.error ? "input-error" : ""
+          } ${className}`}
+          {...field}
+          {...props}
+        />
+        {children}
+      </div>
+      {
+        <div
+          className={`text-error text-sm mt-1 h-5 invisible ${
+            meta?.touched && meta?.error && `visible`
+          }`}
+        >
+          {meta.error}
+        </div>
+      }
+    </div>
+  );
 }
 
 export default Inputs;
