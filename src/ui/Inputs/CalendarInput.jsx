@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import { Calendar1Icon } from 'lucide-react';import React, { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 
-export default function CalendarInput({ width = "w-52" }) {
+export default function CalendarInput({ placeholder, width="w-52" }) {
   const [selected, setSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);
   };
@@ -23,12 +22,14 @@ export default function CalendarInput({ width = "w-52" }) {
 
   return (
     <div className="relative w-fit">
-      <div
-        className={`flex items-center gap-2 border px-3 py-2 rounded-md shadow-sm ${width}`}
+   
+   <div
+        className={`flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm ${width}
+        focus-within:border-[#BE5985] focus-within:ring-2 focus-within:ring-[#BE5985] focus-within:ring-offset-2 transition-all duration-200`}
       >
-        <div
+         <div
           onClick={toggleCalendar}
-          className="w-5 h-5 text-gray-500 cursor-pointer flex items-center justify-center"
+          className="w-5 h-5 cursor-pointer flex items-center justify-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,12 +46,13 @@ export default function CalendarInput({ width = "w-52" }) {
             />
           </svg>
         </div>
+
         <input
           type="text"
           readOnly
           value={formatDate(selected)}
-          placeholder="DD / MMM"
-          className="grow outline-none text-sm cursor-pointer"
+          placeholder={placeholder}
+          className="grow outline-none text-sm cursor-pointer bg-transparent"
           onClick={toggleCalendar}
         />
       </div>
@@ -70,3 +72,4 @@ export default function CalendarInput({ width = "w-52" }) {
     </div>
   );
 }
+

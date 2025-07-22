@@ -13,7 +13,7 @@ const ShelterCard = () => {
     <>
       {/* Overall container */}
 
-      <div className="flex mb-6 pb-6 gap-6 w-[90vw] max-w-[360px] sm:max-w-lg border-b border-base-300  ">
+      <div className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300 ">
         <img
           className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
           src="https://res.cloudinary.com/madpaws/image/upload/c_limit,f_auto,h_980,q_auto,w_980/v1/uploads/1896910/madpaws_1743484947_67eb7813c77ca.jpeg.jpg"
@@ -24,7 +24,7 @@ const ShelterCard = () => {
         <div className="flex flex-col flex-1 justify-between items-start">
           {/* Header container */}
           <div className="flex w-full items-center justify-between mb-2">
-            <SubHeading type="h2" className="text-subheader-lg">
+            <SubHeading type="h2" className="text-subheader-lg text-header-color">
               John Doe
             </SubHeading>
             <ButtonWithIcon
