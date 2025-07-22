@@ -15,7 +15,7 @@ export default function Booking() {
   }, []);
 
   return (
-    <div className="w-full max-w-md border border-gray-300 rounded-xl p-5 shadow-sm bg-white">
+    <div className="w-full max-w-sm border border-gray-300 rounded-xl p-4 shadow-sm bg-white">
       <div className="mb-4">
         <Heading className="text-lg sm:text-xl font-semibold mb-2">
           Pet hosting
@@ -26,7 +26,7 @@ export default function Booking() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-1">
         <div>
           <Dropdown options={["Cat", "Dog", "Kitten", "Puppy"]} />
         </div>
@@ -34,23 +34,22 @@ export default function Booking() {
         <div>
           <NumberInput />
         </div>
-
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-full max-w-xs">
+        <div className="flex flex-row justify-center items-end gap-4 flex-wrap">
+          <div className="w-full max-w-[160px]">
             <label className="block text-sm font-medium text-gray-700 mb-1 text-center">
               From
             </label>
             <div className="flex justify-center">
-              <CalendarInput />
+              <CalendarInput width="w-35" />
             </div>
           </div>
 
-          <div className="w-full max-w-xs">
+          <div className="w-full max-w-[160px]">
             <label className="block text-sm font-medium text-gray-700 mb-1 text-center">
               To
             </label>
             <div className="flex justify-center">
-              <CalendarInput />
+              <CalendarInput width="w-35" />
             </div>
           </div>
         </div>

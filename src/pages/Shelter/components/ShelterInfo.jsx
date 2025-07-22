@@ -38,15 +38,6 @@ export default function ShelterInfo() {
       <Paragraph className="text-paragraph-lg mb-4">
         Caring and Experienced Pet sitter / Dog walker
       </Paragraph>
-
-      <div className="card max-w-[600px] bg-light-color card-xs shadow-sm">
-        <div className="card-body">
-          <Paragraph className="text-paragraph-md">About</Paragraph>
-          <Paragraph className="text-paragraph-xs text-paragraph-color">
-            {info.about}
-          </Paragraph>
-        </div>
-      </div>
     </div>
   );
 }
