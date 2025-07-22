@@ -55,7 +55,10 @@ export default function Booking() {
         </div>
 
         <div className="pt-2 flex flex-col items-center">
-          <FilledButton title="Done" />
+          <FilledButton className="bg-primary-color text-white rounded-xl w-full"> 
+            Book now
+          </FilledButton>
+
           <Paragraph className="text-xs text-gray-500 mt-1 text-center">
             You will be redirected to payment page
           </Paragraph>

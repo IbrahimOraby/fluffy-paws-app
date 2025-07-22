@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FilledButton from "../Buttons/FilledButton";
 
-const Select = ({ options, title,className="" }) => {
+const Select = ({ options, title,className="" , containerClass=""}) => {
   const [selected, setSelected] = useState();
   const [open, setOpen] = useState(false);
   const handleOptionSelect = (option) => {
@@ -10,7 +10,7 @@ const Select = ({ options, title,className="" }) => {
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className={`relative inline-block text-left ${containerClass}` }>
       <FilledButton
         onClick={() => setOpen(!open)}
         className={`btn w-25 capitalize bg-white text-primary-color hover:bg-primary-hover ${className}`}
