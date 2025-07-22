@@ -11,7 +11,6 @@ import {
 
 function renderStars(rating) {
   const totalStars = 5;
-
   return [...Array(totalStars)].map((_, index) => {
     const isFilled = index < rating;
     return (
@@ -28,14 +27,15 @@ function renderStars(rating) {
 function renderPetIcon(petType) {
   return petType === "dog" ? (
     <span>
-      <StaticDogIcon size={16} color=" #be5985" />
+      <StaticDogIcon size={16} color="#be5985" />
     </span>
   ) : (
     <span>
-      <StaticCatIcon size={16} color=" #be5985" />
+      <StaticCatIcon size={16} color="#be5985" />
     </span>
   );
 }
+
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
 
@@ -44,19 +44,21 @@ export default function Reviews() {
   }, []);
 
   return (
-    <div className="flex justify-center">
-      <div className="flex-col px-15  ">
-        <Heading className="text-center">Reviews</Heading>
+    <div className="flex justify-center px-4 sm:px-6 md:px-10">
+      <div className="w-full max-w-3xl flex flex-col">
+        <Heading className="text-center text-xl sm:text-2xl mb-6">
+          Reviews
+        </Heading>
         {reviews.map((review, index) => (
           <div key={index} className="pb-4 mb-4 border-b border-gray-400">
-            <div className="flex items-start gap-4">
+            <div className="flex flex-col sm:flex-row items-start gap-4">
               <img
                 src={review.avatar}
                 alt={review.author}
-                className="w-10 h-10 rounded-full border border-gray-300"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-300"
               />
               <div className="flex-1">
-                <Heading className="text-lg font-semibold text-black">
+                <Heading className="text-base sm:text-lg font-semibold text-black">
                   {review.author}
                 </Heading>
                 <div className="flex gap-1 mt-1">
