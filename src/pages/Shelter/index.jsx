@@ -5,7 +5,7 @@ import Booking from "./components/Booking";
 const Shelter = () => {
   return (
     <>
-    
+      <ShelterInfo />
     </>
   );
 };

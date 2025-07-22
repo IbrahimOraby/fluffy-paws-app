@@ -35,18 +35,23 @@ export default function Booking() {
           <NumberInput />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-full max-w-xs">
+            <label className="block text-sm font-medium text-gray-700 mb-1 text-center">
               From
             </label>
-            <CalendarInput />
+            <div className="flex justify-center">
+              <CalendarInput />
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+
+          <div className="w-full max-w-xs">
+            <label className="block text-sm font-medium text-gray-700 mb-1 text-center">
               To
             </label>
-            <CalendarInput />
+            <div className="flex justify-center">
+              <CalendarInput />
+            </div>
           </div>
         </div>
 
