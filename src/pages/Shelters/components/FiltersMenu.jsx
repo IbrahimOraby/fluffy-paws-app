@@ -11,32 +11,35 @@ import Select from "../../../ui/Inputs/Select";
 
 const FiltersMenu = () => {
   return (
-    <div className="bg-light-color mb-5 p-4 flex flex-col gap-2 md:flex-row md:justify-center">
+    <div className="bg-light-color mb-5 p-4 flex flex-col gap-2 md:flex-row md:justify-center items-center">
       <IconPlaceholderInput
         icon={<StaticMapIcon />}
         placeholder={"Portsaid, Egypt"}
-        width="w-full"
+        className="w-full md:w-[176px]"
       />
       <div></div>
       <IconPlaceholderInput
         icon={<StaticPawIcon />}
         placeholder={"1 Puppy"}
-        width="w-full"
+        className="w-full md:w-[176px]"
       />
-      <div className="flex gap-5 justify-evenly">
-        <CalendarInput />
-        <CalendarInput />
+      <div className="flex gap-5  w-full max-w-lg justify-around ">
+        <CalendarInput width="w-full" />
+        <CalendarInput width="w-full" />
       </div>
 
-      <FilledButton className="w-full md:w-fit bg-primary-color text-white rounded-4xl">
-        <StaticSearchIcon size={15} />
-        Search
-      </FilledButton>
-      <Select
-        options={["Price", "Reviews", "Nearby"]}
-        title={"Sort By"}
-        className="rounded-4xl hover:bg-primary-color-100"
-      />
+      <div className="w-full max-w-md md:w-fit flex ">
+        <FilledButton className=" bg-primary-color text-white rounded-4xl w-[50%] ">
+          <StaticSearchIcon size={15} />
+          Search
+        </FilledButton>
+        <Select
+          options={["Price", "Reviews", "Nearby"]}
+          title={"Sort By"}
+          containerClass="w-[50%]"
+          className="rounded-4xl hover:bg-primary-color-100 w-full "
+        />
+      </div>
     </div>
   );
 };

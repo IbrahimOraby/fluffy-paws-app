@@ -1,0 +1,68 @@
+{
+  "name": "Paw Palace Retreat",
+  "location": "Cairo, Egypt",
+  "rating": 5,
+  "isCertified": true,
+  "about": "Paw Palace Retreat is your pet's second home. We provide a luxurious and loving environment tailored for both cats and dogs. With our experienced staff and clean, cozy space, your furry friend will feel safe and pampered while you're away.",
+  "experience": "7 years of experience in pet hosting & care",
+  "pricePerNight": 42,
+  "gallery": [
+    "https://images.unsplash.com/photo-1560807707-8cc77767d783",
+    "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
+    "https://images.unsplash.com/photo-1558788353-f76d92427f16",
+    "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
+    "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
+    "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8",
+    "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13"
+  ],
+  "reviews": [
+    {
+      "author": "Laila & Karim",
+      "rating": 5,
+      "petType": "cat",
+      "avatar": "https://randomuser.me/api/portraits/women/45.jpg",
+      "comment": "Absolutely amazing service! My cat Luna didn’t want to leave. The staff treated her like royalty.",
+      "date": "2 July 2025"
+    },
+    {
+      "author": "Mohamed Saber",
+      "rating": 5,
+      "petType": "dog",
+      "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+      "comment": "Very clean, well-maintained place. The team was responsive and friendly. Highly recommended!",
+      "date": "28 June 2025"
+    },
+    {
+      "author": "Dina Hossam",
+      "rating": 4,
+      "petType": "dog",
+      "avatar": "https://randomuser.me/api/portraits/women/33.jpg",
+      "comment": "Good overall, though I wish they had longer daily playtimes. But my puppy was safe and happy.",
+      "date": "20 June 2025"
+    },
+    {
+      "author": "John & Sarah",
+      "rating": 5,
+      "petType": "dog",
+      "avatar": "https://randomuser.me/api/portraits/men/22.jpg",
+      "comment": "Our dogs Max and Bella had the best time ever! We loved the daily photo updates. Thank you!",
+      "date": "14 June 2025"
+    },
+    {
+      "author": "Nourhan Ali",
+      "rating": 4,
+      "petType": "cat",
+      "avatar": "https://randomuser.me/api/portraits/women/55.jpg",
+      "comment": "Beautiful environment and professional handlers. Booking was super easy too.",
+      "date": "8 June 2025"
+    },
+    {
+      "author": "Ahmed El-Sayed",
+      "rating": 5,
+      "petType": "dog",
+      "avatar": "https://randomuser.me/api/portraits/men/50.jpg",
+      "comment": "Top-notch care and very affordable. They even celebrated my dog’s birthday with a mini party!",
+      "date": "1 June 2025"
+    }
+  ]
+}

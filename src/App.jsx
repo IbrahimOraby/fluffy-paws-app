@@ -4,7 +4,7 @@ import Typography from "./ui/Typography/Typography";
 import Root from "./pages/Root";
 import Home from "./pages/Home";
 import Shelters from "./pages/Shelters";
-import Shelter from "./pages/shelter";
+import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
@@ -16,10 +16,7 @@ export default function App() {
       element: <Root />,
       errorElement: <ErrorBoundary />,
       children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
+        { path: "/", element: <Home /> },
         { path: "/shelters", element: <Shelters /> },
         { path: "/shelter", element: <Shelter /> },
         { path: "/profile", element: <Profile /> },
