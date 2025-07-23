@@ -1,19 +1,20 @@
 import React from 'react'
-import Trustedsection from './component/Trustedsection'
-import Howworksection from './component/Howworksection'
-import Booking from './component/Booking'
+import Animalcard from './Components/Animalcard'
+import { StaticDogIcon, StaticHeartIcon } from '../../ui/Icons/StaticIcons'
+import Options from './Components/Options'
 
+import Iconwithpandh from './Components/IconWithTextBlock'
+import Cardwithbgimg from './Components/BackgroundImageCard'
 
-export default function Index() {
+const Home = () => {
   return (
     <>
-     
-
-   <Trustedsection/>
-   <Howworksection/>
-   <Booking/>
-
-
-    </>
+  <Animalcard title="Small Dog" description="Under 6 months" icon={<StaticDogIcon />} className='w-50 bg-base-100 shadow-sm ' />
+<Options/>
+<Iconwithpandh icon={<StaticHeartIcon color='red'/>} h={'its heart icon for test'}></Iconwithpandh>
+<Cardwithbgimg/>
+</>
   )
 }
+
+export default Home
