@@ -7,7 +7,6 @@ const Root = () => {
   return (
     
     <>
-    <Heading type="h1" className="text-header-md">This is from Root page</Heading>
     <div className="flex justify-evenly my-5">
       <ActionLink path={'/'} >Home</ActionLink>
       <ActionLink path={'/shelters'} >Shelters</ActionLink>
