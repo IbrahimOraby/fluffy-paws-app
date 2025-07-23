@@ -1,10 +1,11 @@
 import React from "react";
 
-function Paragraph({ children, className = "", ...props }) {
+function Paragraph({ children, type = "p", className = "", ...props }) {
+	const Element = type;
 	return (
-		<p className={`font-normal leading-[1.5] ${className}`} {...props}>
+		<Element className={`font-normal leading-[1.5] ${className}`} {...props}>
 			{children || "Default Large Paragraph"}
-		</p>
+		</Element>
 	);
 }
 

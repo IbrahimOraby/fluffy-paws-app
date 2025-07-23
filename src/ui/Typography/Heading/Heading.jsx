@@ -1,13 +1,14 @@
 import React from "react";
 
-function Heading({ children, className = "", ...props }) {
+function Heading({ children, type = "h2", className = "", ...props }) {
+	const Element = type;
 	return (
-		<h2
+		<Element
 			className={`tracking-tight leading-[1.2] font-semibold ${className}`}
 			{...props}
 		>
 			{children || "Default Heading"}
-		</h2>
+		</Element>
 	);
 }
 

@@ -1,13 +1,15 @@
+import { Link } from "react-router";
 
-function FooterLink({ text = "Footer Link" }) {
+function FooterLink({ children, path,...props }) {
   return (
-    <a
-      href="#"
+    <Link
+      to={path}
       className="text-gray-400 font-normal p-0 min-h-[3rem] min-w-[3rem] hover:text-[#BE5985]"
+      {...props}
     >
-      {text}
-    </a>
-  )
+      {children}
+    </Link>
+  );
 }
 
-export default FooterLink
+export default FooterLink;
