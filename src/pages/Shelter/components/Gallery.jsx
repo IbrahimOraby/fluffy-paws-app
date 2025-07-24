@@ -76,7 +76,7 @@ export default function Gallery({ images }) {
       <OptionButton
         title="more photos"
         className="text-white-color bg-primary-color w-fit text-sm absolute right-2 bottom-2"
-        onClick={() => openFancybox(0)}
+        onClick={() => openFancybox(4)}
       />
     </div>
   );
