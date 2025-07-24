@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import Inputs from "../../../ui/Inputs/Inputs";
+import Inputs from "./Inputs";
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (

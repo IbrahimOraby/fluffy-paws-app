@@ -29,7 +29,7 @@ const FiltersMenu = () => {
 
         {/* max-w-lg = 512px, which is equal the size of two inputs to be symetric  */}
       <div className="flex w-full max-w-lg gap-2 md:w-3xs ">
-        <FilledButton className=" bg-primary-color text-white rounded-4xl w-1/2 min-w-[120px] px-0 ">
+        <FilledButton className=" bg-primary-color hover:bg-primary-color-500 text-white rounded-4xl w-1/2 min-w-[120px] px-0 ">
           <StaticSearchIcon size={15}/>
           Search
         </FilledButton>
