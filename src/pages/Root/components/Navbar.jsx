@@ -3,10 +3,11 @@ import ActionLink from "../../../ui/Links/ActionLink";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import { Link } from "react-router";
 import Heading from "../../../ui/Typography/Heading/Heading";
+import { StaticMenuIcon } from "../../../ui/Icons/StaticIcons";
 
 function Navbar() {
   return (
-    <header className="navbar flex items-center justify-center bg-base-100 shadow-sm min-h-[4rem]">
+    <header className="navbar flex items-center justify-center bg-base-100 shadow-sm min-h-[4rem] px-8">
       <div className="flex-1 flex items-center">
         <ActionLink to="/" className="">
           <Heading type="h1" className="text-2xl">
@@ -19,15 +20,15 @@ function Navbar() {
       <nav className="hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">
           <li>
-            <FilledButton className="text-primary-color bg-primary-color-100 rounded-2xl">
-              <Link to="/signin" className="">
+            <FilledButton className="text-primary-color bg-primary-color-100 rounded-3xl btn-lg">
+              <Link to="/signin" className="text-paragraph-md">
                 Sign In
               </Link>
             </FilledButton>
           </li>
           <li>
-            <FilledButton className="bg-primary-color text-primary-color-100 rounded-2xl">
-              <Link to="/signup" className="">
+            <FilledButton className="bg-primary-color text-primary-color-100 rounded-3xl btn-lg">
+              <Link to="/signup" className="text-paragraph-md">
                 Sign Up
               </Link>
             </FilledButton>
@@ -38,20 +39,7 @@ function Navbar() {
       {/* Burger icon for small screens */}
       <div className="lg:hidden">
         <label htmlFor="nav-drawer" className="btn btn-ghost btn-circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <StaticMenuIcon/>
         </label>
       </div>
     </header>
