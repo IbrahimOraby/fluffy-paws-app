@@ -22,7 +22,9 @@ body {
 	--color-secondary-color: #9fb3df;
 	--color-hover-color: #9b476b;
 	--color-error-color:#e7000b;
-
+	--color-paragraph-color:#565656;
+	--color-header-color:#414141;
+	
 
 	/* Text Contrast Customizations */
 	--color-white-color: #ffffff;

@@ -1,10 +1,10 @@
 import React from 'react'
-import Animalcard from './Components/Animalcard'
+import Animalcard from './components/Animalcard'
 import { StaticDogIcon, StaticHeartIcon } from '../../ui/Icons/StaticIcons'
-import Options from './Components/Options'
+import Options from './components/Options'
 
-import Iconwithpandh from './Components/IconWithTextBlock'
-import Cardwithbgimg from './Components/BackgroundImageCard'
+import Iconwithpandh from './components/IconWithTextBlock'
+import Cardwithbgimg from './components/BackgroundImageCard'
 import Trustedsection from './components/Trustedsection'
 import Howworksection from './components/Howworksection'
 import Booking from './components/Booking'
@@ -34,4 +34,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

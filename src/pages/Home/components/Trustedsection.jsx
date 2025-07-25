@@ -1,6 +1,6 @@
 import React from 'react';
 import BackgroundImageCard from './BackgroundImageCard';
-import Animalcard from '../../Home/components/Animalcard';
+import Animalcard from './Animalcard';
 import homeImg from '../../../assets/images/homeimg1.jpg';
 import {
   StaticCatIcon,

@@ -1,27 +1,29 @@
-import { Outlet } from "react-router";
-import Heading from "../../ui/Typography/Heading/Heading";
-import ActionLink from "../../ui/Links/ActionLink";
+import { Link, Outlet } from "react-router";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import SideDrawer from "./components/SideDrawer";
 
 const Root = () => {
-  
   return (
-    
     <>
-    <Heading type="h1" className="text-header-md">This is from Root page</Heading>
-    <div className="flex justify-evenly my-5">
-      <ActionLink path={'/'} >Home</ActionLink>
-      <ActionLink path={'/shelters'} >Shelters</ActionLink>
-      <ActionLink path={'/shelter'} >Shelter</ActionLink>
-      <ActionLink path={'/profile'} >Profile</ActionLink>
-      <ActionLink path={'/signin'} >Signin</ActionLink>
-      <ActionLink path={'/signup'} >Signup</ActionLink>
+      {/* Drawer (only small screens) */}
+      <div className="drawer drawer-end z-10">
+        <input id="nav-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          {/* Navbar*/}
+          <Navbar />
 
-      <ActionLink path={'/skjdanjskahas'} className="text-error-color hover:text-red-700 font-bold" >Error</ActionLink>
+          {/*Main Content*/}
+          {/* min-h-lv: it was only added to make empty pages appear normall, it can be replaced or removed */}
+          <main className="min-h-lvh">
+            <Outlet />
+          </main>
 
-      {/* <ActionLink path={'/'} >Home</ActionLink> */}
-
-    </div>
-      <Outlet />
+          {/*Footer*/}
+          <Footer />
+        </div>
+        <SideDrawer />
+      </div>
     </>
   );
 };

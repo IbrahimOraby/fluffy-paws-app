@@ -1,17 +1,19 @@
 import React from "react";
 
-export default function LinkButton({ title }) {
+export default function LinkButton({ children, className = "", ...props }) {
   return (
     <>
       <button
-        class="btn 
+        className={`btn 
         btn-link
       capitalize
       text-primary-color
        no-underline
-        "
+       ${className}
+        `}
+        {...props}
       >
-        {title}
+        {children}
       </button>
     </>
   );
