@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PetFormStep from "./PetFormStep.jsx";
 import { formSteps } from "../../../data/formSteps.js";
 import {
@@ -16,7 +16,7 @@ const schemas = {
   petPhoto: petPhotoSchema,
 };
 
-export default function PetWizardForm() {
+export default function PetWizardForm({ onStepChange }) {
   const [stepIndex, setStepIndex] = useState(0);
   const step = formSteps[stepIndex];
   const isLast = stepIndex === formSteps.length - 1;
@@ -24,6 +24,11 @@ export default function PetWizardForm() {
     (s) => s[`set${step.key.charAt(0).toUpperCase() + step.key.slice(1)}`]
   );
 
+  useEffect(() => {
+    if (onStepChange) {
+      onStepChange(step.title);
+    }
+  }, [stepIndex]);
   const initialValues = {};
   step.fields.forEach((f) => (initialValues[f.name] = ""));
 
