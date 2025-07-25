@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "@uploadcare/react-uploader": "^1.10.1",
+    "@uploadcare/rest-client": "^6.17.0",
     "firebase": "^11.10.0",
     "formik": "^2.4.6",
     "lucide-react": "^0.525.0",

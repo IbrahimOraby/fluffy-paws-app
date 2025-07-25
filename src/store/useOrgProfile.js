@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 const useOrganizationStore = create(
-  persist(
+  // persist(
     (set) => ({
       // State
       organizationData: {
@@ -34,14 +34,14 @@ const useOrganizationStore = create(
       currentFormIndex: 0,
       
       // Actions
-      setProfile: (data) => set((state) => ({
-        organizationData: { ...state.organizationData, profile: data },
-        completedForms: { ...state.completedForms, profile: true }
+      setInfo: (data) => set((state) => ({
+        organizationData: { ...state.organizationData, info: data },
+        completedForms: { ...state.completedForms, info: true }
       })),
       
-      setServices: (data) => set((state) => ({
-        organizationData: { ...state.organizationData, services: data },
-        completedForms: { ...state.completedForms, services: true }
+      setDocuments: (data) => set((state) => ({
+        organizationData: { ...state.organizationData, documents: data },
+        completedForms: { ...state.completedForms, documents: true }
       })),
       
       setFacilities: (data) => set((state) => ({
@@ -78,10 +78,10 @@ const useOrganizationStore = create(
     //   }
     }),
     {
-      name: 'organization-storage',
-      getStorage: () => localStorage,
+      // name: 'organization-storage',
+      // getStorage: () => localStorage,
     }
-  )
+  // )
 );
 
 export default useOrganizationStore;
