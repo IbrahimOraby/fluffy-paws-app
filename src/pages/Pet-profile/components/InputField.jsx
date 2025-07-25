@@ -14,7 +14,11 @@ export default function InputField({
       <label className="mb-1 font-medium">{label}</label>
 
       {type === "select" ? (
-        <select {...field} {...props} className="input border p-2 rounded">
+        <select
+          {...field}
+          {...props}
+          className="input border border-gray-300 focus:border-primary-color focus:outline-none p-2 rounded"
+        >
           <option value="">Select...</option>
           {options.map((opt) => (
             <option key={opt} value={opt}>
