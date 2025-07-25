@@ -8,6 +8,7 @@ import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import PetWizardForm from "./pages/Pet-profile";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,7 @@ export default function App() {
         { path: "/signup", element: <Signup /> },
         { path: "/signin", element: <Signin /> },
         { path: "/typography", element: <Typography /> },
+        { path: "/Pet", element: <PetWizardForm /> },
       ],
     },
   ]);

@@ -5,7 +5,12 @@ export const formSteps = [
     fields: [
       { name: "name", label: "What's his name?", type: "text" },
       { name: "age", label: "What's his age?", type: "number" },
-      { name: "gender", label: "Is it male or female?", type: "text" },
+      {
+        name: "gender",
+        label: "Is it male or female?",
+        type: "select",
+        options: ["Male", "Female"],
+      },
       { name: "desexed", label: "Is he desexed?", type: "text" },
     ],
   },
