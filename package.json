@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fancyapps/ui": "^6.0.16",
     "@tailwindcss/vite": "^4.1.11",
     "firebase": "^11.10.0",
     "formik": "^2.4.6",
