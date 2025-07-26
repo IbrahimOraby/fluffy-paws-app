@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fancyapps/ui": "^6.0.16",
     "@tailwindcss/vite": "^4.1.11",
     "@uploadcare/react-uploader": "^1.10.1",
     "@uploadcare/rest-client": "^6.17.0",
