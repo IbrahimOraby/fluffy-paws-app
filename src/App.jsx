@@ -8,6 +8,8 @@ import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import SelectRole from "./pages/Profile-Setup";
+import IndividualSetup from "./pages/Profile-Setup/Individual";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -22,9 +24,11 @@ export default function App() {
         { path: "/profile", element: <Profile /> },
         { path: "/signup", element: <Signup /> },
         { path: "/signin", element: <Signin /> },
-        { path: "/typography", element: <Typography /> },
-      ],
-    },
+        { path: "/select-role", element: <SelectRole /> },
+        { path: "/select-role/individual", element: <IndividualSetup /> },
+        { path: "/typography", element: <Typography /> }
+      ]
+    }
   ]);
   return (
     <RouterProvider router={router}>
