@@ -9,7 +9,7 @@ import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import SelectRole from "./pages/Profile-Setup";
-import IndividualSetup from "./pages/Profile-Setup/Individual";
+import PersonalSetup from "./pages/Profile-Setup/Personal";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -25,7 +25,7 @@ export default function App() {
         { path: "/signup", element: <Signup /> },
         { path: "/signin", element: <Signin /> },
         { path: "/select-role", element: <SelectRole /> },
-        { path: "/select-role/individual", element: <IndividualSetup /> },
+        { path: "/select-role/personal", element: <PersonalSetup /> },
         { path: "/typography", element: <Typography /> }
       ]
     }
