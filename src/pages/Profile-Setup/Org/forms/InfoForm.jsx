@@ -1,16 +1,23 @@
 import { Form, Formik } from "formik";
 import MyTextInput from "../../../../ui/Inputs/MyTextInput";
 import MyFileInput from "../../../../ui/Inputs/MyFileInput";
-import FilledButton from "../../../../ui/Buttons/FilledButton";
 import useOrganizationStore from "../../../../store/useOrgProfile";
 
-const InfoForm = ({ fields, initialValues, formikRef, handleFormSubmit }) => {
+const InfoForm = ({
+  fields,
+  initialValues,
+  schema,
+  formikRef,
+  handleFormSubmit,
+}) => {
   const nextForm = useOrganizationStore((state) => state.nextForm);
 
   return (
     <Formik
       innerRef={formikRef}
       initialValues={initialValues}
+      validationSchema={schema}
+      enableReinitialize 
       onSubmit={(values) => {
         handleFormSubmit(values);
         nextForm();
@@ -23,8 +30,8 @@ const InfoForm = ({ fields, initialValues, formikRef, handleFormSubmit }) => {
               {field.type !== "file" && (
                 <MyTextInput
                   key={field.name}
-                  label={field.name}
-                  name={field.name.toLowerCase().replace(/\s+/g, "_")}
+                  label={field.label}
+                  name={field.name}
                   placeholder={field.placeholder}
                   type={field.type}
                 />
@@ -32,8 +39,9 @@ const InfoForm = ({ fields, initialValues, formikRef, handleFormSubmit }) => {
               {field.type === "file" && (
                 <MyFileInput
                   key={field.name}
-                  label={field.name}
-                  name={field.name.toLowerCase().replace(/\s+/g, "_")}
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
                 />
               )}
             </>

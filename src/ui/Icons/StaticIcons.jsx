@@ -20,7 +20,7 @@ import {
   CalendarDays,
   LogIn,
   X,
-  Menu
+  Menu,
   FileIcon,
 } from "lucide-react";
 
@@ -116,4 +116,8 @@ export {
   StaticPasswordIcon,
   StaticEyeIcon,
   StaticEyeOffIcon,
+  StaticLogInIcon,
+  StaticXIcon,
+  StaticMenuIcon,
+  StaticFileIcon,
 };

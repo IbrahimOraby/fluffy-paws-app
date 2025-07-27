@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 const useOrganizationStore = create(
-  // persist(
+  persist(
     (set) => ({
       // State
       organizationData: {
@@ -44,44 +44,41 @@ const useOrganizationStore = create(
         completedForms: { ...state.completedForms, documents: true }
       })),
       
-      setFacilities: (data) => set((state) => ({
-        organizationData: { ...state.organizationData, facilities: data },
-        completedForms: { ...state.completedForms, facilities: true }
+      setBanking: (data) => set((state) => ({
+        organizationData: { ...state.organizationData, banking: data },
+        completedForms: { ...state.completedForms, banking: true }
       })),
       
-      setStaff: (data) => set((state) => ({
-        organizationData: { ...state.organizationData, staff: data },
-        completedForms: { ...state.completedForms, staff: true }
+      setBranding: (data) => set((state) => ({
+        organizationData: { ...state.organizationData, branding: data },
+        completedForms: { ...state.completedForms, branding: true }
       })),
       
-      setBusinessHours: (data) => set((state) => ({
-        organizationData: { ...state.organizationData, businessHours: data },
-        completedForms: { ...state.completedForms, businessHours: true }
+      setContact: (data) => set((state) => ({
+        organizationData: { ...state.organizationData, contact: data },
+        completedForms: { ...state.completedForms, contact: true }
       })),
       
-      setGallery: (data) => set((state) => ({
-        organizationData: { ...state.organizationData, gallery: data },
-        completedForms: { ...state.completedForms, gallery: true }
-      })),
       
       nextForm: () => set((state) => ({ currentFormIndex: state.currentFormIndex + 1 })),
       prevForm: () => set((state) => ({ currentFormIndex: state.currentFormIndex - 1 })),
       skipForm: () => set((state) => ({ currentFormIndex: state.currentFormIndex + 1 })),
       
-    //   saveToFirestore: async () => {
-    //     // TODO: Implement Firestore saving logic
-    //     const organizationData = {
-    //       ...get().userData,
-    //       ...get().organizationData
-    //     };
-    //     // Logic to save to Firestore
-    //   }
+      saveToFirestore: async () => {
+        // TODO: Implement Firestore saving logic
+        // const organizationData = {
+        //   ...get().userData,
+        //   ...get().organizationData
+        // };
+        // Logic to save to Firestore
+      }
     }),
     {
-      // name: 'organization-storage',
-      // getStorage: () => localStorage,
+      name: 'organization-storage',
+      getStorage: () => localStorage,
+      onRehydrateStorage: (state) => {  console.log('rehydrated state:', state); }  
     }
-  // )
+  )
 );
 
 export default useOrganizationStore;
