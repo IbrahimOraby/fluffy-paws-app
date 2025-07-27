@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import MyTextInput from "../../../../ui/Inputs/MyTextInput";
 import MyFileInput from "../../../../ui/Inputs/MyFileInput";
 import useOrganizationStore from "../../../../store/useOrgProfile";
+import { useNavigate } from "react-router";
 
 const InfoForm = ({
   fields,
@@ -9,18 +10,23 @@ const InfoForm = ({
   schema,
   formikRef,
   handleFormSubmit,
+  isLastForm,
 }) => {
   const nextForm = useOrganizationStore((state) => state.nextForm);
-
+  const navigate = useNavigate();
   return (
     <Formik
       innerRef={formikRef}
       initialValues={initialValues}
       validationSchema={schema}
-      enableReinitialize 
+      enableReinitialize
       onSubmit={(values) => {
         handleFormSubmit(values);
-        nextForm();
+        if (isLastForm) {
+          navigate("/");
+        } else {
+          nextForm();
+        }
       }}
     >
       {() => (

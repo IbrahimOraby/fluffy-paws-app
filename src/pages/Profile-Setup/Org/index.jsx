@@ -248,11 +248,12 @@ const OrganizationSetup = () => {
               initialValues={currentStep.initialValues}
               schema={currentStep.schema}
               formikRef={formikRef}
+              isLastForm={isLastStep}
               handleFormSubmit={() => {
                 handleOrgFormSubmit(
                   formikRef.current.values,
                   currentStep,
-                  setOrgState
+                  setOrgState,
                 );
               }}
             />
