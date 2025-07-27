@@ -60,7 +60,7 @@ export default function Faqs() {
               onClick={() => toggleFaq(index)}
               className="group flex items-center justify-between w-full text-primary-color cursor-pointer"
             >
-              <span className="text-2xl text-left basis-3/4 transition-colors duration-300 group-hover:text-pink-600">
+              <span className="lg:text-2xl md:text-paragraph-lg sm:text-paragraph-sm text-left basis-3/4 transition-colors duration-300 group-hover:text-pink-600">
                 {faq.question}
               </span>
               <div className="basis-1/4 flex justify-end">
@@ -75,7 +75,7 @@ export default function Faqs() {
                 openIndexes.includes(index) ? 'max-h-screen mt-4' : 'max-h-0'
               }`}
             >
-              <Paragraph className="text-gray-700 mt-2">
+              <Paragraph className="text-gray-700 mt-2 ">
                 {faq.answer}
               </Paragraph>
             </div>

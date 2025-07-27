@@ -7,31 +7,37 @@ export default function Animalcard({
   description,
   title,
   value,
-  name = "animal",
+  name,
   checked,
   onChange,
-  className = ''
+  className = '',
 }) {
   return (
     <label
-      className={`card card-side p-3 gap-5 cursor-pointer transition-all duration-200 
+   
+      className={`relative card card-side p-3 gap-5 cursor-pointer transition-all duration-200 
       border-2 ${checked ? 'border-[#BE5985]' : 'border-gray-300'} 
-      shadow-none focus:shadow-none focus:outline-none focus:ring-0 
-      ${className}`}
+      rounded-md shadow-none 
+      focus:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none ${className}`}
     >
+   
       <input
         type="radio"
         name={name}
         value={value}
         checked={checked}
         onChange={onChange}
-        className="hidden"
+        className="absolute opacity-0 pointer-events-none appearance-none focus:outline-none focus:ring-0"
       />
+
       <figure>
         <span className="contents">{icon}</span>
       </figure>
+
       <div className="card-body p-1">
-        <Heading className="card-title text-[#565656]">{title}</Heading>
+        <Heading as="h3" className="card-title text-[#565656]">
+          {title}
+        </Heading>
         <Paragraph className="flex">{description}</Paragraph>
       </div>
     </label>
