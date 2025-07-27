@@ -20,7 +20,8 @@ import {
   CalendarDays,
   LogIn,
   X,
-  Menu
+  Menu,
+  FileIcon,
 } from "lucide-react";
 
 const createStaticIcon =
@@ -60,6 +61,7 @@ const StaticEyeOffIcon = createStaticIcon(EyeOff);
 const StaticLogInIcon = createStaticIcon(LogIn);
 const StaticXIcon = createStaticIcon(X);
 const StaticMenuIcon = createStaticIcon(Menu);
+const StaticFileIcon = createStaticIcon(FileIcon);
 
 //! Google Icon --- Not included by lucid
 
@@ -116,5 +118,6 @@ export {
   StaticEyeOffIcon,
   StaticLogInIcon,
   StaticXIcon,
-  StaticMenuIcon
+  StaticMenuIcon,
+  StaticFileIcon,
 };
