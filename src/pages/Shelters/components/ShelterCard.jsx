@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import Badge from "../../../ui/Badge/Badge";
 import ButtonWithIcon from "../../../ui/Buttons/ButtonWithIcon";
 import {
@@ -9,11 +10,12 @@ import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 
 const ShelterCard = () => {
+  const navigate = useNavigate();
   return (
     <>
       {/* Overall container */}
 
-      <div className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300 ">
+      <div onClick={()=>navigate('/shelter')} className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300 cursor-pointer hover:border-primary-color ">
         <img
           className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
           src="https://res.cloudinary.com/madpaws/image/upload/c_limit,f_auto,h_980,q_auto,w_980/v1/uploads/1896910/madpaws_1743484947_67eb7813c77ca.jpeg.jpg"
