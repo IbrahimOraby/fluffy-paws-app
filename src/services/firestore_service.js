@@ -1,6 +1,5 @@
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore"
 import { db } from "../firebaseConfig"
-import { getCurrentUser } from './auth_service';
 
 export const addNewUser = async (userData, uid) => {
     const docRef = doc(db, "users", uid);
@@ -9,7 +8,8 @@ export const addNewUser = async (userData, uid) => {
             email: userData.email,
             firstName: userData.firstName,
             lastName: userData.lastName,
-            role: null
+            role: null,
+            createdAt: serverTimestamp()
         })
 
     } catch (error) {
@@ -18,7 +18,7 @@ export const addNewUser = async (userData, uid) => {
 }
 
 export const getCurrentUserDoc = async (user) => {
- 
+
     const docRef = doc(db, "users", user.uid);
     const userSnapshot = await getDoc(docRef);
     if (!user) {
@@ -28,10 +28,17 @@ export const getCurrentUserDoc = async (user) => {
 }
 
 export const updateUserRole = async (uid, role) => {
-const docRef = doc(db, "users", uid);
+    const docRef = doc(db, "users", uid);
     try {
         await setDoc(docRef, { role: role }, { merge: true });
     } catch (error) {
         console.error("Error updating user role:", error);
     }
+}
+export const addOrgnizationDoc = async (orgData, uid) => {
+    const docRef = doc(db, "organizations", uid);
+    await setDoc(docRef, {
+        ...orgData,
+        createdAt: serverTimestamp(),
+    }, { merge: true });
 }

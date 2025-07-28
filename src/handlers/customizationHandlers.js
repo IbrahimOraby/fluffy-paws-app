@@ -10,4 +10,5 @@ export const handleOrgFormSubmit = (allFormValues, currentStep, setOrgState) => 
   //* Call the action function for the current step with the current step values as object
   console.log(currentStepValues)
   setOrgState[currentStep.action](currentStepValuesObject);
+  
 };

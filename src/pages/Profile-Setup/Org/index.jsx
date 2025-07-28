@@ -1,8 +1,8 @@
-import InfoForm from "./../Org/forms/InfoForm";
+import OrgForm from "./../Org/forms/OrgForm";
 import OrganizationLicenseImg from "../../../assets/images/organization-license.png";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import useOrganizationStore from "../../../store/useOrgProfile";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   bankingSchema,
   brandingSchema,
@@ -13,6 +13,7 @@ import {
 import { handleOrgFormSubmit } from "../../../handlers/customizationHandlers";
 
 const OrganizationSetup = () => {
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const formikRef = useRef();
   const nextForm = useOrganizationStore((state) => state.nextForm);
   const prevForm = useOrganizationStore((state) => state.prevForm);
@@ -23,7 +24,6 @@ const OrganizationSetup = () => {
   const organizationData = useOrganizationStore(
     (state) => state.organizationData
   );
-  console.log(organizationData);
   const steps = [
     {
       title: "Organization Info",
@@ -62,7 +62,7 @@ const OrganizationSetup = () => {
         location: organizationData.info?.location || "",
         website: organizationData.info?.website || "",
       },
-            schema: infoSchema,
+      schema: infoSchema,
     },
     {
       title: "Documents",
@@ -89,8 +89,7 @@ const OrganizationSetup = () => {
         },
       ],
       initialValues: {
-        businessLicense:
-          organizationData.documents?.businessLicense || null,
+        businessLicense: organizationData.documents?.businessLicense || null,
         taxId: organizationData.documents?.taxId || null,
         insuranceCertificate:
           organizationData.documents?.insuranceCertificate || null,
@@ -134,12 +133,10 @@ const OrganizationSetup = () => {
         },
       ],
       initialValues: {
-        accountHolderName:
-          organizationData.banking?.accountHolderName || "",
+        accountHolderName: organizationData.banking?.accountHolderName || "",
         bankName: organizationData.banking?.bankName || "",
         accountNumber: organizationData.banking?.accountNumber || "",
-        bankRoutingNumber:
-          organizationData.banking?.bankRoutingNumber || "",
+        bankRoutingNumber: organizationData.banking?.bankRoutingNumber || "",
         iban: organizationData.banking?.iban || "",
       },
       schema: bankingSchema,
@@ -210,15 +207,14 @@ const OrganizationSetup = () => {
         },
       ],
       initialValues: {
-        organizationLogo:
-          organizationData.branding?.organizationLogo || null,
+        organizationLogo: organizationData.branding?.organizationLogo || null,
         description: organizationData.branding?.description || "",
         instagramLink: organizationData.branding?.instagramLink || "",
       },
       schema: brandingSchema,
     },
   ];
-
+  console.log(formikRef.current?.isSubmitting);
   //* Get the current step based on the currentFormIndex
   //* If currentFormIndex is 0, we show the organization license image
   const currentStep = steps[currentFormIndex - 1];
@@ -243,17 +239,19 @@ const OrganizationSetup = () => {
           <div className="w-full max-w-xl">
             <h2 className="text-header-md mb-4">{currentStep.title}</h2>
             <p className="text-sm text-gray-500 mb-6">{currentStep.subtitle}</p>
-            <InfoForm
+            <OrgForm
               fields={currentStep.fields}
               initialValues={currentStep.initialValues}
               schema={currentStep.schema}
               formikRef={formikRef}
               isLastForm={isLastStep}
+              currentForm={currentStep}
+              setIsFormSubmitting={setIsFormSubmitting}
               handleFormSubmit={() => {
                 handleOrgFormSubmit(
                   formikRef.current.values,
                   currentStep,
-                  setOrgState,
+                  setOrgState
                 );
               }}
             />
@@ -272,6 +270,7 @@ const OrganizationSetup = () => {
           </FilledButton>
         )}
         <FilledButton
+          disabled={isFormSubmitting}
           className="text-white bg-primary-color hover:bg-primary-color-500 hover:bg-primary-color-700 rounded-4xl"
           onClick={() => {
             if (currentFormIndex === 0) {
@@ -281,7 +280,7 @@ const OrganizationSetup = () => {
             }
           }}
         >
-          {isLastStep ? "Finish Setup" : "Next"}
+         {!isLastStep ? "Next" : isFormSubmitting ? "Submitting..." : "Submit"}
         </FilledButton>
       </footer>
     </div>
