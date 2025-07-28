@@ -18,7 +18,10 @@ body {
 	/* Custom CSS Variables */
 	--color-primary-color: #be5985;
 	--color-primary-color-100:#fff3f7;
+	--color-primary-color-500: #9b476b;
 	--color-light-color: #fcf6f8;
+	--color-light-color-300:#ffecf2;
+
 	--color-secondary-color: #9fb3df;
 	--color-hover-color: #9b476b;
 	--color-error-color:#e7000b;

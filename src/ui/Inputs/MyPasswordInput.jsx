@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useField } from "formik";
-import Inputs from "../../../ui/Inputs/Inputs";
-import { StaticEyeIcon, StaticEyeOffIcon } from "../../../ui/Icons/StaticIcons";
+import Inputs from "./Inputs";
+import { StaticEyeIcon, StaticEyeOffIcon } from "../Icons/StaticIcons";
 
 const MyPasswordInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);

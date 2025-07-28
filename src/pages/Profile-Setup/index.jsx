@@ -1,5 +1,8 @@
-const SelectRole = () => {
-  return <div>ProfileSetup</div>;
-};
 
-export default SelectRole;
+const SelectRole = () => {
+  return (
+    <div>ProfileSetup</div>
+  )
+}
+
+export default SelectRole

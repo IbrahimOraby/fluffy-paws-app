@@ -1,9 +1,12 @@
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SideDrawer from "./components/SideDrawer";
 
 const Root = () => {
+  const location = useLocation();
+  console.log(location.pathname);
+  const showNavFooter = !location.pathname.includes("/select-role");
   return (
     <>
       {/* Drawer (only small screens) */}
@@ -11,7 +14,7 @@ const Root = () => {
         <input id="nav-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar*/}
-          <Navbar />
+          {showNavFooter && <Navbar />}
 
           {/*Main Content*/}
           {/* min-h-lv: it was only added to make empty pages appear normall, it can be replaced or removed */}
@@ -20,7 +23,7 @@ const Root = () => {
           </main>
 
           {/*Footer*/}
-          <Footer />
+          {showNavFooter && <Footer />}
         </div>
         <SideDrawer />
       </div>
