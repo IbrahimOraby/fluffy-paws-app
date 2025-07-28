@@ -12,10 +12,10 @@ import SubHeading from "./../../ui/Typography/SubHeadings/SubHeading";
 import FilledButton from "../../ui/Buttons/FilledButton";
 import GoogleAuthButton from "../../ui/Buttons/GoogleAuthButton";
 
-import MyTextInput from "./components/MyTextInput";
-import MyPasswordInput from "./components/MyPasswordInput";
 
 import { useNavigate } from "react-router";
+import MyTextInput from "../../ui/Inputs/MyTextInput";
+import MyPasswordInput from "../../ui/Inputs/MyPasswordInput";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -102,7 +102,7 @@ const Signup = () => {
                   </div>
                 }
                 <FilledButton
-                  className="w-full bg-primary-color hover:bg-hover-color text-white rounded-lg"
+                  className="w-full bg-primary-color hover:bg-primary-color-500 text-white rounded-lg"
                   type="submit"
                   disabled={isSubmitting}
                 >

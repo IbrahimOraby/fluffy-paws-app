@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useField } from "formik";
-import Inputs from "../../../ui/Inputs/Inputs";
-import { StaticEyeIcon, StaticEyeOffIcon } from "../../../ui/Icons/StaticIcons";
+import Inputs from "./Inputs";
+import { StaticEyeIcon, StaticEyeOffIcon } from "../Icons/StaticIcons";
 
 const MyPasswordInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -16,7 +16,7 @@ const MyPasswordInput = ({ label, ...props }) => {
     >
       <button
         type="button"
-        className="absolute inset-y-0 right-0 flex items-center px-3 z-10"
+        className="absolute inset-y-0 right-0 flex items-center px-3 z-1"
         onClick={() => setShowPassword(!showPassword)}
       >
         {showPassword ? <StaticEyeIcon color="gray" /> : <StaticEyeOffIcon color="gray" />}

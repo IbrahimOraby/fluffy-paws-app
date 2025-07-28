@@ -9,10 +9,10 @@ import ActionLink from "../../ui/Links/ActionLink";
 import Paragraph from "./../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../ui/Buttons/FilledButton";
 
-import MyPasswordInput from "../Signup/components/MyPasswordInput";
-import MyTextInput from "./../Signup/components/MyTextInput";
 
 import { useNavigate } from "react-router";
+import MyTextInput from "../../ui/Inputs/MyTextInput";
+import MyPasswordInput from "../../ui/Inputs/MyPasswordInput";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const Signin = () => {
                 }
 
                 <FilledButton
-                  className="w-full bg-primary-color hover:bg-hover-color text-white rounded-lg"
+                  className="w-full bg-primary-color hover:bg-primary-color-500 text-white rounded-lg"
                   type="submit"
                   disabled={isSubmitting}
                 >
