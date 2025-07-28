@@ -1,6 +1,7 @@
 import { Formik, Form } from "formik";
 import InputField from "./InputField";
 import FilledButton from "../../../ui/Buttons/FilledButton";
+import MyFileInput from "../../../ui/Inputs/MyFileInput";
 
 export default function PetFormStep({
   step,
@@ -17,13 +18,23 @@ export default function PetFormStep({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {() => (
+      {({ setFieldValue }) => (
         <Form className="space-y-6">
-          {/* <h3 className="text-xl font-semibold mb-4">{step.title}</h3> */}
-
-          {step.fields.map((field) => (
-            <InputField key={field.name} {...field} />
-          ))}
+          {/* Loop through fields and render inputs */}
+          {step.fields.map((field) => {
+            if (field.type === "file") {
+              return (
+                <MyFileInput
+                  key={field.name}
+                  label={field.label}
+                  name={field.name}
+                  type="file"
+                />
+              );
+            } else {
+              return <InputField key={field.name} {...field} />;
+            }
+          })}
 
           <div className="flex justify-between items-center mt-6">
             {stepIndex > 0 ? (
