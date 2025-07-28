@@ -1,12 +1,28 @@
-import { Link, Outlet, useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SideDrawer from "./components/SideDrawer";
+import LoadingSpinner from "../../ui/loading/LoadingSpinner";
+import useUserStore from "../../store/useUserStore";
+import { useEffect } from "react";
 
 const Root = () => {
   const location = useLocation();
-  console.log(location.pathname);
   const showNavFooter = !location.pathname.includes("/select-role");
+  const { user, userDoc, loading, error, observeAuth } = useUserStore();
+
+  useEffect(() => {
+    const unsubscribe = observeAuth(); 
+    return () => unsubscribe(); 
+  }, [observeAuth]);
+
+  console.log("User:", user);
+  console.log("User Document:", userDoc);
+
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <>
       {/* Drawer (only small screens) */}
