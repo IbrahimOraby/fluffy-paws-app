@@ -8,6 +8,9 @@ import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import SelectRole from './pages/Profile-Setup'
+import OrganizationSetup from './pages/Profile-Setup/Org'
+import PersonalSetup from './pages/Profile-Setup/Personal'
 
 export default function App() {
   const router = createBrowserRouter([

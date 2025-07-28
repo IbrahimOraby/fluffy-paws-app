@@ -1,7 +1,8 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import usePersonalFormStore from "../../../../store/usePersonalProfile";
-import MyTextInput from "../../../Signup/components/MyTextInput";
+import MyTextInput from "../../../../ui/Inputs/MyTextInput";
+import MyFileInput from "../../../../ui/Inputs/MyFileInput";
 
 function CustomForm({ fields, initialValues, formikRef, handleFormSubmit }) {
   const nextForm = usePersonalFormStore((state) => state.nextForm);
