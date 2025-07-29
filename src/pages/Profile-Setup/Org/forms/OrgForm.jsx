@@ -36,9 +36,8 @@ const OrgForm = ({
           }
           await addOrgnizationDoc(finalOrgData, user.uid);
           setIsFormSubmitting(false);
-
-          resetForm();
-          navigate("/");
+          navigate("/",{ replace: true });
+          localStorage.removeItem('organization-storage'); 
         } else {
           nextForm();
         }

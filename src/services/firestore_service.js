@@ -5,11 +5,9 @@ export const addNewUser = async (userData, uid) => {
     const docRef = doc(db, "users", uid);
     try {
         await setDoc((db, docRef), {
-            email: userData.email,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            role: null,
-            createdAt: serverTimestamp()
+            ...userData,
+            createdAt: serverTimestamp(),
+            uid: uid,
         })
 
     } catch (error) {
@@ -40,5 +38,6 @@ export const addOrgnizationDoc = async (orgData, uid) => {
     await setDoc(docRef, {
         ...orgData,
         createdAt: serverTimestamp(),
+        uid: uid
     }, { merge: true });
 }
