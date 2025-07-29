@@ -7,6 +7,7 @@ import MessageItem from "./MessageItem";
 import PetProfileCard from "./PetProfileCard";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import BookingCardProfile from "./BookingCardProfile";
+import FavouriteProfileCard from "./FavouriteProfileCard";
 
 export default function UserType() {
   return (
@@ -155,32 +156,16 @@ export default function UserType() {
         />
         {/* Favourites list goes here */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <div className="card bg-white p-4 rounded-lg shadow-sm flex items-center">
-            <img
-              src="https://via.placeholder.com/50"
-              alt="Sitter Profile"
-              className="rounded-full mr-4"
-            />
-            <div>
-              <h3 className="font-medium">Sitter Emily R.</h3>
-              <p className="text-sm text-gray-600">
-                Experienced dog walker and boarder.
-              </p>
-            </div>
-          </div>
-          <div className="card bg-white p-4 rounded-lg shadow-sm flex items-center">
-            <img
-              src="https://via.placeholder.com/50"
-              alt="Shelter Profile"
-              className="rounded-full mr-4"
-            />
-            <div>
-              <h3 className="font-medium">The Happy Paws Shelter</h3>
-              <p className="text-sm text-gray-600">
-                Spacious facilities for all pets.
-              </p>
-            </div>
-          </div>
+          <FavouriteProfileCard
+            name="Sitter Emily R."
+            //   imageUrl={}
+            description="Experienced dog walker and boarder."
+          />
+          <FavouriteProfileCard
+            name="The Happy Paws Shelter"
+            //   imageUrl={}
+            description="Spacious facilities for all pets."
+          />
         </div>
       </div>
     </>
