@@ -2,7 +2,6 @@ import React from "react";
 
 export default function ShelterType() {
   return (
-    <>
       <>
         <input
           type="radio"
@@ -194,6 +193,5 @@ export default function ShelterType() {
           </ul>
         </div>
       </>
-    </>
   );
 }

@@ -1,8 +1,13 @@
 import React from "react";
+import Heading from "../../../ui/Typography/Heading/Heading";
+import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
+import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
+import ProfileSectionHeader from "./ProfileSectionHeader";
 
 export default function UserType() {
   return (
     <>
+      {/* ############ Dashboard Input ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -11,11 +16,11 @@ export default function UserType() {
         defaultChecked
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <h2 className="text-2xl font-semibold mb-4">Welcome, Pet Parent!</h2>
-        <p className="mb-4">
-          Here you can quickly see your upcoming bookings, recent messages, and
-          a summary of your pets.
-        </p>
+        <ProfileSectionHeader
+          title="Welcome, Pet Parent"
+          subTitle="Here you can quickly see your upcoming bookings, recent messages, and
+          a summary of your pets."
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="card bg-blue-100 p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-medium mb-2">Upcoming Bookings</h3>
@@ -38,6 +43,7 @@ export default function UserType() {
         </div>
       </div>
 
+      {/* ############ Messages Input ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -45,8 +51,10 @@ export default function UserType() {
         aria-label="Messages"
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <h2 className="text-2xl font-semibold mb-4">Your Messages</h2>
-        <p>Manage all your conversations with sitters and shelters here.</p>
+        <ProfileSectionHeader
+          title="Your Messages"
+          subTitle="Manage all your conversations with sitters and shelters here."
+        />
         {/* Message list goes here */}
         <ul className="mt-4 space-y-3">
           <li className="p-3 bg-gray-50 rounded-lg flex justify-between items-center">
@@ -66,6 +74,7 @@ export default function UserType() {
         </ul>
       </div>
 
+      {/* ############ MyPets Input ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -99,6 +108,7 @@ export default function UserType() {
         <button className="btn btn-primary mt-6">Add New Pet</button>
       </div>
 
+      {/* ############ Bookings Input ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -129,6 +139,7 @@ export default function UserType() {
         </ul>
       </div>
 
+      {/* ############ Favourite Input ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
