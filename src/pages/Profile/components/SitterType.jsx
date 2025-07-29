@@ -14,6 +14,12 @@ export default function SitterType() {
       date: "2025-08-02",
       owner: "Sarah Johnson",
     },
+    {
+      id: 2,
+      name: "Max",
+      date: "2025-08-02",
+      owner: "Sarah Johnson",
+    },
   ]);
 
   const [approved, setApproved] = useState([

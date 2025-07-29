@@ -5,7 +5,7 @@ import LinkButton from "../../../ui/Buttons/LinkButton";
 
 export default function PendingReq({ booking, onApprove, onDecline }) {
   return (
-    <div className="p-4 border-primary-color border-2 rounded-lg flex justify-between items-center bg-light-color">
+    <div className="p-4 rounded-lg flex justify-between items-center bg-light-color">
       <div>
         <Paragraph className="text-paragraph-md">
           <span className="text-paragraph-color">Pet:</span> {booking.name}
