@@ -25,7 +25,8 @@ export default function SitterType() {
       date: "2025-08-15",
       owner: "John Smith",
     },
-  ]);``
+  ]);
+  ``;
 
   const [past, setPast] = useState([
     {
@@ -85,7 +86,9 @@ export default function SitterType() {
 
         {/* Pending Requests */}
         <div className="mt-6">
-          <Heading className="text-header-sm mb-3 text-primary-color">Pending Requests</Heading>
+          <Heading className="text-header-sm mb-3 text-primary-color">
+            Pending Requests
+          </Heading>
           <div className="space-y-4">
             {pending.length > 0 ? (
               pending.map((booking) => (
@@ -97,23 +100,27 @@ export default function SitterType() {
                 />
               ))
             ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">No pending requests.</Paragraph>
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                No pending requests.
+              </Paragraph>
             )}
           </div>
         </div>
 
         {/* Approved Bookings */}
         <div className="mt-10">
-          <h3 className="text-xl font-semibold mb-3 text-green-600">
+          <Heading className="text-header-sm mb-3 text-blue-900">
             Upcoming Bookings
-          </h3>
+          </Heading>
           <div className="space-y-4">
             {approved.length > 0 ? (
               approved.map((booking) => (
                 <ApprovedReq key={booking.id} booking={booking} />
               ))
             ) : (
-              <p className="text-gray-500">No upcoming bookings.</p>
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                No upcoming bookings.
+              </Paragraph>
             )}
           </div>
         </div>
