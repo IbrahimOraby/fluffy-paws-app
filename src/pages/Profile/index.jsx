@@ -5,7 +5,7 @@ import ShelterType from "./components/ShelterType";
 
 export default function UserDashboard() {
   // Set the user type. Can be 'user', 'sitter', or 'shelter'.
-  const [userType, setUserType] = useState("user"); 
+  const [userType, setUserType] = useState("sitter"); 
 
   const renderUserSpecificContent = () => {
     switch (userType) {
