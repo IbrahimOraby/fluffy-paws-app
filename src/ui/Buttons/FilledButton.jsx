@@ -7,6 +7,7 @@ export default function FilledButton({ className = "", children, ...props }) {
       <button
         className={`btn 
       capitalize
+      border-0
         ${className}
         `}
         {...props}
