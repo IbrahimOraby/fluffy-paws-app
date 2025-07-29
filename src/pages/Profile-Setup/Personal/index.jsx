@@ -9,36 +9,121 @@ const steps = [
     title: "Help pet owners contact with you",
     subtitle:
       "Please fill out the following information to set up your organization profile on Fluffy Paw.",
-    action: "setInfo",
+    action: "setContact",
     fields: [
-      { name: "Address", type: "text", placeholder: "Enter your address" },
       {
-        name: "Phone Number",
+        name: "address",
+        label: "Address",
+        type: "text",
+        placeholder: "Enter your address"
+      },
+      {
+        name: "phoneNumber",
+        label: "Phone Number",
         type: "tel",
         placeholder: "Enter your phone number"
+      },
+      {
+        name: "socialMediaAccount",
+        label: "Social Media Account",
+        type: "text",
+        placeholder:
+          "Enter a social media account, e.g. instagram.com/yourusername"
       }
     ],
     initialValues: {
-      address: "",
-      phoneNumber: ""
+      address: null,
+      phoneNumber: null,
+      socialMediaAccount: null
     }
   },
   {
-    title: "SECOND:Help pet owners contact with you",
-    subtitle:
-      "Please fill out the following information to set up your organization profile on Fluffy Paw.",
-    action: "setInfo",
+    title: "How often do you want to look after pets?",
+    action: "setAvailabilityFrequency",
     fields: [
-      { name: "Address", type: "text", placeholder: "Enter your address" },
       {
-        name: "Phone Number",
-        type: "tel",
-        placeholder: "Enter your phone number"
+        name: "availabilityFrequency",
+        label: "Availability Frequency",
+        type: "radio",
+        options: [
+          "Daily/Full time",
+          "Few times a week",
+          "Once a week",
+          "Once a month",
+          "Not sure"
+        ]
       }
     ],
     initialValues: {
-      address: "",
-      phoneNumber: ""
+      availabilityFrequency: null
+    }
+  },
+  {
+    title: "What pets can you look after?",
+    action: "setPetPreferences",
+    fields: [
+      {
+        name: "petPreferences",
+        label: "Pet Preferences",
+        type: "checkbox",
+        options: ["Dogs", "Cats"]
+      }
+    ],
+    initialValues: {
+      petPreferencese: null
+    }
+  },
+  {
+    title: "How much pet care experience do you have?",
+    action: "setExperience",
+    fields: [
+      {
+        name: "yearsExperience",
+        label: "Years Experience",
+        type: "text"
+      }
+    ],
+    initialValues: {
+      yearsExprience: null
+    }
+  },
+  {
+    title: "Upload Your Photo and ID",
+    subtitle: "Introduce yourself to pet owners and confirm your identity",
+    action: "setProfileSetup",
+    fields: [
+      {
+        name: "profilePicture",
+        type: "file",
+        label: "Profile Picture",
+        placeholder: "Upload your profile picture"
+      },
+      {
+        name: "personalId",
+        type: "file",
+        label: "Personal ID",
+        placeholder: "Upload your id"
+      }
+    ],
+    initialValues: {
+      profilePicture: null,
+      personalId: null
+    }
+  },
+  {
+    title: "Tell us a bit about yourself",
+    subtitle: "This will be shown in the ‘about me’ section of your profile",
+    action: "setAboutMe",
+    fields: [
+      {
+        name: "aboutMe",
+        label: "About Me",
+        placeholder:"Enter your information here...",
+        type: "textarea"
+      }
+    ],
+    initialValues: {
+      yearsExprience: null
     }
   }
 ];

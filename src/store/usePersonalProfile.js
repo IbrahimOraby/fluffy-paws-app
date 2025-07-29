@@ -19,14 +19,13 @@ const usePersonalFormStore = create((set) => ({
 
   //states
   personalFormData: {
-    contact: null,
-    availabilityFrequency: null,
-    petPreferences: null,
-    experience: null,
+    contact: null, //done
+    availabilityFrequency: null, //done
+    petPreferences: null, //done
+    experience: null, //done
     homeType: null,
     householdInfo: null,
-    profilePicture: null,
-    idUpload: null,
+    profileSetup: null, //in progress
     aboutMe: null
   },
 
@@ -37,8 +36,7 @@ const usePersonalFormStore = create((set) => ({
     experience: false,
     homeType: false,
     householdInfo: false,
-    profilePicture: false,
-    idUpload: false,
+    profileSetup: false,
     aboutMe: false
   },
 
@@ -85,16 +83,10 @@ const usePersonalFormStore = create((set) => ({
       completedForms: { ...state.completedForms, householdInfo: true }
     })),
 
-  setProfilePicture: (data) =>
+  setProfileSetup: (data) =>
     set((state) => ({
-      personalFormData: { ...state.personalFormData, profilePicture: data },
-      completedForms: { ...state.completedForms, profilePicture: true }
-    })),
-
-  setIdUpload: (data) =>
-    set((state) => ({
-      personalFormData: { ...state.personalFormData, idUpload: data },
-      completedForms: { ...state.completedForms, idUpload: true }
+      personalFormData: { ...state.personalFormData, profileSetup: data },
+      completedForms: { ...state.completedForms, profileSetup: true }
     })),
 
   setAboutMe: (data) =>
