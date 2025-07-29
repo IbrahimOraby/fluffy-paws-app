@@ -127,16 +127,18 @@ export default function SitterType() {
 
         {/* Past Bookings */}
         <div className="mt-10">
-          <h3 className="text-xl font-semibold mb-3 text-gray-600">
+          <Heading className="text-header-sm mb-3 text-header-color">
             Past Bookings
-          </h3>
+          </Heading>
           <div className="space-y-4">
             {past.length > 0 ? (
               past.map((booking) => (
                 <PastReq key={booking.id} booking={booking} />
               ))
             ) : (
-              <p className="text-gray-500">No past bookings yet.</p>
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                No past bookings yet.
+              </Paragraph>
             )}
           </div>
         </div>
