@@ -11,6 +11,7 @@ import Signin from "./pages/Signin";
 import OrganizationSetup from "./pages/Profile-Setup/Org";
 import SelectRole from "./pages/Profile-Setup";
 import PetWizardForm from "./pages/Pet-profile";
+import Booking from "./pages/Booking";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -29,6 +30,7 @@ export default function App() {
         {},
         { path: "/typography", element: <Typography /> },
         { path: "/Pet", element: <PetWizardForm /> },
+        { path: "/booking", element: <Booking /> },
       ],
     },
   ]);
