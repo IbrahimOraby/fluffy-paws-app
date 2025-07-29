@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function IconPlaceholderInput({ icon, placeholder, className="" , value=''}) {
+export default function IconPlaceholderInput({ icon, placeholder, className="" , value='',  onChange=''}) {
   return (
     <div
       className={`
@@ -23,6 +23,7 @@ export default function IconPlaceholderInput({ icon, placeholder, className="" ,
         className="grow text-sm py-1 px-2 outline-none border-none bg-transparent"
         placeholder={placeholder}
         value={value}
+        onChange={onChange}
       />
     </div>
   );

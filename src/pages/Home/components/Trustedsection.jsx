@@ -152,27 +152,27 @@ const [providerError, setProviderError] = useState('');
           {/* Location + Dates */}
           <div className="flex flex-col gap-3 flex-1">
             {/* Dropdown Location */}
-   <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-full">
-  <StaticMapIcon className="w-5 h-5 text-gray-500" />
-
-  <select
-    name="location"
-    value={formik.values.location}
-    onChange={formik.handleChange}
-    className="w-full bg-transparent outline-none text-sm"
-  >
-    <option value="" disabled hidden>
-      Select your Location
-    </option>
-    {egyptGovernorates.map((gov) => (
-      <option key={gov} value={gov}>
-        {gov}
-      </option>
-    ))}
-
-  </select>
-
-</div>
+  <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
+         focus-within:ring-2 
+         focus-within:ring-[#BE5985] 
+         focus-within:ring-offset-2 ">
+         <StaticMapIcon className="w-5 h-5 text-gray-500" />
+         <select
+           name="location"
+           value={location}
+           onChange={(e) => setLocation(e.target.value)}
+           className="w-full bg-transparent outline-none text-sm"
+         >
+           <option value="" disabled hidden>
+             Select your Location
+           </option>
+           {egyptGovernorates.map((gov) => (
+             <option key={gov} value={gov}>
+               {gov}
+             </option>
+           ))}
+         </select>
+       </div>
 
 
             <div className="flex flex-col sm:flex-row gap-3">
