@@ -7,6 +7,8 @@ import ApprovedReq from "./ApprovedReq";
 import PastReq from "./PastReq";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
+import FilledButton from "../../../ui/Buttons/FilledButton";
+import galleryImg from "../../../assets/images/pexels-charlesdeluvio-1851164.jpg";
 
 export default function SitterType() {
   const [pending, setPending] = useState([
@@ -151,36 +153,51 @@ export default function SitterType() {
         aria-label="Gallery"
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Gallery"
-          subTitle="Showcase your organization’s environment and space."
-        />
+        <div className="flex items-start justify-between">
+          <div>
+            <ProfileSectionHeader
+              title="Gallery"
+              subTitle="Showcase your organization’s environment and space."
+            />
+          </div>
+          <FilledButton className="bg-primary-color text-white-color rounded-3xl">
+            Add new images
+          </FilledButton>
+        </div>
 
         {/* Gallery images */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
           {/* Dummy gallery images */}
           <img
-            src="https://via.placeholder.com/150"
+            src={galleryImg}
             alt="Gallery"
-            className="w-full h-32 object-cover rounded-lg"
+            className="w-full object-cover rounded-lg"
           />
           <img
-            src="https://via.placeholder.com/150"
+            src={galleryImg}
             alt="Gallery"
-            className="w-full h-32 object-cover rounded-lg"
+            className="w-full object-cover rounded-lg"
           />
           <img
-            src="https://via.placeholder.com/150"
+            src={galleryImg}
             alt="Gallery"
-            className="w-full h-32 object-cover rounded-lg"
+            className="w-full object-cover rounded-lg"
           />
-        </div>
-
-        {/* Add image button */}
-        <div className="mt-6">
-          <button className="px-4 py-2 bg-primary-color text-white-color rounded hover:bg-hover-color transition-all duration-300">
-            Add New Image
-          </button>
+          <img
+            src={galleryImg}
+            alt="Gallery"
+            className="w-full object-cover rounded-lg"
+          />
+          <img
+            src={galleryImg}
+            alt="Gallery"
+            className="w-full object-cover rounded-lg"
+          />
+          <img
+            src={galleryImg}
+            alt="Gallery"
+            className="w-full object-cover rounded-lg"
+          />
         </div>
       </div>
 
