@@ -4,6 +4,8 @@ import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
+import PetProfileCard from "./PetProfileCard";
+import FilledButton from "../../../ui/Buttons/FilledButton";
 
 export default function UserType() {
   return (
@@ -79,30 +81,33 @@ export default function UserType() {
         aria-label="My Pets"
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Beloved Pets"
-          subTitle="Here you can add, edit, or remove your pet's profiles."
-        />
-        {/* Pet list/cards goes here */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="card bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
-            <h3 className="text-xl font-medium mb-2">Buddy</h3>
-            <p>Golden Retriever, 3 years old</p>
-            <p className="text-sm text-gray-600">
-              Needs daily walks and loves treats.
-            </p>
-            <button className="btn btn-sm btn-info mt-3 mr-2">Edit</button>
-            <button className="btn btn-sm btn-error mt-3">Delete</button>
+        <div className="flex items-start justify-between">
+          <div>
+          <ProfileSectionHeader
+            title="Your Beloved Pets"
+            subTitle="Here you can add, edit, or remove your pet's profiles."
+          />
           </div>
-          <div className="card bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
-            <h3 className="text-xl font-medium mb-2">Whiskers</h3>
-            <p>Calico Cat, 5 years old</p>
-            <p className="text-sm text-gray-600">Quiet, loves sunbathing.</p>
-            <button className="btn btn-sm btn-info mt-3 mr-2">Edit</button>
-            <button className="btn btn-sm btn-error mt-3">Delete</button>
-          </div>
+          <FilledButton
+            className="bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color"
+            onClick=""
+          >
+            Add Pet
+          </FilledButton>
         </div>
-        <button className="btn btn-primary mt-6">Add New Pet</button>
+        {/* Pet cards goes here */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+          <PetProfileCard
+            petName="Buddy"
+            breedAge="Golden Retriever, 3 years old"
+            description=" Needs daily walks and loves treats."
+          />
+          <PetProfileCard
+            petName="Whiskers"
+            breedAge="Calico Cat, 5 years old"
+            description="Quiet, loves sunbathing."
+          />
+        </div>
       </div>
 
       {/* ############ Bookings Input ############ */}
