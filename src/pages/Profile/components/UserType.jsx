@@ -22,21 +22,21 @@ export default function UserType() {
           a summary of your pets."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="card bg-blue-100 p-6 rounded-lg shadow-md">
+          <div className="card bg-light-color p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-medium mb-2">Upcoming Bookings</h3>
             <p>
               You have <strong>2</strong> upcoming bookings.
             </p>
-            <button className="btn btn-sm btn-primary mt-3">
+            <button className="btn btn-sm bg-primary-color mt-3">
               View Details
             </button>
           </div>
-          <div className="card bg-green-100 p-6 rounded-lg shadow-md">
+          <div className="card bg-light-color p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-medium mb-2">Recent Messages</h3>
             <p>
               You have <strong>3</strong> unread messages.
             </p>
-            <button className="btn btn-sm btn-accent mt-3">
+            <button className="btn btn-sm bg-primary-color mt-3">
               Read Messages
             </button>
           </div>
@@ -82,10 +82,10 @@ export default function UserType() {
         aria-label="My Pets"
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <h2 className="text-2xl font-semibold mb-4">Your Beloved Pets</h2>
-        <p className="mb-4">
-          Here you can add, edit, or remove your pet's profiles.
-        </p>
+        <ProfileSectionHeader
+        title="Your Beloved Pets"
+        subTitle="Here you can add, edit, or remove your pet's profiles."
+        />
         {/* Pet list/cards goes here */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="card bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
