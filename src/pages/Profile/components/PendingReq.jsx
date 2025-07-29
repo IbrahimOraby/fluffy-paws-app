@@ -15,7 +15,7 @@ export default function PendingReq({ booking, onApprove, onDecline }) {
           <span className="text-gray-600">Owner:</span> {booking.owner}
         </Paragraph>
 
-        <Paragraph className="text-paragraph-md">
+        <Paragraph className="text-paragraph-xs text-paragraph-color mt-4">
           <span className="text-gray-600">Date:</span> {booking.date}
         </Paragraph>
       </div>
