@@ -3,6 +3,7 @@ import Heading from "../../../ui/Typography/Heading/Heading";
 import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import ProfileSectionHeader from "./ProfileSectionHeader";
+import MessageItem from "./MessageItem";
 
 export default function UserType() {
   return (
@@ -57,20 +58,16 @@ export default function UserType() {
         />
         {/* Message list goes here */}
         <ul className="mt-4 space-y-3">
-          <li className="p-3 bg-light-color rounded-lg flex justify-between items-center">
-            <span className="flex gap-2 items-center ">
-              <SubHeading className="text-subheader-md">Sitter John:</SubHeading> "Looking forward to boarding
-              Buster!"
-            </span>
-            <span className="text-sm text-header-color">2 hours ago</span>
-          </li>
-          <li className="p-3 bg-gray-50 rounded-lg flex justify-between items-center">
-            <span>
-              <strong>Shelter Haven:</strong> "Confirming your booking for
-              Luna."
-            </span>
-            <span className="text-sm text-gray-500">Yesterday</span>
-          </li>
+          <MessageItem
+            sender="Sitter John"
+            messageSnippet="Looking forward to boarding Buster!"
+            timestamp="2 hours ago"
+          />
+          <MessageItem
+            sender="Shelter Haven"
+            messageSnippet="Confirming your booking for Luna."
+            timestamp="Yesterday"
+          />
         </ul>
       </div>
 
