@@ -116,8 +116,10 @@ export default function UserType() {
         aria-label="Bookings"
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <h2 className="text-2xl font-semibold mb-4">Your Bookings</h2>
-        <p>View the status of your current and past boarding bookings.</p>
+        <ProfileSectionHeader
+        title="Your Bookings"
+        subTitle="View the status of your current and past boarding bookings."
+        />
         {/* Booking list goes here */}
         <ul className="mt-4 space-y-3">
           <li className="p-3 bg-white rounded-lg shadow-sm flex justify-between items-center">
