@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import UserType from "./components/UserType";
 import SitterType from "./components/SitterType";
-import ShelterType from "./components/ShelterType";
 
 export default function UserDashboard() {
   // Set the user type. Can be 'user', 'sitter', or 'shelter'.
