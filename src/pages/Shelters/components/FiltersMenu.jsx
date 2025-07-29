@@ -46,7 +46,7 @@ const FiltersMenu = () => {
 
   return (
     <div className="bg-light-color mb-5 p-4 flex flex-col gap-2 md:flex-row md:justify-center items-center ">
-      <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
+      <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 h-11 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
         focus-within:ring-2 
         focus-within:ring-[#BE5985] 
         focus-within:ring-offset-2 ">
