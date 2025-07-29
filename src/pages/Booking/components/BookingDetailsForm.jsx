@@ -5,7 +5,7 @@ import { StaticMapIcon } from "../../../ui/Icons/StaticIcons";
 import CalendarInput from "../../../ui/Inputs/CalendarInput";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import Heading from "../../../ui/Typography/Heading/Heading";
-import { bookingSchema } from "../../../schemas/bookingSchema";
+import { bookingSchema } from "../../../schemas/bookingDetailsSchema";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import PetCard from "./PetCard";
 

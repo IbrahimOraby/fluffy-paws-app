@@ -15,6 +15,7 @@ export default function PetCard() {
         <Paragraph className="text-sm font-medium text-primary-color">
           3afaf
         </Paragraph>
+
       </div>
     </div>
   );
