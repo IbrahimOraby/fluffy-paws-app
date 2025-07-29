@@ -77,7 +77,6 @@ export default function SitterType() {
         className="tab text-lg"
         aria-label="Reservations"
       />
-
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <ProfileSectionHeader
           title="Your Bookings"
@@ -141,6 +140,47 @@ export default function SitterType() {
               </Paragraph>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* ############ Gallery Input ############ */}
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Gallery"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <ProfileSectionHeader
+          title="Gallery"
+          subTitle="Showcase your organization’s environment and space."
+        />
+
+        {/* Gallery images */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
+          {/* Dummy gallery images */}
+          <img
+            src="https://via.placeholder.com/150"
+            alt="Gallery"
+            className="w-full h-32 object-cover rounded-lg"
+          />
+          <img
+            src="https://via.placeholder.com/150"
+            alt="Gallery"
+            className="w-full h-32 object-cover rounded-lg"
+          />
+          <img
+            src="https://via.placeholder.com/150"
+            alt="Gallery"
+            className="w-full h-32 object-cover rounded-lg"
+          />
+        </div>
+
+        {/* Add image button */}
+        <div className="mt-6">
+          <button className="px-4 py-2 bg-primary-color text-white-color rounded hover:bg-hover-color transition-all duration-300">
+            Add New Image
+          </button>
         </div>
       </div>
 
