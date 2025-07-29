@@ -214,11 +214,11 @@ const OrganizationSetup = () => {
       schema: brandingSchema,
     },
   ];
-  console.log(formikRef.current?.isSubmitting);
   //* Get the current step based on the currentFormIndex
   //* If currentFormIndex is 0, we show the organization license image
   const currentStep = steps[currentFormIndex - 1];
   const isLastStep = currentFormIndex === steps.length;
+  console.log(currentStep)
 
   return (
     <div className="flex flex-col h-screen">

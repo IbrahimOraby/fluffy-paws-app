@@ -30,8 +30,13 @@ const OrgForm = ({
         handleFormSubmit(values);
         setIsFormSubmitting(true);
         if (isLastForm) {
-          await addOrgnizationDoc({ ...orgData }, user.uid);
+          const finalOrgData = {
+            ...orgData,
+            branding:values
+          }
+          await addOrgnizationDoc(finalOrgData, user.uid);
           setIsFormSubmitting(false);
+
           resetForm();
           navigate("/");
         } else {
