@@ -57,12 +57,12 @@ export default function UserType() {
         />
         {/* Message list goes here */}
         <ul className="mt-4 space-y-3">
-          <li className="p-3 bg-gray-50 rounded-lg flex justify-between items-center">
-            <span>
-              <strong>Sitter John:</strong> "Looking forward to boarding
+          <li className="p-3 bg-light-color rounded-lg flex justify-between items-center">
+            <span className="flex gap-2 items-center ">
+              <SubHeading className="text-subheader-md">Sitter John:</SubHeading> "Looking forward to boarding
               Buster!"
             </span>
-            <span className="text-sm text-gray-500">2 hours ago</span>
+            <span className="text-sm text-header-color">2 hours ago</span>
           </li>
           <li className="p-3 bg-gray-50 rounded-lg flex justify-between items-center">
             <span>

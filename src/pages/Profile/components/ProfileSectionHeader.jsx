@@ -5,8 +5,8 @@ import Heading from "../../../ui/Typography/Heading/Heading";
 export default function ProfileSectionHeader({title,subTitle}) {
   return (
     <>
-      <Heading className="text-header-md mb-3">{title}</Heading>
-      <Paragraph className="text-paragraph-md mb-6">
+      <Heading className="text-header-md mb-3 text-header-color">{title}</Heading>
+      <Paragraph className="text-paragraph-md mb-6 text-paragraph-color">
        {subTitle}
       </Paragraph>
     </>
