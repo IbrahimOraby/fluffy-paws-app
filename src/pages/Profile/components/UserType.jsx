@@ -83,8 +83,8 @@ export default function UserType() {
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <ProfileSectionHeader
-        title="Your Beloved Pets"
-        subTitle="Here you can add, edit, or remove your pet's profiles."
+          title="Your Beloved Pets"
+          subTitle="Here you can add, edit, or remove your pet's profiles."
         />
         {/* Pet list/cards goes here */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -117,8 +117,8 @@ export default function UserType() {
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <ProfileSectionHeader
-        title="Your Bookings"
-        subTitle="View the status of your current and past boarding bookings."
+          title="Your Bookings"
+          subTitle="View the status of your current and past boarding bookings."
         />
         {/* Booking list goes here */}
         <ul className="mt-4 space-y-3">
@@ -149,11 +149,11 @@ export default function UserType() {
         aria-label="Favourites"
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <h2 className="text-2xl font-semibold mb-4">Your Favourites</h2>
-        <p>
-          Keep track of your preferred sitters and shelters here for easy
-          re-booking.
-        </p>
+        <ProfileSectionHeader
+          title="Your Favourites"
+          subTitle="Keep track of your preferred sitters and shelters here for easy
+          re-booking."
+        />
         {/* Favourites list goes here */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div className="card bg-white p-4 rounded-lg shadow-sm flex items-center">
