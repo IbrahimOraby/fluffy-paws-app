@@ -1,0 +1,176 @@
+import React from "react";
+
+export default function UserType() {
+  return (
+    <>
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Dashboard"
+        defaultChecked
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <h2 className="text-2xl font-semibold mb-4">Welcome, Pet Parent!</h2>
+        <p className="mb-4">
+          Here you can quickly see your upcoming bookings, recent messages, and
+          a summary of your pets.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="card bg-blue-100 p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-medium mb-2">Upcoming Bookings</h3>
+            <p>
+              You have <strong>2</strong> upcoming bookings.
+            </p>
+            <button className="btn btn-sm btn-primary mt-3">
+              View Details
+            </button>
+          </div>
+          <div className="card bg-green-100 p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-medium mb-2">Recent Messages</h3>
+            <p>
+              You have <strong>3</strong> unread messages.
+            </p>
+            <button className="btn btn-sm btn-accent mt-3">
+              Read Messages
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Messages"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <h2 className="text-2xl font-semibold mb-4">Your Messages</h2>
+        <p>Manage all your conversations with sitters and shelters here.</p>
+        {/* Message list goes here */}
+        <ul className="mt-4 space-y-3">
+          <li className="p-3 bg-gray-50 rounded-lg flex justify-between items-center">
+            <span>
+              <strong>Sitter John:</strong> "Looking forward to boarding
+              Buster!"
+            </span>
+            <span className="text-sm text-gray-500">2 hours ago</span>
+          </li>
+          <li className="p-3 bg-gray-50 rounded-lg flex justify-between items-center">
+            <span>
+              <strong>Shelter Haven:</strong> "Confirming your booking for
+              Luna."
+            </span>
+            <span className="text-sm text-gray-500">Yesterday</span>
+          </li>
+        </ul>
+      </div>
+
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="My Pets"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <h2 className="text-2xl font-semibold mb-4">Your Beloved Pets</h2>
+        <p className="mb-4">
+          Here you can add, edit, or remove your pet's profiles.
+        </p>
+        {/* Pet list/cards goes here */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="card bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+            <h3 className="text-xl font-medium mb-2">Buddy</h3>
+            <p>Golden Retriever, 3 years old</p>
+            <p className="text-sm text-gray-600">
+              Needs daily walks and loves treats.
+            </p>
+            <button className="btn btn-sm btn-info mt-3 mr-2">Edit</button>
+            <button className="btn btn-sm btn-error mt-3">Delete</button>
+          </div>
+          <div className="card bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+            <h3 className="text-xl font-medium mb-2">Whiskers</h3>
+            <p>Calico Cat, 5 years old</p>
+            <p className="text-sm text-gray-600">Quiet, loves sunbathing.</p>
+            <button className="btn btn-sm btn-info mt-3 mr-2">Edit</button>
+            <button className="btn btn-sm btn-error mt-3">Delete</button>
+          </div>
+        </div>
+        <button className="btn btn-primary mt-6">Add New Pet</button>
+      </div>
+
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Bookings"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <h2 className="text-2xl font-semibold mb-4">Your Bookings</h2>
+        <p>View the status of your current and past boarding bookings.</p>
+        {/* Booking list goes here */}
+        <ul className="mt-4 space-y-3">
+          <li className="p-3 bg-white rounded-lg shadow-sm flex justify-between items-center">
+            <div>
+              <p className="font-medium">Buddy's Stay with Sitter Jane</p>
+              <p className="text-sm text-gray-600">July 20 - July 25, 2025</p>
+            </div>
+            <span className="badge badge-success">Confirmed</span>
+          </li>
+          <li className="p-3 bg-white rounded-lg shadow-sm flex justify-between items-center">
+            <div>
+              <p className="font-medium">Whiskers at Shelter Paws</p>
+              <p className="text-sm text-gray-600">
+                August 10 - August 15, 2025
+              </p>
+            </div>
+            <span className="badge badge-warning">Pending</span>
+          </li>
+        </ul>
+      </div>
+
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Favourites"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <h2 className="text-2xl font-semibold mb-4">Your Favourites</h2>
+        <p>
+          Keep track of your preferred sitters and shelters here for easy
+          re-booking.
+        </p>
+        {/* Favourites list goes here */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div className="card bg-white p-4 rounded-lg shadow-sm flex items-center">
+            <img
+              src="https://via.placeholder.com/50"
+              alt="Sitter Profile"
+              className="rounded-full mr-4"
+            />
+            <div>
+              <h3 className="font-medium">Sitter Emily R.</h3>
+              <p className="text-sm text-gray-600">
+                Experienced dog walker and boarder.
+              </p>
+            </div>
+          </div>
+          <div className="card bg-white p-4 rounded-lg shadow-sm flex items-center">
+            <img
+              src="https://via.placeholder.com/50"
+              alt="Shelter Profile"
+              className="rounded-full mr-4"
+            />
+            <div>
+              <h3 className="font-medium">The Happy Paws Shelter</h3>
+              <p className="text-sm text-gray-600">
+                Spacious facilities for all pets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
