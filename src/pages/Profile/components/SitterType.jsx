@@ -5,17 +5,13 @@ import UserProfileCard from "./UserProfileCard";
 import PendingReq from "./PendingReq";
 import ApprovedReq from "./ApprovedReq";
 import PastReq from "./PastReq";
+import Heading from "../../../ui/Typography/Heading/Heading";
+import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 
 export default function SitterType() {
   const [pending, setPending] = useState([
     {
       id: 1,
-      name: "Max",
-      date: "2025-08-02",
-      owner: "Sarah Johnson",
-    },
-    {
-      id: 2,
       name: "Max",
       date: "2025-08-02",
       owner: "Sarah Johnson",
@@ -29,7 +25,7 @@ export default function SitterType() {
       date: "2025-08-15",
       owner: "John Smith",
     },
-  ]);
+  ]);``
 
   const [past, setPast] = useState([
     {
@@ -89,9 +85,7 @@ export default function SitterType() {
 
         {/* Pending Requests */}
         <div className="mt-6">
-          <h3 className="text-xl font-semibold mb-3 text-yellow-600">
-            Pending Requests
-          </h3>
+          <Heading className="text-header-sm mb-3 text-primary-color">Pending Requests</Heading>
           <div className="space-y-4">
             {pending.length > 0 ? (
               pending.map((booking) => (
@@ -103,7 +97,7 @@ export default function SitterType() {
                 />
               ))
             ) : (
-              <p className="text-gray-500">No pending requests.</p>
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">No pending requests.</Paragraph>
             )}
           </div>
         </div>

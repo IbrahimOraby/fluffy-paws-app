@@ -27,7 +27,10 @@ export default function PendingReq({ booking, onApprove, onDecline }) {
         >
           Approve
         </FilledButton>
-        <LinkButton className="border-2  border-primary-color">
+        <LinkButton 
+        className="border-2 border-primary-color"
+        onClick={() => onDecline(booking.id)}
+        >
           Decline
         </LinkButton>
       </div>
