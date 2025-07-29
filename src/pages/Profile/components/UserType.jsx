@@ -6,6 +6,7 @@ import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
 import PetProfileCard from "./PetProfileCard";
 import FilledButton from "../../../ui/Buttons/FilledButton";
+import BookingCardProfile from "./BookingCardProfile";
 
 export default function UserType() {
   return (
@@ -83,10 +84,10 @@ export default function UserType() {
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <div className="flex items-start justify-between">
           <div>
-          <ProfileSectionHeader
-            title="Your Beloved Pets"
-            subTitle="Here you can add, edit, or remove your pet's profiles."
-          />
+            <ProfileSectionHeader
+              title="Your Beloved Pets"
+              subTitle="Here you can add, edit, or remove your pet's profiles."
+            />
           </div>
           <FilledButton
             className="bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color"
@@ -124,22 +125,18 @@ export default function UserType() {
         />
         {/* Booking list goes here */}
         <ul className="mt-4 space-y-3">
-          <li className="p-3 bg-white rounded-lg shadow-sm flex justify-between items-center">
-            <div>
-              <p className="font-medium">Buddy's Stay with Sitter Jane</p>
-              <p className="text-sm text-gray-600">July 20 - July 25, 2025</p>
-            </div>
-            <span className="badge badge-success">Confirmed</span>
-          </li>
-          <li className="p-3 bg-white rounded-lg shadow-sm flex justify-between items-center">
-            <div>
-              <p className="font-medium">Whiskers at Shelter Paws</p>
-              <p className="text-sm text-gray-600">
-                August 10 - August 15, 2025
-              </p>
-            </div>
-            <span className="badge badge-warning">Pending</span>
-          </li>
+          <BookingCardProfile
+            title="Buddy's Stay with Sitter Jane"
+            dates="July 20 - July 25, 2025"
+            status="Confirmed"
+            statusType="success"
+          />
+          <BookingCardProfile
+            title="Whiskers at Shelter Paws"
+            dates="August 10 - August 15, 2025"
+            status="Pending"
+            statusType="warning"
+          />
         </ul>
       </div>
 
