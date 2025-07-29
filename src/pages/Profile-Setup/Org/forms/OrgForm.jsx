@@ -3,16 +3,22 @@ import MyTextInput from "../../../../ui/Inputs/MyTextInput";
 import MyFileInput from "../../../../ui/Inputs/MyFileInput";
 import useOrganizationStore from "../../../../store/useOrgProfile";
 import { useNavigate } from "react-router";
+import { addOrgnizationDoc } from "../../../../services/firestore_service";
+import useUserStore from "./../../../../store/useUserStore";
 
-const InfoForm = ({
+const OrgForm = ({
   fields,
   initialValues,
   schema,
   formikRef,
   handleFormSubmit,
   isLastForm,
+  setIsFormSubmitting,
 }) => {
   const nextForm = useOrganizationStore((state) => state.nextForm);
+  const user = useUserStore((state) => state.user);
+  const orgData = useOrganizationStore((state) => state.organizationData);
+  const resetForm = useOrganizationStore((state) => state.resetForm);
   const navigate = useNavigate();
   return (
     <Formik
@@ -20,13 +26,23 @@ const InfoForm = ({
       initialValues={initialValues}
       validationSchema={schema}
       enableReinitialize
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         handleFormSubmit(values);
+        setIsFormSubmitting(true);
         if (isLastForm) {
+          const finalOrgData = {
+            ...orgData,
+            branding:values
+          }
+          await addOrgnizationDoc(finalOrgData, user.uid);
+          setIsFormSubmitting(false);
+
+          resetForm();
           navigate("/");
         } else {
           nextForm();
         }
+        setIsFormSubmitting(false);
       }}
     >
       {() => (
@@ -58,4 +74,4 @@ const InfoForm = ({
   );
 };
 
-export default InfoForm;
+export default OrgForm;

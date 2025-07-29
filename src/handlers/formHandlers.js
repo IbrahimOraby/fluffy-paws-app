@@ -1,4 +1,5 @@
 import { signInUser, signInWithGoogle, signUpUser } from "../services/auth_service";
+import { addNewUser } from "../services/firestore_service";
 
 export const handleLoginSubmit = async (value, setSubmitting, setFieldError, navigate) => {
     try {
@@ -22,14 +23,16 @@ export const handleLoginSubmit = async (value, setSubmitting, setFieldError, nav
 export const handleSignupSubmit = async (value, setSubmitting, setFieldError, navigate) => {
     const userName = value.firstName + " " + value.lastName;
     try {
-        await signUpUser(userName, value.email, value.password);
-        navigate('/');
+        const userCredentials = await signUpUser(userName, value.email, value.password);
+        await addNewUser(value, userCredentials.user.uid);
+        navigate('/select-role');
     } catch (error) {
         if (error.code === "auth/email-already-in-use") {
             setFieldError("email", "Email already in use.");
         }
         else {
             setFieldError("general", "An unexpected error occurred. Please try again later.");
+            console.log(error)
         }
     }
     finally {
