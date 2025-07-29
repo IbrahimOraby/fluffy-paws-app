@@ -11,6 +11,7 @@ export default function Animalcard({
   checked,
   onChange,
   className = '',
+
 }) {
   return (
     <label
@@ -40,6 +41,7 @@ export default function Animalcard({
         </Heading>
         <Paragraph className="flex">{description}</Paragraph>
       </div>
+ 
     </label>
   );
 }

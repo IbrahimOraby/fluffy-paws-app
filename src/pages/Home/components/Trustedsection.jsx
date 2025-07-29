@@ -13,12 +13,15 @@ import {
 import Heading from '../../../ui/Typography/Heading/Heading';
 import { HomeIcon, SearchIcon } from 'lucide-react';
 import CalendarInput from '../../../ui/Inputs/CalendarInput';
+import { filtersSchema } from '../../../schemas/formhomeSchema'
 
 export default function Trustedsection() {
   const navigate = useNavigate();
 
   const [selectedAnimal, setSelectedAnimal] = useState('');
   const [selectedProvider, setSelectedProvider] = useState('');
+  const [animalError, setAnimalError] = useState('');
+const [providerError, setProviderError] = useState('');
 
   const egyptGovernorates = [
     "Cairo", "Giza", "Alexandria", "Dakahlia", "Red Sea", "Beheira", "Fayoum", "Gharbia",
@@ -33,16 +36,36 @@ export default function Trustedsection() {
       startDate: '',
       endDate: '',
     },
-    onSubmit: (values) => {
-      const formValues = {
-        ...values,
-        animal: selectedAnimal,
-        provider: selectedProvider,
-      };
-      console.log('Form Submitted Values:', formValues);
-      const query = new URLSearchParams(formValues).toString();
-      navigate(`/shelters?${query}`);
-    },
+      validationSchema: filtersSchema,
+  onSubmit: (values) => {
+  let isValid = true;
+
+  if (!selectedAnimal) {
+    setAnimalError('Please select an animal');
+    isValid = false;
+  } else {
+    setAnimalError('');
+  }
+
+  if (!selectedProvider) {
+    setProviderError('Please select a provider');
+    isValid = false;
+  } else {
+    setProviderError('');
+  }
+
+  if (!isValid) return;
+
+  const formValues = {
+    ...values,
+    animal: selectedAnimal,
+    provider: selectedProvider,
+  };
+
+  const query = new URLSearchParams(formValues).toString();
+  navigate(`/shelters?${query}`);
+}
+
   });
 
   const AnimalSelection = () => (
@@ -61,6 +84,7 @@ export default function Trustedsection() {
           onChange={(e) => setSelectedAnimal(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center"
         />
+     
         <Animalcard
           icon={<StaticCatIcon color="#BE5985" />}
           title="Cats"
@@ -71,7 +95,9 @@ export default function Trustedsection() {
           onChange={(e) => setSelectedAnimal(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center"
         />
+        
       </div>
+         {animalError && <p className="text-red-500 text-sm mt-1">{animalError}</p>}
     </div>
   );
 
@@ -100,8 +126,10 @@ export default function Trustedsection() {
           checked={selectedProvider === 'organization'}
           onChange={(e) => setSelectedProvider(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center "
+          
         />
       </div>
+      {providerError && <p className="text-red-500 text-sm mt-1">{providerError}</p>}
     </div>
   );
 
@@ -141,7 +169,9 @@ export default function Trustedsection() {
         {gov}
       </option>
     ))}
+
   </select>
+
 </div>
 
 
@@ -151,13 +181,18 @@ export default function Trustedsection() {
                 name="startDate"
                 value={formik.values.startDate}
                 onChange={(val) => formik.setFieldValue('startDate', val)}
+                  error={formik.touched.startDate && formik.errors.startDate}
+                
               />
+
               <CalendarInput
                 placeholder="End date"
                 name="endDate"
                 value={formik.values.endDate}
                 onChange={(val) => formik.setFieldValue('endDate', val)}
+                  error={formik.touched.endDate && formik.errors.endDate}
               />
+
             </div>
           </div>
 
@@ -192,7 +227,7 @@ export default function Trustedsection() {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div className="flex flex-col gap-3 flex-1">
                 {/* Dropdown Location */}
-             <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-full">
+             <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-150">
   <StaticMapIcon className="w-5 h-5 text-gray-500" />
 
   <select
@@ -210,7 +245,14 @@ export default function Trustedsection() {
       </option>
     ))}
   </select>
+
 </div>
+  <div className="">
+    {formik.touched.location && formik.errors.location && (
+  <span className="text-red-500 text-sm mt-1  ">{formik.errors.location}</span>
+)}
+</div>
+  
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <CalendarInput
@@ -219,12 +261,18 @@ export default function Trustedsection() {
                     value={formik.values.startDate}
                     onChange={(val) => formik.setFieldValue('startDate', val)}
                   />
+                  {formik.touched.startDate && formik.errors.startDate && (
+  <p className="text-red-500 text-sm mt-1">{formik.errors.startDate}</p>
+)}
                   <CalendarInput
                     placeholder="End date"
                     name="endDate"
                     value={formik.values.endDate}
                     onChange={(val) => formik.setFieldValue('endDate', val)}
                   />
+                  {formik.touched.endDate && formik.errors.endDate && (
+  <p className="text-red-500 text-sm mt-1">{formik.errors.endDate}</p>
+)}
                 </div>
               </div>
 

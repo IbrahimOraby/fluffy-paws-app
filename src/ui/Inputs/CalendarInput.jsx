@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 
-export default function CalendarInput({ placeholder = "DD/MM", width, value, onChange }) {
+export default function CalendarInput({ placeholder = "DD/MM", width, value, onChange,error }) {
   const [selected, setSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const calendarRef = useRef(null);
@@ -77,9 +77,12 @@ export default function CalendarInput({ placeholder = "DD/MM", width, value, onC
             mode="single"
             selected={selected}
             onSelect={handleDateSelect}
+             disabled={{ before: new Date() }}
           />
         </div>
+
       )}
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }
