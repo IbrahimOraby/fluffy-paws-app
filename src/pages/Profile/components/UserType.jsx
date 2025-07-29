@@ -1,51 +1,34 @@
 import React from "react";
-import Heading from "../../../ui/Typography/Heading/Heading";
-import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
-import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
 import PetProfileCard from "./PetProfileCard";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import BookingCardProfile from "./BookingCardProfile";
 import FavouriteProfileCard from "./FavouriteProfileCard";
+import UserProfileCard from "./UserProfileCard";
 
 export default function UserType() {
   return (
     <>
-      {/* ############ Dashboard Input ############ */}
+      {/* ############ MyProfile Input ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
-        aria-label="Dashboard"
+        aria-label="My Profile"
         defaultChecked
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <ProfileSectionHeader
-          title="Welcome, Pet Parent"
-          subTitle="Here you can quickly see your upcoming bookings, recent messages, and
-          a summary of your pets."
+          title="Your Profile"
+          subTitle="Manage your personal information and preferences."
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="card bg-light-color p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-medium mb-2">Upcoming Bookings</h3>
-            <p>
-              You have <strong>2</strong> upcoming bookings.
-            </p>
-            <button className="btn btn-sm bg-primary-color mt-3">
-              View Details
-            </button>
-          </div>
-          <div className="card bg-light-color p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-medium mb-2">Recent Messages</h3>
-            <p>
-              You have <strong>3</strong> unread messages.
-            </p>
-            <button className="btn btn-sm bg-primary-color mt-3">
-              Read Messages
-            </button>
-          </div>
-        </div>
+        <UserProfileCard
+          fullName="John Doe"
+          email="john.doe@example.com"
+          phoneNumber="+1 (555) 123-4567"
+          address="123 Main St, Anytown, USA"
+        />
       </div>
 
       {/* ############ Messages Input ############ */}
