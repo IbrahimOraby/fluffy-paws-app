@@ -1,13 +1,8 @@
 import React from 'react'
-import UserRoleSelection from '../Signup/components/UserRoleSelection'
 
 const Profile = () => {
   return (
-    // <div>Profile</div>
-    <>
-    <UserRoleSelection/>
-    
-    </>
+    <div>Profile</div>
   )
 }
 
