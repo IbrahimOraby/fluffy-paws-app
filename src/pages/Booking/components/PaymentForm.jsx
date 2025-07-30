@@ -21,7 +21,7 @@ export default function PaymentForm() {
         }}
       >
         {({ values, handleChange }) => (
-          <Form className="w-full max-w-md flex flex-col gap-3">
+          <Form className="w-full max-w-md flex flex-col gap-2">
             {/* Card Info */}
             <MyTextInput
               label="Enter your card number"
