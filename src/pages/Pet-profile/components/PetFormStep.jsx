@@ -41,15 +41,18 @@ export default function PetFormStep({
               <FilledButton
                 type="button"
                 onClick={onBack}
-                className="bg-gray-300 text-gray-800 hover:bg-gray-400"
+                className=" text-primary-color-500 hover:text-primary-color-700 rounded-4xl border-primary-color-500"
               >
-                Back
+                Previous
               </FilledButton>
             ) : (
               <span></span>
             )}
 
-            <FilledButton type="submit" className="bg-primary-color text-white">
+            <FilledButton
+              type="submit"
+              className="bg-primary-color rounded-4xl text-white"
+            >
               {isLast ? "Finish" : "Continue"}
             </FilledButton>
           </div>

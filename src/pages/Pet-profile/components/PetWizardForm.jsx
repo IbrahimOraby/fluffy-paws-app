@@ -33,11 +33,17 @@ export default function PetWizardForm({ onStepChange }) {
   step.fields.forEach((f) => (initialValues[f.name] = ""));
 
   const handleSubmit = (values) => {
-    setData(values);
+    const filteredValues = {};
+    step.fields.forEach((f) => {
+      filteredValues[f.name] = values[f.name];
+    });
+    
+    setData(filteredValues);
     if (!isLast) setStepIndex((i) => i + 1);
     else {
-      const fullData = useClientStore.getState().petData;
-      console.log(" Final Submitted Data:", fullData);
+      useClientStore.getState().addNewPet();
+      const { userData } = useClientStore.getState();
+      console.log("🧾 Final userData to send:", userData);
 
       // reset form progress in Zustand + localStorage
       useClientStore.getState().resetFormProgress();
