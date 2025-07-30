@@ -1,15 +1,14 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import IconPlaceholderInput from "../../../ui/Inputs/Iconplaceholderinput";
-import { StaticMapIcon } from "../../../ui/Icons/StaticIcons";
-import CalendarInput from "../../../ui/Inputs/CalendarInput";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import { bookingSchema } from "../../../schemas/bookingDetailsSchema";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import PetCard from "./PetCard";
+import FormikCalendarInput from "./FormikCalendarInput";
+import MyTextInput from "../../../ui/Inputs/MyTextInput";
 
-export default function BookingDetailsForm() {
+export default function BookingDetailsForm({ setCurrentStep }) {
   return (
     <Formik
       initialValues={{
@@ -19,62 +18,35 @@ export default function BookingDetailsForm() {
       }}
       validationSchema={bookingSchema}
       onSubmit={(values) => {
-        console.log("Booking form submitted:", values);
+        setCurrentStep(2);
       }}
     >
-      {({ values, setFieldValue, errors, touched }) => (
-        <Form className="flex flex-col gap-2 w-full">
+      {() => (
+        <Form className="flex flex-col gap-4 w-full">
           <Heading className="text-lg font-semibold mb-3">
             Booking details
           </Heading>
 
-          {/* Location Input */}
-          <div className="w-full">
-            <IconPlaceholderInput
-              name="location"
-              icon={<StaticMapIcon color="#be5985" />}
-              placeholder="Location"
-              value={values.location}
-              onChange={(e) => setFieldValue("location", e.target.value)}
-            />
-            {errors.location && touched.location && (
-              <p className="text-red-500 text-xs mt-1">{errors.location}</p>
-            )}
-          </div>
+          {/* Location input */}
+          <MyTextInput name="location" label="" placeholder="Location" />
 
-          {/* Date Range Inputs */}
-          <div className="flex flex-col sm:flex-row gap-2 w-full justify-around">
-            <CalendarInput
-              name="fromDate"
-              value={values.fromDate}
-              onChange={(val) => setFieldValue("fromDate", val)}
-              placeholder="From"
-            />
-            <CalendarInput
-              name="toDate"
-              value={values.toDate}
-              onChange={(val) => setFieldValue("toDate", val)}
-              placeholder="To"
-            />
+          {/* Date pickers */}
+          <div className="flex flex-col sm:flex-row gap-2 w-full justify-around mb-4">
+            <FormikCalendarInput name="fromDate" />
+            <FormikCalendarInput name="toDate" />
           </div>
-
-          {errors.fromDate && touched.fromDate && (
-            <p className="text-red-500 text-xs">{errors.fromDate}</p>
-          )}
-          {errors.toDate && touched.toDate && (
-            <p className="text-red-500 text-xs">{errors.toDate}</p>
-          )}
 
           {/* Info text */}
           <Paragraph className="text-sm text-gray-500 text-center sm:text-left">
             Make sure your pet profile is complete before sending request
           </Paragraph>
 
-          {/* Pet Info */}
+          {/* Pet cards */}
           <div className="flex gap-2 flex-wrap">
             <PetCard />
           </div>
 
+          {/* Submit */}
           <FilledButton
             type="submit"
             className="bg-primary-color text-white rounded-xl w-full"

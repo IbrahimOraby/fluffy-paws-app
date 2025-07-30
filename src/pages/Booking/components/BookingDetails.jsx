@@ -5,7 +5,7 @@ import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import Textarea from "../../../ui/Inputs/Textarea";
 import Message from "./Message";
 
-export default function BookingDetails() {
+export default function BookingDetails({ setCurrentStep }) {
   return (
     <div className="w-full min-h-screen flex justify-center items-center p-4 ">
       <div className=" max-w-4xl  bg-white border rounded-3xl border-gray-300 shadow-md p-6 flex flex-col gap-6 sm:gap-10">
@@ -31,7 +31,7 @@ export default function BookingDetails() {
         <div className="flex flex-col lg:flex-row gap-6 justify-between">
           {/* Left - Booking form */}
           <div className="flex-1 ">
-            <BookingDetailsForm />
+            <BookingDetailsForm setCurrentStep={setCurrentStep} />
           </div>
 
           {/* Right - Message */}
