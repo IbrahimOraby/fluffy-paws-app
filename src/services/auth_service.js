@@ -1,6 +1,7 @@
 import {
 	createUserWithEmailAndPassword,
 	getAdditionalUserInfo,
+	onAuthStateChanged,
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
@@ -82,4 +83,13 @@ export const signOutUser = async () => {
 			raw: error
 		};
 	}
+};
+
+export const getCurrentUser = () => {
+    return new Promise((resolve) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            unsubscribe();
+            resolve(user || null);
+        });
+    });
 };

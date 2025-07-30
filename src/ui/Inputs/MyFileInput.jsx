@@ -12,7 +12,15 @@ const MyFileInput = ({ label, ...props }) => {
   const { setValue } = helpers;
 
   const handleFileUpload = (file) => {
-    setValue(file);
+    //Include the necessary file properties 
+    const safeFile = {
+      uuid: file.uuid,
+      cdnUrl: file.cdnUrl,
+      name: file.name,
+      mimeType: file.mimeType,
+    };
+  
+    setValue(safeFile);
   };
   const resetUploader = () => {
     setUploadKey(Date.now());
