@@ -66,7 +66,8 @@ export const personalPetPreferencesSchema = Yup.object({
 });
 
 export const personalExperienceSchema = Yup.object({
-  yearsExperience: Yup.number()
+   yearsExperience: Yup.number()
+    .typeError("Experience must be a number")
     .min(0, "Experience must be a positive number")
     .required("Experience is required"),
 });

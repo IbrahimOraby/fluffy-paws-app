@@ -47,7 +47,7 @@ function PersonalSetup() {
         },
         {
           name: "socialMediaAccount",
-          label: "Social Media Account",
+          label: "Social Media Account*",
           type: "text",
           placeholder:
             "Enter a social media account, e.g., instagram.com/yourusername"
@@ -185,19 +185,12 @@ function PersonalSetup() {
     }
   ];
 
-  // const setAboutMe = usePersonalFormStore((state) => state.setAboutMe);
-  // const setAvailabilityFrequency = usePersonalFormStore((state) => state.setAvailabilityFrequency);
-  // const setPetPreferences = usePersonalFormStore((state) => state.setPetPreferences);
-  // const setExperience = usePersonalFormStore((state) => state.setExperience);
-  // const setHomeInfo = usePersonalFormStore((state) => state.setHomeInfo);
-  // const setProfileSetup = usePersonalFormStore((state) => state.setProfileSetup);
-  // const setContact = usePersonalFormStore((state) => state.setContact);
-
   const currentStep = steps[currentFormIndex - 1];
   const isLastStep = currentFormIndex === steps.length;
 
   const handleFormSubmit = (values) => {
     console.log(values);
+    setPersonalState[currentStep.action](values);
   };
 
   return (
@@ -226,6 +219,7 @@ function PersonalSetup() {
               initialValues={currentStep.initialValues}
               formikRef={formikRef}
               schema={currentStep.schema}
+              isLastForm={isLastStep}
               handleFormSubmit={handleFormSubmit}
             />
           </div>

@@ -6,22 +6,36 @@ import MyFileInput from "../../../../ui/Inputs/MyFileInput";
 import { MyRadioInput } from "../../../../ui/Inputs/MyRadioInput";
 import { MyCheckboxInput } from "../../../../ui/Inputs/MyCheckboxInput";
 import MyTextArea from "../../../../ui/Inputs/MyTextArea";
+import { useNavigate } from "react-router";
 
-function CustomForm({ fields, initialValues, formikRef, handleFormSubmit }) {
+function CustomForm({
+  fields,
+  initialValues,
+  formikRef,
+  schema,
+  isLastForm,
+  handleFormSubmit
+}) {
   const nextForm = usePersonalFormStore((state) => state.nextForm);
-  console.log(fields);
+  const navigate = useNavigate();
 
   return (
     <Formik
       innerRef={formikRef}
       initialValues={initialValues}
+      validationSchema={schema}
+      enableReinitialize
       onSubmit={(values) => {
         handleFormSubmit(values);
-        nextForm();
+        if (isLastForm) {
+          navigate("/");
+        } else {
+          nextForm();
+        }
       }}
     >
       {() => (
-        <Form className="flex flex-col gap-4">
+        <Form className="flex flex-col gap-2">
           {fields.map((field) => (
             <>
               {field.type === "text" || field.type === "tel" ? (
@@ -42,39 +56,48 @@ function CustomForm({ fields, initialValues, formikRef, handleFormSubmit }) {
                 />
               )}
               {field.type === "radio" && (
-                <div className="flex flex-row flex-wrap gap-4">
-                  {field.options.map((option) => (
-                    <MyRadioInput
-                      key={option}
-                      label={option}
-                      value={option}
-                      name={field.name}
-                    />
-                  ))}
+                <div className="mb-4">
+                  <h3 className="text-subheader-lg mb-1">{field.label}</h3>
 
-                  <ErrorMessage
-                    name={field.name}
-                    component="div"
-                    className="text-error text-sm mt-1 h-5"
-                  />
+                  <div className="flex flex-row flex-wrap gap-4">
+                    {field.options.map((option) => (
+                      <MyRadioInput
+                        key={option}
+                        label={option}
+                        value={option}
+                        name={field.name}
+                      />
+                    ))}
+                  </div>
+                  <div className="min-h-[20px] mt-1">
+                    <ErrorMessage
+                      name={field.name}
+                      component="div"
+                      className="text-error text-sm"
+                    />
+                  </div>
                 </div>
               )}
               {field.type === "checkbox" && (
-                <div className="flex flex-row flex-wrap gap-4">
-                  {field.options.map((option) => (
-                    <MyCheckboxInput
-                      key={option}
-                      label={option}
-                      value={option}
+                <div className="mb-4">
+                  <h3 className="text-subheader-lg mb-1">{field.label}</h3>
+                  <div className="flex flex-row flex-wrap gap-4">
+                    {field.options.map((option) => (
+                      <MyCheckboxInput
+                        key={option}
+                        label={option}
+                        value={option}
+                        name={field.name}
+                      />
+                    ))}
+                  </div>
+                  <div className="min-h-[20px] mt-1">
+                    <ErrorMessage
                       name={field.name}
+                      component="div"
+                      className="text-error text-sm"
                     />
-                  ))}
-
-                  <ErrorMessage
-                    name={field.name}
-                    component="div"
-                    className="text-error text-sm mt-1 h-5"
-                  />
+                  </div>
                 </div>
               )}
               {field.type === "textarea" && (
