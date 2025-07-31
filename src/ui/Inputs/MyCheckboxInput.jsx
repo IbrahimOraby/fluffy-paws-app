@@ -10,7 +10,7 @@ export const MyCheckboxInput = ({ label, ...props }) => {
 
   return (
     <label
-      className={`btn btn-lg cursor-pointer flex items-center gap-2 border transition
+      className={`btn btn-md font-normal cursor-pointer flex items-center gap-2 border transition
         ${
           isChecked
             ? "bg-primary-color text-primary-color-100 border-primary-color"
