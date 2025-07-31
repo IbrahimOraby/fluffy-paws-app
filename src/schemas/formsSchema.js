@@ -44,3 +44,45 @@ export const brandingSchema = Yup.object({
     description: Yup.string().required("description is required"),
     instagramLink: Yup.string().matches(instagramRegex, 'Example : https://www.instagram.com/username').required("Instagram link is required"),
 })
+
+//personal sitter schemas
+
+export const personalContactSchema = Yup.object({
+  address: Yup.string().required("Address is required"),
+  phoneNumber: Yup.string()
+    .matches(/^01[0125][0-9]{8}$/, "Must be a valid Egyptian phone number")
+    .required("Phone number is required"),
+  socialMedia: Yup.string().url("Must be a valid URL").nullable(),
+});
+
+export const personalAvailabilityFrequencySchema = Yup.object({
+  availableDays: Yup.string().required("Availability is required"),
+});
+
+export const personalPetPreferencesSchema = Yup.object({
+  petType: Yup.array()
+    .min(1, "At least one pet type must be selected")
+    .required("Pet preference is required"),
+});
+
+export const personalExperienceSchema = Yup.object({
+  yearsExperience: Yup.number()
+    .min(0, "Experience must be a positive number")
+    .required("Experience is required"),
+});
+
+export const personalHomeInfoSchema = Yup.object({
+  homeType: Yup.string().required("Home type is required"),
+  householdInfo: Yup.string().required("Household info is required"),
+});
+
+export const personalProfileSetupSchema = Yup.object({
+  profilePicture: Yup.mixed()
+    .required("Profile picture is required"),
+  personalId: Yup.mixed()
+    .required("Personal ID is required"),
+});
+
+export const personalAboutMeSchema = Yup.object({
+  bio: Yup.string().required("This field is required"),
+});
