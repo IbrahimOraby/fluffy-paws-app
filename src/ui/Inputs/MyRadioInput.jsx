@@ -6,7 +6,8 @@ export const MyRadioInput = ({ label, ...props }) => {
     <input
       type="radio"
       aria-label={label}
-      checked={field.value === props.value}
+              checked={field.value === props.value}
+
       {...field}
       {...props}
       className="btn btn-md font-normal focus:shadow-none focus:text-primary-color-100
