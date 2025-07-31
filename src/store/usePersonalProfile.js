@@ -21,7 +21,7 @@ const usePersonalFormStore = create(
         petPreferences: false,
         experience: false,
         homeType: false,
-        householdInfo: false,
+        hasKids: false,
         profileSetup: false,
         aboutMe: false
       },
@@ -78,12 +78,38 @@ const usePersonalFormStore = create(
           completedForms: { ...state.completedForms, aboutMe: true }
         })),
 
+      //steps
       nextForm: () =>
         set((state) => ({ currentFormIndex: state.currentFormIndex + 1 })),
       prevForm: () =>
         set((state) => ({ currentFormIndex: state.currentFormIndex - 1 })),
 
-      saveToFirestore: async () => {}
+      //reset
+      resetForm: () => {
+        localStorage.removeItem("personal-storage");
+        set(() => ({
+          personalFormData: {
+            contact: null,
+            availabilityFrequency: null,
+            petPreferences: null,
+            experience: null,
+            homeInfo: null,
+            profileSetup: null,
+            aboutMe: null
+          },
+          completedForms: {
+            contact: false,
+            availabilityFrequency: false,
+            petPreferences: false,
+            experience: false,
+            homeType: false,
+            hasKids: false,
+            profileSetup: false,
+            aboutMe: false
+          },
+          currentFormIndex: 0
+        }));
+      }
     }),
     {
       name: "personal-storage",

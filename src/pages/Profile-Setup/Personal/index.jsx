@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import PersonalLicenseImg from "../../../assets/images/personal-license.png";
 import usePersonalFormStore from "../../../store/usePersonalProfile";
@@ -14,6 +14,7 @@ import {
 } from "../../../schemas/formsSchema";
 
 function PersonalSetup() {
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const formikRef = useRef();
   const nextForm = usePersonalFormStore((state) => state.nextForm);
   const prevForm = usePersonalFormStore((state) => state.prevForm);
@@ -90,14 +91,14 @@ function PersonalSetup() {
       action: "setPetPreferences",
       fields: [
         {
-          name: "petType",
+          name: "petTypes",
           label: "Which pets can you look after?",
           type: "checkbox",
           options: ["Dogs", "Cats"]
         }
       ],
       initialValues: {
-        petType: personalFormData.petPreferences?.petType || ""
+        petTypes: personalFormData.petPreferences?.petTypes || ""
       },
       schema: personalPetPreferencesSchema
     },
@@ -130,7 +131,7 @@ function PersonalSetup() {
           options: ["An Apartment", "A House"]
         },
         {
-          name: "householdInfo",
+          name: "hasKids",
           label: "Do you have kids at home?",
           type: "radio",
           options: ["Yes", "No"]
@@ -138,7 +139,7 @@ function PersonalSetup() {
       ],
       initialValues: {
         homeType: personalFormData.homeInfo?.homeType || "",
-        householdInfo: personalFormData.homeInfo?.householdInfo || ""
+        hasKids: personalFormData.homeInfo?.hasKids || ""
       },
       schema: personalHomeInfoSchema
     },
@@ -168,7 +169,7 @@ function PersonalSetup() {
     },
     {
       title: "Tell Us About Yourself",
-      subtitle: "This will appear in the 'About Me' section of your profile.",
+      subtitle: "Let pet owners know a little more about you — this will appear in your profile.",
       action: "setAboutMe",
       fields: [
         {
@@ -188,7 +189,7 @@ function PersonalSetup() {
   const currentStep = steps[currentFormIndex - 1];
   const isLastStep = currentFormIndex === steps.length;
 
-  const handleFormSubmit = (values) => {
+  const handlePersonalFormSubmit = (values) => {
     console.log(values);
     setPersonalState[currentStep.action](values);
   };
@@ -220,7 +221,9 @@ function PersonalSetup() {
               formikRef={formikRef}
               schema={currentStep.schema}
               isLastForm={isLastStep}
-              handleFormSubmit={handleFormSubmit}
+              currentForm={currentStep}
+              setIsFormSubmitting={setIsFormSubmitting}
+              handlePersonalFormSubmit={handlePersonalFormSubmit}
             />
           </div>
         )}
@@ -237,7 +240,9 @@ function PersonalSetup() {
           </FilledButton>
         )}
         <FilledButton
-          className="text-white bg-primary-color hover:bg-primary-color-500 hover:bg-primary-color-700 rounded-4xl"
+          className="text-white bg-primary-color 
+          hover:bg-primary-color-500 hover:bg-primary-color-700 rounded-4xl"
+          disabled={isFormSubmitting}
           onClick={() => {
             if (currentFormIndex === 0) {
               nextForm();
@@ -245,9 +250,8 @@ function PersonalSetup() {
               formikRef.current.submitForm();
             }
           }}
-          disabled={currentFormIndex === steps.length}
         >
-          Next
+          {!isLastStep ? "Next" : isFormSubmitting ? "Submitting..." : "Submit"}
         </FilledButton>
       </footer>
     </div>

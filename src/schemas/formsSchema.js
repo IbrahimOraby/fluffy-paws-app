@@ -60,7 +60,7 @@ export const personalAvailabilityFrequencySchema = Yup.object({
 });
 
 export const personalPetPreferencesSchema = Yup.object({
-  petType: Yup.array()
+  petTypes: Yup.array()
     .min(1, "At least one pet type must be selected")
     .required("Pet preference is required"),
 });
@@ -74,7 +74,7 @@ export const personalExperienceSchema = Yup.object({
 
 export const personalHomeInfoSchema = Yup.object({
   homeType: Yup.string().required("Home type is required"),
-  householdInfo: Yup.string().required("Household info is required"),
+  hasKids: Yup.string().required("Household info is required"),
 });
 
 export const personalProfileSetupSchema = Yup.object({

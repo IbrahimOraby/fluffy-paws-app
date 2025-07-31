@@ -7,6 +7,8 @@ import { MyRadioInput } from "../../../../ui/Inputs/MyRadioInput";
 import { MyCheckboxInput } from "../../../../ui/Inputs/MyCheckboxInput";
 import MyTextArea from "../../../../ui/Inputs/MyTextArea";
 import { useNavigate } from "react-router";
+import { addPersonalSitterDoc } from "../../../../services/firestore_service";
+import useUserStore from "../../../../store/useUserStore";
 
 function CustomForm({
   fields,
@@ -14,10 +16,16 @@ function CustomForm({
   formikRef,
   schema,
   isLastForm,
-  handleFormSubmit
+  handlePersonalFormSubmit,
+  setIsFormSubmitting
 }) {
   const nextForm = usePersonalFormStore((state) => state.nextForm);
+  const user = useUserStore((state) => state.user);
+  const personalFormData = usePersonalFormStore(
+    (state) => state.personalFormData
+  );
   const navigate = useNavigate();
+  const resetForm = usePersonalFormStore((state) => state.resetForm);
 
   return (
     <Formik
@@ -25,10 +33,21 @@ function CustomForm({
       initialValues={initialValues}
       validationSchema={schema}
       enableReinitialize
-      onSubmit={(values) => {
-        handleFormSubmit(values);
+      onSubmit={async (values) => {
+        //persit the data
+        handlePersonalFormSubmit(values);
+
+        //handle calling firestore
         if (isLastForm) {
+          setIsFormSubmitting(true);
+          const finalPersonalFormData = {
+            ...personalFormData,
+            aboutMe: values
+          };
+          await addPersonalSitterDoc(finalPersonalFormData, user.uid);
+          setIsFormSubmitting(false);
           navigate("/");
+          resetForm();
         } else {
           nextForm();
         }
