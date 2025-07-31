@@ -57,7 +57,7 @@ const Shelters = () => {
       <ShelterCard key={shelter.id} {...shelter} />
     ))
   ) : (
-    <p className="text-gray-500 text-lg mt-6 w-full">
+    <p className="text-gray-500 text-lg mt-6 w-full col-start-8 md:col-start-4">
       No pet sitters found matching your filters.
     </p>
   )}
