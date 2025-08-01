@@ -8,6 +8,7 @@ import {
   petPhotoSchema,
 } from "../../../schemas/petSchema.js";
 import useClientStore from "../../../store/clientStore.js";
+import { auth } from "../../../firebaseConfig";
 
 const schemas = {
   petProfile: petProfileSchema,
@@ -32,24 +33,29 @@ export default function PetWizardForm({ onStepChange }) {
   const initialValues = {};
   step.fields.forEach((f) => (initialValues[f.name] = ""));
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     const filteredValues = {};
     step.fields.forEach((f) => {
       filteredValues[f.name] = values[f.name];
     });
-    
+
     setData(filteredValues);
-    if (!isLast) setStepIndex((i) => i + 1);
-    else {
-      useClientStore.getState().addNewPet();
-      const { userData } = useClientStore.getState();
-      console.log("🧾 Final userData to send:", userData);
 
-      // reset form progress in Zustand + localStorage
-      useClientStore.getState().resetFormProgress();
-
-      alert("Finished!");
+    if (!isLast) {
+      setStepIndex((i) => i + 1);
+      return;
     }
+
+    useClientStore.getState().addNewPet();
+
+    const uid = auth.currentUser?.uid;
+    if (!uid) return alert("Please login first");
+
+    const ok = await useClientStore.getState().saveLatestPet(uid);
+    if (!ok) return alert("Error saving pet");
+
+    useClientStore.getState().resetFormProgress();
+    alert("Pet saved ");
   };
 
   return (

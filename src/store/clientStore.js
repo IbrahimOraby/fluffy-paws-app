@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
+import { addPetDoc } from "../services/firestore_service";
 const useClientStore = create(
   persist(
     (set, get) => ({
@@ -109,9 +109,20 @@ const useClientStore = create(
       skipForm: () =>
         set((state) => ({ currentFormIndex: state.currentFormIndex + 1 })),
 
-      saveToFirestore: async () => {
-        const userData = get().userData;
-        // TODO: send userData to Firestore
+      saveLatestPet: async (uid) => {
+        if (!uid) throw new Error("No UID provided");
+
+        const { userData } = get();
+        const latestPet = userData.pets.at(-1);
+        if (!latestPet) return false;
+
+        try {
+          await addPetDoc(uid, latestPet);
+          console.info(" Pet saved");
+          return true;
+        } catch (err) {
+          console.error(" Firestore error:", err);
+        }
       },
     }),
     {
