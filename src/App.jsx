@@ -29,7 +29,7 @@ export default function App() {
         { path: "/select-role", element: <SelectRole /> },
         { path: "/select-role/org", element: <OrganizationSetup /> },
         { path: "/select-role/personal", element: <PersonalSetup /> },
-        { path: "/typography", element: <Typography /> }
+        { path: "/typography", element: <Typography /> },
         { path: "/Pet", element: <PetWizardForm /> },
         { path: "/booking", element: <Booking /> },
       ]
