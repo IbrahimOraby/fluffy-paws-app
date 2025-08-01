@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ShelterCard from "./components/ShelterCard";
 import FiltersMenu from "./components/FiltersMenu";
 import Heading from "../../ui/Typography/Heading/Heading";
+import orgsDataStore from "../../store/orgsData";
 
 const Shelters = () => {
+    //TODO: Data is here
+    const { organizations, fetchOrganizations, loading, error } =
+      orgsDataStore
+      ();
+    console.log(loading);
+    useEffect(() => {
+      fetchOrganizations();
+    }, [fetchOrganizations]);
+  
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    organizations?.map((org) => console.log(org));
+  
   return (
     <>
       <FiltersMenu />
