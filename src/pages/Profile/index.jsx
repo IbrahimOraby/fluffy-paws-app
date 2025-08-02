@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserType from "./components/UserType";
 import SitterType from "./components/SitterType";
 import useUserStore from "../../store/useUserStore";
+import OrganizationType from "./components/OrganizationType";
 
 export default function UserDashboard() {
   const { userDoc, loading } = useUserStore();
@@ -18,9 +19,9 @@ export default function UserDashboard() {
     switch (userRole) {
       case "client":
         return <UserType />;
-      case "sitter":
+      // case "sitter":
       case "org":
-        return <SitterType />;
+        return <OrganizationType />;
       default:
         return null;
     }
