@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ShelterCard from "./components/ShelterCard";
 import FiltersMenu from "./components/FiltersMenu";
 import Heading from "../../ui/Typography/Heading/Heading";

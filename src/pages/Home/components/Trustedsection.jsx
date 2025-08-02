@@ -214,7 +214,7 @@ const [providerError, setProviderError] = useState('');
           h="Trusted pet care, anytime, anywhere"
           p="Find trusted pet sitters & dog walkers near you"
           buttonclass="hidden"
-          imgclass="w-full h-[500px] object-cover"
+          imgclass="w-full h-[600px] object-cover"
         />
 
         <div className="absolute top-[350px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-10">

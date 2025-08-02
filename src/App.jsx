@@ -8,7 +8,11 @@ import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-
+import SelectRole from './pages/Profile-Setup'
+import OrganizationSetup from './pages/Profile-Setup/Org'
+import PersonalSetup from './pages/Profile-Setup/Personal'
+import PetWizardForm from "./pages/Pet-profile";
+import Booking from "./pages/Booking";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -22,18 +26,14 @@ export default function App() {
         { path: "/profile", element: <Profile /> },
         { path: "/signup", element: <Signup /> },
         { path: "/signin", element: <Signin /> },
+        { path: "/select-role", element: <SelectRole /> },
+        { path: "/select-role/org", element: <OrganizationSetup /> },
+        { path: "/select-role/personal", element: <PersonalSetup /> },
         { path: "/typography", element: <Typography /> },
-      ],
-    },
+        { path: "/Pet", element: <PetWizardForm /> },
+        { path: "/booking", element: <Booking /> },
+      ]
+    }
   ]);
-  return (
-    <RouterProvider router={router}>
-      <p style={{ fontWeight: 100 }}>Hello Pets</p>
-      <h1 style={{ fontWeight: 900 }}>hello</h1>
-      <div style={{ color: "var(--primary-color)", fontWeight: 500 }}>
-        This uses --color-primary
-      </div>
-      <Typography></Typography>
-    </RouterProvider>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
