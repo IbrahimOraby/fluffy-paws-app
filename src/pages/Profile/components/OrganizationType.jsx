@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
 import UserProfileCard from "./UserProfileCard";
@@ -9,8 +9,15 @@ import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import galleryImg from "../../../assets/images/pexels-charlesdeluvio-1851164.jpg";
+import { getOrginzationDoc } from "../../../services/firestore_service";
+import useUserStore from "../../../store/useUserStore";
 
 export default function OrganizationType() {
+  const { user, userDoc, loading: userLoading } = useUserStore();
+  const [organizationData, setOrganizationData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  //   console.log("user Id from org component ##########", user.uid);
   const [pending, setPending] = useState([
     {
       id: 1,
@@ -38,6 +45,38 @@ export default function OrganizationType() {
       owner: "Lina George",
     },
   ]);
+  useEffect(() => {
+    const fetchOrganizationData = async () => {
+      if (user && userDoc && userDoc.role === "org") {
+        setLoading(true);
+        try {
+          const data = await getOrginzationDoc(user.uid);
+          setOrganizationData(data);
+          console.log("!!!!!!!!!!!!", data);
+        } catch (error) {
+          console.error("Error fetching organization data:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    fetchOrganizationData();
+    // console.log("Org Data ##########", organizationData);
+  }, [user, userDoc]);
+
+  if (userLoading || loading) {
+    return <div>Loading organization data...</div>;
+  }
+
+  if (!organizationData) {
+    return <div>No organization data found.</div>;
+  }
+
+  if (organizationData) {
+    console.log("done");
+  }
 
   const handleApprove = (id) => {
     const booking = pending.find((b) => b.id === id);
@@ -65,10 +104,11 @@ export default function OrganizationType() {
           subTitle="Manage your personal information and preferences."
         />
         <UserProfileCard
-          fullName="John Doe"
-          email="john.doe@example.com"
-          phoneNumber="+1 (555) 123-4567"
-          address="123 Main St, Anytown, USA"
+        avatarSrc={organizationData.branding.organizationLogo.cdnUrl}
+          fullName={organizationData.info.name}
+          email={organizationData.info.email}
+          phoneNumber={organizationData.contact.phoneNumber}
+          address={`${organizationData.contact.street}, ${organizationData.contact.district}, ${organizationData.contact.city}.`}
         />
       </div>
 

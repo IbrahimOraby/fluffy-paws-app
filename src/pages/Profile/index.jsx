@@ -6,7 +6,7 @@ import OrganizationType from "./components/OrganizationType";
 
 export default function UserDashboard() {
   const { userDoc, loading } = useUserStore();
-  console.log("infoooooo%%%%%", userDoc);
+  // console.log("infoooooo%%%%%", userDoc);
 
   const renderUserSpecificContent = () => {
     if (loading) {
@@ -15,6 +15,8 @@ export default function UserDashboard() {
     if (!userDoc || !userDoc.role) {
       return <div>Please complete your profile information.</div>;
     }
+
+    const userRole = userDoc.role;
 
     switch (userRole) {
       case "client":
