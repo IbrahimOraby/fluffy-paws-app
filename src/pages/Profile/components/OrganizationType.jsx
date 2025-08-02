@@ -104,7 +104,7 @@ export default function OrganizationType() {
           subTitle="Manage your personal information and preferences."
         />
         <UserProfileCard
-        avatarSrc={organizationData.branding.organizationLogo.cdnUrl}
+          avatarSrc={organizationData.branding.organizationLogo.cdnUrl}
           fullName={organizationData.info.name}
           email={organizationData.info.email}
           phoneNumber={organizationData.contact.phoneNumber}
@@ -240,8 +240,88 @@ export default function OrganizationType() {
         </div>
       </div>
 
-      {/* ############ Messages Input ############ */}
+      {/* ############ More Info Input ############ */}
       <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="More Info"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <ProfileSectionHeader
+          title="More Information"
+          subTitle="Detailed organizational data including availability, banking, and documents."
+        />
+
+        {/* Availability */}
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-primary-color">
+            Availability
+          </Heading>
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            From:{" "}
+            {new Date(organizationData.availableFrom).toLocaleDateString()}{" "}
+            <br />
+            To: {new Date(organizationData.availableTo).toLocaleDateString()}
+          </Paragraph>
+        </div>
+
+        {/* Banking Information */}
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-blue-900">
+            Banking Info
+          </Heading>
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            Bank Name: {organizationData.banking.bankName} <br />
+            Account Holder: {organizationData.banking.accountHolderName} <br />
+            Account Number: {organizationData.banking.accountNumber} <br />
+            IBAN: {organizationData.banking.iban} <br />
+            Routing Number: {organizationData.banking.bankRoutingNumber}
+          </Paragraph>
+        </div>
+
+        {/* Documents */}
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-header-color">
+            Legal Documents
+          </Heading>
+          <ul className="list-disc ml-6 text-paragraph-sm text-paragraph-color">
+            <li>
+              <a
+                href={organizationData.documents.businessLicense.cdnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Business License
+              </a>
+            </li>
+            <li>
+              <a
+                href={organizationData.documents.insuranceCertificate.cdnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Insurance Certificate
+              </a>
+            </li>
+            <li>
+              <a
+                href={organizationData.documents.taxId.cdnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Tax ID
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* ############ Messages Input ############ */}
+      {/* <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -252,7 +332,6 @@ export default function OrganizationType() {
           title="Your Messages"
           subTitle="Manage all your conversations with sitters and shelters here."
         />
-        {/* Message list goes here */}
         <ul className="mt-4 space-y-3">
           <MessageItem
             sender="Sitter John"
@@ -265,7 +344,7 @@ export default function OrganizationType() {
             timestamp="Yesterday"
           />
         </ul>
-      </div>
+      </div> */}
     </>
   );
 }
