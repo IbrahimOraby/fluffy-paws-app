@@ -212,31 +212,6 @@ export default function OrganizationType() {
             alt="Gallery"
             className="w-full object-cover rounded-lg"
           />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
         </div>
       </div>
 
