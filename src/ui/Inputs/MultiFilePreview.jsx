@@ -10,7 +10,7 @@ export const MultiFilePreview = ({ file, onRemove }) => {
       />
       <button
         onClick={onRemove}
-        className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full text-xs opacity-80 hover:opacity-100 transition-opacity"
+        className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full text-xs opacity-80 hover:opacity-100 transition-opacity"
       >
         &#x2715;
       </button>

@@ -9,14 +9,20 @@ import PastReq from "./PastReq";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import { getOrginzationDoc } from "../../../services/firestore_service";
+import {
+  getOrginzationDoc,
+  updateOrganizationGallery,
+} from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
+import OptionButton from "../../../ui/Buttons/OptionButton";
+import LinkButton from "../../../ui/Buttons/LinkButton";
 
 export default function OrganizationType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
   const [organizationData, setOrganizationData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isEditingGallery, setIsEditingGallery] = useState(false);
 
   const [pending, setPending] = useState([
     {
@@ -198,33 +204,77 @@ export default function OrganizationType() {
           </div>
         </div>
 
-        {/* Gallery images */}
-        <div className="mt-6">
+        {!isEditingGallery ? (
+          <>
+            {organizationData.gallery?.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+                {organizationData.gallery.map((img, index) => (
+                  <div key={index} className="rounded overflow-hidden">
+                    <img
+                      src={img.cdnUrl}
+                      alt={`Gallery image ${index + 1}`}
+                      className="w-48 h-48 object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Paragraph className="text-paragraph-color text-paragraph-sm mt-4">
+                No images uploaded yet.
+              </Paragraph>
+            )}
+
+            <FilledButton
+              className="bg-primary-color text-white-color rounded-3xl mt-6"
+              onClick={() => setIsEditingGallery(true)}
+            >
+              Edit Images
+            </FilledButton>
+          </>
+        ) : (
           <Formik
             initialValues={{
               gallery: organizationData.gallery || [],
             }}
-            onSubmit={async (values) => {
-              console.log("Gallery images submitted:", values.gallery);
+            onSubmit={async (values, { resetForm }) => {
+              try {
+                await updateOrganizationGallery(user.uid, values.gallery);
+                setOrganizationData((prev) => ({
+                  ...prev,
+                  gallery: values.gallery,
+                }));
+                setIsEditingGallery(false);
+                resetForm();
+              } catch (error) {
+                console.error("Error updating gallery:", error);
+                alert("Failed to update gallery.");
+              }
             }}
           >
             {({ values }) => (
               <Form>
                 <MyMultiFileInput
                   name="gallery"
-                  label="Upload Gallery Images"
+                  label="Upload or remove images"
                 />
-
-                <FilledButton
-                  type="submit"
-                  className="bg-primary-color text-white-color rounded-3xl mt-4"
-                >
-                  Save Gallery
-                </FilledButton>
+                <div className="flex gap-2 mt-4">
+                  <FilledButton
+                    type="submit"
+                    className="bg-primary-color text-white-color rounded-3xl"
+                  >
+                    Save
+                  </FilledButton>
+                  <LinkButton
+                  className="!text-paragraph-color"
+                  onClick={() => setIsEditingGallery(false)}
+                  >
+                  Cancel
+                  </LinkButton>
+                </div>
               </Form>
             )}
           </Formik>
-        </div>
+        )}
       </div>
 
       {/* ############ More Info Input ############ */}
