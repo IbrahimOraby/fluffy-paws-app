@@ -1,27 +1,37 @@
-import React from 'react'
-import ActionLink from '../../../ui/Links/ActionLink';
-import { StaticLogInIcon, StaticUserIcon, StaticXIcon } from '../../../ui/Icons/StaticIcons';
-import Paragraph from '../../../ui/Typography/Paragraph/Paragraph';
+import React from "react";
+import ActionLink from "../../../ui/Links/ActionLink";
+import {
+  StaticLogInIcon,
+  StaticUserIcon,
+  StaticXIcon
+} from "../../../ui/Icons/StaticIcons";
+import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
+import useUserStore from "../../../store/useUserStore";
 
 function SideDrawer() {
+  const user = useUserStore();
   return (
     <div className="drawer-side">
-          <label htmlFor="nav-drawer" className="drawer-overlay"></label>
+      <label htmlFor="nav-drawer" className="drawer-overlay"></label>
 
-          <div className="menu p-0 w-80 min-h-full bg-base-200 text-base-content flex flex-col">
-            {/* X button */}
-            <div className="flex justify-end">
-              <label
-                htmlFor="nav-drawer"
-                className="btn btn-sm btn-circle btn-ghost m-4"
-              >
-                <StaticXIcon />
-              </label>
-            </div>
+      <div className="menu p-0 w-80 min-h-full bg-base-200 text-base-content flex flex-col">
+        {/* X button */}
+        <div className="flex justify-end">
+          <label
+            htmlFor="nav-drawer"
+            className="btn btn-sm btn-circle btn-ghost m-4"
+          >
+            <StaticXIcon />
+          </label>
+        </div>
 
-            {/* Drawer links */}
-            <nav>
-              <ul className="menu p-0 w-full">
+        {/* Drawer links */}
+        <nav>
+          <ul className="menu p-0 w-full">
+            {user ? (
+              <li>Logged In</li>
+            ) : (
+              <>
                 <li className="w-full">
                   <ActionLink
                     to="/signin"
@@ -52,11 +62,13 @@ function SideDrawer() {
                     <Paragraph className="text-paragraph-lg">Sign Up</Paragraph>
                   </ActionLink>
                 </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-  )
+              </>
+            )}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
 }
 
-export default SideDrawer
+export default SideDrawer;
