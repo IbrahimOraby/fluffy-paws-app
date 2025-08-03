@@ -9,25 +9,30 @@ import Rating from "../../../ui/Rating/Rating";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 
-const ShelterCard = () => {
-  const navigate = useNavigate();
+const ShelterCard = ({
+  name,
+  city,
+  distance,
+  price,
+  rating,
+  reviewsNum,
+  description,
+  startdate,
+  enddate,
+}) => {
   return (
     <>
-      {/* Overall container */}
-
-      <div onClick={()=>navigate('/shelter')} className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300 cursor-pointer hover:border-primary-color ">
+      <div className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300">
         <img
           className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
           src="https://res.cloudinary.com/madpaws/image/upload/c_limit,f_auto,h_980,q_auto,w_980/v1/uploads/1896910/madpaws_1743484947_67eb7813c77ca.jpeg.jpg"
           alt="Shelter preview"
         />
 
-        {/* Caption container */}
         <div className="flex flex-col flex-1 justify-between items-start">
-          {/* Header container */}
           <div className="flex w-full items-center justify-between mb-2">
             <SubHeading type="h2" className="text-subheader-lg text-header-color">
-              John Doe
+              {name}
             </SubHeading>
             <ButtonWithIcon
               className="hover:bg-light-hover-color"
@@ -35,21 +40,32 @@ const ShelterCard = () => {
             />
           </div>
 
-          {/*Card Details*/}
-          <Paragraph className="text-paragraph-lg text-paragraph-color hidden sm:block ">
-            Experienced Pet Sitter – Your Pets Deserve the Best!
+          <Paragraph className="text-paragraph-lg text-paragraph-color hidden sm:block">
+            {description}
           </Paragraph>
+
           <Paragraph className="text-paragraph-md text-paragraph-color mb-3">
-            Portsaid (0.1km)
+            {city} ({distance})
           </Paragraph>
-          <div className="flex items-center">
+
+          <div className="flex items-center mb-2">
             <Paragraph className="text-paragraph-sm text-paragraph-color">
-              $49 / night
+              ${price} / night
             </Paragraph>
             <div className="divider divider-horizontal"></div>
-
-            <Rating rating={"5"} reviewsNum={"1"} />
+            <Rating rating={rating} reviewsNum={reviewsNum} />
           </div>
+
+          {/* Start & End Date */}
+          {(startdate || enddate) && (
+            <div className="text-xs text-gray-600 bg-gray-100 px-3 py-2 rounded-md w-full mb-2">
+              <p>
+                <span className="font-semibold text-gray-800">Available:</span>{" "}
+                {startdate || "N/A"} to {enddate || "N/A"}
+              </p>
+            </div>
+          )}
+
           <Badge
             className="bg-primary-color-100 text-primary-color my-2"
             text={"Certified"}
@@ -57,7 +73,6 @@ const ShelterCard = () => {
           />
         </div>
       </div>
-
     </>
   );
 };
