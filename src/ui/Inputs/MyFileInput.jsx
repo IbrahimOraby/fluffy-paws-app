@@ -18,6 +18,7 @@ const MyFileInput = ({ label, ...props }) => {
       cdnUrl: file.cdnUrl,
       name: file.name,
       mimeType: file.mimeType,
+      size:file.size
     };
   
     setValue(safeFile);
@@ -51,7 +52,7 @@ const MyFileInput = ({ label, ...props }) => {
       )}
       <div
         className={`text-error text-sm mt-1 h-5 invisible ${
-          meta?.error && `visible`
+          (meta?.error &&meta?.touched) && `visible`
         }`}
       >
         {meta.error}

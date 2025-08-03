@@ -1,4 +1,4 @@
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export const addNewUser = async (userData, uid) => {
@@ -45,6 +45,25 @@ export const addOrgnizationDoc = async (orgData, uid) => {
   );
 };
 
+export const getOrginzationDoc = async (uid) => {
+  const docRef = doc(db, 'organizations', uid)
+  const orgSnapshot = await getDoc(docRef);
+  return orgSnapshot.data();
+}
+
+export const getAllCollectionDocs = async (collectionName) => {
+  try {
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    const docs = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return docs;
+  } catch (error) {
+    console.error(`Error fetching documents from ${collectionName}:`, error);
+    return [];
+  }
+};
 export const addPersonalSitterDoc = async (personalFormData, uid) => {
   try {
     const docRef = doc(db, "personalSitters", uid);

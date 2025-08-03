@@ -30,7 +30,7 @@ const SelectRole = () => {
           </button>
           <button
             className="btn btn-tertiary"
-            onClick={() => handleRoleSelect("personalSitter", currentUser.uid)}
+            onClick={() => handleRoleSelect("personal", currentUser.uid)}
           >
             Pet Sitter
           </button>
