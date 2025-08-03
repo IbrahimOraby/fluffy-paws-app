@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Formik, Form } from "formik";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
 import UserProfileCard from "./UserProfileCard";
@@ -8,9 +9,20 @@ import PastReq from "./PastReq";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import galleryImg from "../../../assets/images/pexels-charlesdeluvio-1851164.jpg";
+import LinkButton from "../../../ui/Buttons/LinkButton";
+import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
+import {
+  getPersonalSitterDoc,
+  updatePersonalSitterGallery,
+} from "../../../services/firestore_service";
+import useUserStore from "../../../store/useUserStore";
 
 export default function SitterType() {
+  const { user, userDoc, loading: userLoading } = useUserStore();
+  const [sitterData, setSitterData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isEditingGallery, setIsEditingGallery] = useState(false);
+
   const [pending, setPending] = useState([
     {
       id: 1,
@@ -39,6 +51,33 @@ export default function SitterType() {
     },
   ]);
 
+  useEffect(() => {
+    const fetchSitterData = async () => {
+      if (user && userDoc && userDoc.role === "personal") {
+        setLoading(true);
+        try {
+          const data = await getPersonalSitterDoc(user.uid);
+          setSitterData(data);
+        } catch (error) {
+          console.error("Error fetching sitter data:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    fetchSitterData();
+  }, [user, userDoc]);
+
+  if (userLoading || loading) {
+    return <div>Loading sitter data...</div>;
+  }
+
+  if (!sitterData) {
+    return <div>No sitter data found.</div>;
+  }
+
   const handleApprove = (id) => {
     const booking = pending.find((b) => b.id === id);
     setApproved([...approved, booking]);
@@ -65,10 +104,12 @@ export default function SitterType() {
           subTitle="Manage your personal information and preferences."
         />
         <UserProfileCard
-          fullName="John Doe"
-          email="john.doe@example.com"
-          phoneNumber="+1 (555) 123-4567"
-          address="123 Main St, Anytown, USA"
+          avatarSrc={sitterData.profileSetup.profilePicture.cdnUrl}
+          // avatarSrc={sitterData.profileSetup.profilePicture.cdnUrl}
+          fullName={`${userDoc.firstName} ${userDoc.lastName}`}
+          email={userDoc.email}
+          phoneNumber={sitterData.contact.phoneNumber}
+          address={sitterData.contact.address}
         />
       </div>
 
@@ -157,51 +198,150 @@ export default function SitterType() {
           <div>
             <ProfileSectionHeader
               title="Gallery"
-              subTitle="Showcase your organization’s environment and space."
+              subTitle="Showcase your sitting environment and space."
             />
           </div>
-          <FilledButton className="bg-primary-color text-white-color rounded-3xl">
-            Add new images
-          </FilledButton>
         </div>
-        {/* Gallery images */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
-          {/* Dummy gallery images */}
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
+
+        {!isEditingGallery ? (
+          <>
+            {sitterData.gallery?.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+                {sitterData.gallery.map((img, index) => (
+                  <div key={index} className="rounded overflow-hidden">
+                    <img
+                      src={img.cdnUrl}
+                      alt={`Gallery image ${index + 1}`}
+                      className="w-48 h-48 object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Paragraph className="text-paragraph-color text-paragraph-sm mt-4">
+                No images uploaded yet.
+              </Paragraph>
+            )}
+
+            <FilledButton
+              className="bg-primary-color text-white-color rounded-3xl mt-6"
+              onClick={() => setIsEditingGallery(true)}
+            >
+              Edit Images
+            </FilledButton>
+          </>
+        ) : (
+          <Formik
+            initialValues={{
+              gallery: sitterData.gallery || [],
+            }}
+            onSubmit={async (values, { resetForm }) => {
+              try {
+                await updatePersonalSitterGallery(user.uid, values.gallery);
+                setSitterData((prev) => ({
+                  ...prev,
+                  gallery: values.gallery,
+                }));
+                setIsEditingGallery(false);
+                resetForm();
+              } catch (error) {
+                console.error("Error updating gallery:", error);
+                alert("Failed to update gallery.");
+              }
+            }}
+          >
+            {({ values }) => (
+              <Form>
+                <MyMultiFileInput
+                  name="gallery"
+                  label="Upload or remove images"
+                />
+                <div className="flex gap-2 mt-4">
+                  <FilledButton
+                    type="submit"
+                    className="bg-primary-color text-white-color rounded-3xl"
+                  >
+                    Save
+                  </FilledButton>
+                  <LinkButton
+                    className="!text-paragraph-color"
+                    onClick={() => setIsEditingGallery(false)}
+                  >
+                    Cancel
+                  </LinkButton>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        )}
+      </div>
+
+      {/* ############ More Info Input ############ */}
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="More Info"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <ProfileSectionHeader
+          title="More Information"
+          subTitle="Details about your service, housing, and pet preferences."
+        />
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-primary-color">
+            About Me
+          </Heading>
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            {sitterData.aboutMe.bio}
+          </Paragraph>
+        </div>
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-primary-color">
+            Years of Experience
+          </Heading>
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            {sitterData.experience.yearsExperience} years
+          </Paragraph>
+        </div>
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-blue-900">
+            Pet Preferences
+          </Heading>
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            {sitterData.petPreferences.petTypes.join(", ")}
+          </Paragraph>
+        </div>
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-header-color">
+            Home Information
+          </Heading>
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            Home Type: {sitterData.homeInfo.homeType} <br />
+            Has Kids: {sitterData.homeInfo.hasKids}
+          </Paragraph>
+        </div>
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-header-color">
+            Legal Documents
+          </Heading>
+          <ul className="list-disc ml-6 text-paragraph-sm text-paragraph-color">
+            <li>
+              <a
+                href={sitterData.profileSetup.personalId.cdnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Personal ID
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
       {/* ############ Messages Input ############ */}
-      <input
+      {/* <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -212,7 +352,6 @@ export default function SitterType() {
           title="Your Messages"
           subTitle="Manage all your conversations with sitters and shelters here."
         />
-        {/* Message list goes here */}
         <ul className="mt-4 space-y-3">
           <MessageItem
             sender="Sitter John"
@@ -225,7 +364,7 @@ export default function SitterType() {
             timestamp="Yesterday"
           />
         </ul>
-      </div>
+      </div> */}
     </>
   );
 }
