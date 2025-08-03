@@ -1,5 +1,6 @@
 import { signInUser, signInWithGoogle, signUpUser } from "../services/auth_service";
 import { addNewUser } from "../services/firestore_service";
+import { splitFullNameFormatter } from './../utils/stringHelpers';
 
 export const handleLoginSubmit = async (value, setSubmitting, setFieldError, navigate) => {
     try {
@@ -24,7 +25,8 @@ export const handleSignupSubmit = async (value, setSubmitting, setFieldError, na
     const userName = value.firstName + " " + value.lastName;
     const userData = {
         email: value.email,
-        userName: userName,
+        firstName: value.firstName,
+        lastName:value.lastName,
         role: null
     }
     try {
@@ -50,10 +52,12 @@ export const handleSignupSubmit = async (value, setSubmitting, setFieldError, na
 export const handleGoogleAuth = async (setFieldError, navigate) => {
     try {
         const { user, token, isNewUser, providerId } = await signInWithGoogle();
+        const {firstName, lastName} = splitFullNameFormatter(user.displayName);
         if (isNewUser) {
             const userData = {
                 email: user.email,
-                userName: user.displayName,
+                firstName: firstName,
+                lastName:lastName,
                 role: null
             }
             await addNewUser(userData, user.uid);

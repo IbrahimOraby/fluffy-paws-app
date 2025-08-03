@@ -1,7 +1,7 @@
 // store/useUserStore.js
 import { create } from "zustand";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
 
 const useUserStore = create((set) => ({
@@ -12,30 +12,33 @@ const useUserStore = create((set) => ({
 
   observeAuth: () => {
     set({ loading: true });
-
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      try {
-        if (user) {
-          const userRef = doc(db, "users", user.uid);
-          const snapshot = await getDoc(userRef);
+  
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        
+        const unsubscribeDoc = onSnapshot(userRef, (snapshot) => {
           const userData = snapshot.exists() ? snapshot.data() : null;
-
+  
           set({
             user,
             userDoc: userData,
             loading: false,
             error: null,
           });
-        } else {
-          set({ user: null, userDoc: null, loading: false });
-        }
-      } catch (error) {
-        set({ error, loading: false });
+        });
+  
+        // Unsubscribe Firestore listener when auth state changes
+        return () => {
+          unsubscribeDoc();
+        };
+      } else {
+        set({ user: null, userDoc: null, loading: false });
       }
     });
-
-    //Cleanup function
-    return unsubscribe; 
-  },
+  
+    return unsubscribeAuth; // Cleanup function
+  }
+  
 }));
 export default useUserStore;
