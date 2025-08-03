@@ -21,7 +21,8 @@ export default function UserDashboard() {
     switch (userRole) {
       case "client":
         return <UserType />;
-      // case "sitter":
+      case "personal":
+        return <SitterType />;
       case "org":
         return <OrganizationType />;
       default:

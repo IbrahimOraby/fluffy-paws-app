@@ -15,7 +15,6 @@ import {
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
-import OptionButton from "../../../ui/Buttons/OptionButton";
 import LinkButton from "../../../ui/Buttons/LinkButton";
 
 export default function OrganizationType() {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
 import PetProfileCard from "./PetProfileCard";
@@ -6,8 +6,44 @@ import FilledButton from "../../../ui/Buttons/FilledButton";
 import BookingCardProfile from "./BookingCardProfile";
 import FavouriteProfileCard from "./FavouriteProfileCard";
 import UserProfileCard from "./UserProfileCard";
+import { getCurrentUserDoc } from "../../../services/firestore_service";
+import useUserStore from "../../../store/useUserStore";
 
 export default function UserType() {
+  const { user, userDoc, loading: userLoading } = useUserStore();
+  const [clientData, setClientData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const fetchClientData = async () => {
+      if (user && userDoc && userDoc.role === "client") {
+        setLoading(true);
+        try {
+          const data = await getCurrentUserDoc(user);
+          setClientData(data);
+          console.log("@@@@@",data);
+          
+        } catch (error) {
+          console.error("Error fetching client data:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    fetchClientData();
+  }, [user, userDoc]);
+
+  if (userLoading || loading) {
+    return <div>Loading organization data...</div>;
+  }
+
+  if (!clientData) {
+    return <div>No client data found.</div>;
+  }
+
   return (
     <>
       {/* ############ MyProfile Input ############ */}
@@ -24,15 +60,15 @@ export default function UserType() {
           subTitle="Manage your personal information and preferences."
         />
         <UserProfileCard
-          fullName="John Doe"
-          email="john.doe@example.com"
-          phoneNumber="+1 (555) 123-4567"
-          address="123 Main St, Anytown, USA"
+          fullName={`${clientData.firstName} ${clientData.lastName}`}
+          email={clientData.email}
+          // phoneNumber={clientData.firstName}
+          // address="123 Main St, Anytown, USA"
         />
       </div>
 
       {/* ############ Messages Input ############ */}
-      <input
+      {/* <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -43,7 +79,6 @@ export default function UserType() {
           title="Your Messages"
           subTitle="Manage all your conversations with sitters and shelters here."
         />
-        {/* Message list goes here */}
         <ul className="mt-4 space-y-3">
           <MessageItem
             sender="Sitter John"
@@ -56,7 +91,7 @@ export default function UserType() {
             timestamp="Yesterday"
           />
         </ul>
-      </div>
+      </div> */}
 
       {/* ############ MyPets Input ############ */}
       <input
@@ -144,11 +179,11 @@ export default function UserType() {
             //   imageUrl={}
             description="Experienced dog walker and boarder."
           />
-          <FavouriteProfileCard
+          {/* <FavouriteProfileCard
             name="The Happy Paws Shelter"
             //   imageUrl={}
             description="Spacious facilities for all pets."
-          />
+          /> */}
         </div>
       </div>
     </>

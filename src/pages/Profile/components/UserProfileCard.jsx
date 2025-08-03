@@ -34,22 +34,26 @@ export default function UserProfileCard({
             {email}
           </SubHeading>
         </div>
-        <div>
-          <Paragraph className="text-paragraph-color text-paragraph-xs">
-            Phone Number
-          </Paragraph>
-          <SubHeading className="text-header-color text-subheader-md">
-            {phoneNumber}
-          </SubHeading>
-        </div>
-        <div>
-          <Paragraph className="text-paragraph-color text-paragraph-xs">
-            Address
-          </Paragraph>
-          <SubHeading className="text-header-color text-subheader-md">
-            {address}
-          </SubHeading>
-        </div>
+        {phoneNumber && (
+          <div>
+            <Paragraph className="text-paragraph-color text-paragraph-xs">
+              Phone Number
+            </Paragraph>
+            <SubHeading className="text-header-color text-subheader-md">
+              {phoneNumber}
+            </SubHeading>
+          </div>
+        )}
+        {address && (
+          <div>
+            <Paragraph className="text-paragraph-color text-paragraph-xs">
+              Address
+            </Paragraph>
+            <SubHeading className="text-header-color text-subheader-md">
+              {address}
+            </SubHeading>
+          </div>
+        )}
       </div>
     </div>
   );

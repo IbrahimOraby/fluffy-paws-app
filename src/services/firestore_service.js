@@ -66,6 +66,12 @@ export const getOrginzationDoc = async (uid) => {
   return orgSnapshot.data();
 }
 
+export const getPersonalSitterDoc = async (uid) => {
+  const docRef = doc(db, 'personalSitters', uid);
+  const sitterSnapshot = await getDoc(docRef);
+  return sitterSnapshot.data();
+};
+
 export const getAllCollectionDocs = async (collectionName) => {
   try {
     const querySnapshot = await getDocs(collection(db, collectionName));
@@ -92,5 +98,20 @@ export const addPersonalSitterDoc = async (personalFormData, uid) => {
     );
   } catch (err) {
     console.log("Error: Something wrong happened while submitting", err);
+  }
+};
+
+export const updatePersonalSitterGallery = async (uid, galleryArray) => {
+  const docRef = doc(db, "personalSitters", uid);
+  try {
+    await setDoc(
+      docRef,
+      {
+        gallery: galleryArray
+      },
+      { merge: true } 
+    );
+  } catch (error) {
+    console.error("Error updating sitter gallery images:", error);
   }
 };
