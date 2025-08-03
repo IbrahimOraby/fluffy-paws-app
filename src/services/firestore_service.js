@@ -53,7 +53,7 @@ export const updateOrganizationGallery = async (uid, galleryArray) => {
       {
         gallery: galleryArray
       },
-      { merge: true } 
+      { merge: true }
     );
   } catch (error) {
     console.error("Error updating gallery images:", error);
@@ -70,6 +70,16 @@ export const getPersonalSitterDoc = async (uid) => {
   const docRef = doc(db, 'personalSitters', uid);
   const sitterSnapshot = await getDoc(docRef);
   return sitterSnapshot.data();
+};
+
+export const updatePersonalSitterData = async (uid, updatedData) => {
+  const docRef = doc(db, "personalSitters", uid);
+  try {
+    await setDoc(docRef, updatedData, { merge: true });
+  } catch (error) {
+    console.error("Error updating personal sitter data:", error);
+    throw error;
+  }
 };
 
 export const getAllCollectionDocs = async (collectionName) => {
@@ -109,7 +119,7 @@ export const updatePersonalSitterGallery = async (uid, galleryArray) => {
       {
         gallery: galleryArray
       },
-      { merge: true } 
+      { merge: true }
     );
   } catch (error) {
     console.error("Error updating sitter gallery images:", error);
