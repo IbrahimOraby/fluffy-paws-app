@@ -3,7 +3,7 @@ import { useField } from "formik";
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 import { handleRemoveFile } from "../../services/uploadCare_service";
-// import { MultiFilePreview } from "./MultiFilePreview"; 
+import { MultiFilePreview } from "./MultiFilePreview"; 
 
 const MyMultiFileInput = ({ label, ...props }) => {
   const [uploadKey, setUploadKey] = useState(Date.now());

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Formik, Form } from "formik";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import MessageItem from "./MessageItem";
 import UserProfileCard from "./UserProfileCard";
@@ -8,16 +9,15 @@ import PastReq from "./PastReq";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import galleryImg from "../../../assets/images/pexels-charlesdeluvio-1851164.jpg";
 import { getOrginzationDoc } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
+import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
 
 export default function OrganizationType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
   const [organizationData, setOrganizationData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //   console.log("user Id from org component ##########", user.uid);
   const [pending, setPending] = useState([
     {
       id: 1,
@@ -35,7 +35,6 @@ export default function OrganizationType() {
       owner: "John Smith",
     },
   ]);
-  ``;
 
   const [past, setPast] = useState([
     {
@@ -45,14 +44,16 @@ export default function OrganizationType() {
       owner: "Lina George",
     },
   ]);
+
   useEffect(() => {
+    console.log(import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY);
+
     const fetchOrganizationData = async () => {
       if (user && userDoc && userDoc.role === "org") {
         setLoading(true);
         try {
           const data = await getOrginzationDoc(user.uid);
           setOrganizationData(data);
-          console.log("!!!!!!!!!!!!", data);
         } catch (error) {
           console.error("Error fetching organization data:", error);
         } finally {
@@ -63,7 +64,6 @@ export default function OrganizationType() {
       }
     };
     fetchOrganizationData();
-    // console.log("Org Data ##########", organizationData);
   }, [user, userDoc]);
 
   if (userLoading || loading) {
@@ -72,10 +72,6 @@ export default function OrganizationType() {
 
   if (!organizationData) {
     return <div>No organization data found.</div>;
-  }
-
-  if (organizationData) {
-    console.log("done");
   }
 
   const handleApprove = (id) => {
@@ -200,18 +196,34 @@ export default function OrganizationType() {
               subTitle="Showcase your organization’s environment and space."
             />
           </div>
-          <FilledButton className="bg-primary-color text-white-color rounded-3xl">
-            Add new images
-          </FilledButton>
         </div>
+
         {/* Gallery images */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
-          {/* Dummy gallery images */}
-          <img
-            src={galleryImg}
-            alt="Gallery"
-            className="w-full object-cover rounded-lg"
-          />
+        <div className="mt-6">
+          <Formik
+            initialValues={{
+              gallery: organizationData.gallery || [],
+            }}
+            onSubmit={async (values) => {
+              console.log("Gallery images submitted:", values.gallery);
+            }}
+          >
+            {({ values }) => (
+              <Form>
+                <MyMultiFileInput
+                  name="gallery"
+                  label="Upload Gallery Images"
+                />
+
+                <FilledButton
+                  type="submit"
+                  className="bg-primary-color text-white-color rounded-3xl mt-4"
+                >
+                  Save Gallery
+                </FilledButton>
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
 

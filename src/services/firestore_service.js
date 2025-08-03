@@ -45,6 +45,21 @@ export const addOrgnizationDoc = async (orgData, uid) => {
   );
 };
 
+export const updateOrganizationGallery = async (uid, galleryArray) => {
+  const docRef = doc(db, "organizations", uid);
+  try {
+    await setDoc(
+      docRef,
+      {
+        gallery: galleryArray
+      },
+      { merge: true } 
+    );
+  } catch (error) {
+    console.error("Error updating gallery images:", error);
+  }
+};
+
 export const getOrginzationDoc = async (uid) => {
   const docRef = doc(db, 'organizations', uid)
   const orgSnapshot = await getDoc(docRef);
