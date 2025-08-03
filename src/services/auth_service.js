@@ -16,10 +16,10 @@ const provider = new GoogleAuthProvider();
 export const signInWithGoogle = async () => {
 	try {
 		const result = await signInWithPopup(auth, provider);
+		const additionalInfo = getAdditionalUserInfo(result);
 		const credential = GoogleAuthProvider.credentialFromResult(result);
 		const token = credential.accessToken;
 		const user = result.user;
-		const additionalInfo = getAdditionalUserInfo(result);
 
 		return {
 			user,
@@ -86,10 +86,10 @@ export const signOutUser = async () => {
 };
 
 export const getCurrentUser = () => {
-    return new Promise((resolve) => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            unsubscribe();
-            resolve(user || null);
-        });
-    });
+	return new Promise((resolve) => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			unsubscribe();
+			resolve(user || null);
+		});
+	});
 };

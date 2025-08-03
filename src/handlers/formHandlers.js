@@ -22,9 +22,14 @@ export const handleLoginSubmit = async (value, setSubmitting, setFieldError, nav
 
 export const handleSignupSubmit = async (value, setSubmitting, setFieldError, navigate) => {
     const userName = value.firstName + " " + value.lastName;
+    const userData = {
+        email: value.email,
+        userName: userName,
+        role: null
+    }
     try {
         const userCredentials = await signUpUser(userName, value.email, value.password);
-        await addNewUser(value, userCredentials.user.uid);
+        await addNewUser(userData, userCredentials.user.uid);
         navigate('/select-role');
     } catch (error) {
         if (error.code === "auth/email-already-in-use") {
@@ -44,8 +49,21 @@ export const handleSignupSubmit = async (value, setSubmitting, setFieldError, na
 //recieve error setter from formik and navigate function from formik
 export const handleGoogleAuth = async (setFieldError, navigate) => {
     try {
-        await signInWithGoogle();
-        navigate('/');
+        const { user, token, isNewUser, providerId } = await signInWithGoogle();
+        if (isNewUser) {
+            const userData = {
+                email: user.email,
+                userName: user.displayName,
+                role: null
+            }
+            await addNewUser(userData, user.uid);
+            navigate('/select-role');
+        }
+        else {
+            navigate('/')
+
+        }
+
     } catch (error) {
         if (error.code === "auth/invalid-credential") {
             setFieldError("general", "Invalid Google credentials. Please try again.");
