@@ -32,29 +32,29 @@ export const documentsSchema = Yup.object({})
     taxId: Yup.mixed().required("Tax ID is required"),
     insuranceCertificate: Yup.mixed().required("Insurance certificate is required"),
   });
-  export const bankingSchema = Yup.object({
-    accountHolderName: Yup.string()
-      .min(3, "Name must be at least 3 characters")
-      .required("Account holder name is required"),
-  
-    bankName: Yup.string()
-      .min(2, "Bank name is too short")
-      .required("Bank name is required"),
-  
-    accountNumber: Yup.string()
-      .matches(/^\d{10,20}$/, "Account number must be 10–20 digits")
-      .required("Account number is required"),
-  
-    bankRoutingNumber: Yup.string()
-      .matches(/^\d{6,12}$/, "Routing number must be 6–12 digits")
-      .required("Routing number is required"),
-  
-    iban: Yup.string()
-      .matches(/^EG[0-9]{27}$/, "IBAN must start with 'EG' and be 29 characters")
-      .required("IBAN is required"),
-  });
-  
-  export const contactSchema = Yup.object({
+export const bankingSchema = Yup.object({
+  accountHolderName: Yup.string()
+    .min(3, "Name must be at least 3 characters")
+    .required("Account holder name is required"),
+
+  bankName: Yup.string()
+    .min(2, "Bank name is too short")
+    .required("Bank name is required"),
+
+  accountNumber: Yup.string()
+    .matches(/^\d{10,20}$/, "Account number must be 10–20 digits")
+    .required("Account number is required"),
+
+  bankRoutingNumber: Yup.string()
+    .matches(/^\d{6,12}$/, "Routing number must be 6–12 digits")
+    .required("Routing number is required"),
+
+  iban: Yup.string()
+    .matches(/^EG[0-9]{27}$/, "IBAN must start with 'EG' and be 29 characters")
+    .required("IBAN is required"),
+});
+
+export const contactSchema = Yup.object({
   phoneNumber: Yup.string()
     .matches(/^(?:\+20|0020|0)?1[0125][0-9]{8}$/, "Must be a valid Egyptian phone number")
     .required("Phone number is required"),
@@ -81,7 +81,19 @@ export const brandingSchema = Yup.object({
 //personal sitter schemas
 
 export const personalContactSchema = Yup.object({
-  address: Yup.string().required("Address is required"),
+  city: Yup.string()
+    .required("City is required"),
+
+  district: Yup.string()
+    .required("District is required"),
+
+  street: Yup.string()
+    .required("Street is required"),
+
+  postlCode: Yup.string()
+    .required("Postal code is required")
+    .matches(/^\d{5}$/, "Postal code must be 5 digits"),
+
   phoneNumber: Yup.string()
     .matches(/^01[0125][0-9]{8}$/, "Must be a valid Egyptian phone number")
     .required("Phone number is required"),
