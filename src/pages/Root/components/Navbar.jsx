@@ -7,8 +7,13 @@ import { StaticMenuIcon } from "../../../ui/Icons/StaticIcons";
 import useUserStore from "../../../store/useUserStore";
 
 function Navbar() {
-  const user = useUserStore();
-  const firstInitials = user.user.displayName.slice(0,1).toUpperCase();
+  const user = useUserStore().user;
+  let firstInitials;
+
+  if (user) {
+    firstInitials = user.displayName.slice(0, 1).toUpperCase();
+  }
+
   return (
     <header className="navbar flex items-center justify-center bg-base-100 shadow-sm min-h-[4rem] px-8">
       <div className="flex-1 flex items-center">
@@ -23,12 +28,16 @@ function Navbar() {
       <nav className="hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">
           {user ? (
+            //user icon
             <li className="">
-              <div className="avatar avatar-placeholder rounded-full p-1">
-                <div className="bg-primary-color text-primary-color-100 w-8 rounded-full">
-                  <span className="text-md">{firstInitials}</span>
+              <label
+                htmlFor="nav-drawer"
+                className="avatar avatar-placeholder rounded-full p-1 active:!bg-transparent "
+              >
+                <div className="bg-primary-color text-primary-color-100 w-10 rounded-full ">
+                  <span className="text-md font-medium">{firstInitials}</span>
                 </div>
-              </div>
+              </label>
             </li>
           ) : (
             <>
