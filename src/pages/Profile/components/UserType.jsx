@@ -11,6 +11,7 @@ import {
   getPetDocs,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
+import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 
 export default function UserType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
@@ -114,16 +115,26 @@ export default function UserType() {
               subTitle="Here you can add, edit, or remove your pet's profiles."
             />
           </div>
-          <FilledButton
+          {/* <FilledButton
             className="bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color"
             onClick=""
           >
             Add Pet
-          </FilledButton>
+          </FilledButton> */}
         </div>
         {/* Pet cards goes here */}
 
-       
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {pets.length > 0 ? (
+            pets.map((pet) => <PetProfileCard key={pet.id} pet={pet} />)
+          ) : (
+            <div className="text-center w-full">
+              <Paragraph className="text-paragraph-color text-paragraph-sm">
+                No pets added yet. Click "Add Pet" to get started!
+              </Paragraph>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* ############ Bookings Input ############ */}
