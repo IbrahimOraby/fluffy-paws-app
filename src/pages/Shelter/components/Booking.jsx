@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
 import CalendarInput from "../../../ui/Inputs/CalendarInput";
 import Dropdown from "../../../ui/Inputs/Dropdown";
 import NumberInput from "../../../ui/Inputs/NumberInput";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import data from "../../../data/shelterData.json";
 import { bookingSchema } from "../../../schemas/bookingSchema";
 import { Formik } from "formik";
 import { Form } from "react-router";
 
-export default function Booking() {
-  const [price, setPrice] = useState([]);
-
-  useEffect(() => {
-    setPrice(data.pricePerNight);
-  }, []);
-
+export default function Booking({ shelterData, role }) {
   return (
     <div className="w-full max-w-sm border border-gray-300 rounded-xl p-4 shadow-sm bg-white">
       <div className="mb-4">
@@ -25,7 +17,15 @@ export default function Booking() {
         </Heading>
         <div className="flex items-center justify-between text-sm text-gray-600">
           <Paragraph>Your pet will stay at the hotel</Paragraph>
-          <Paragraph className="font-medium text-black">${price}</Paragraph>
+          {role === "organization" && (
+            <Paragraph className="font-medium text-black">
+              £{shelterData?.info.price || "99"}
+            </Paragraph>
+          )}
+          {role==='personal'&&            <Paragraph className="font-medium text-black">
+              £{shelterData?.experience.price || "99"}
+            </Paragraph>
+}
         </div>
       </div>
 
