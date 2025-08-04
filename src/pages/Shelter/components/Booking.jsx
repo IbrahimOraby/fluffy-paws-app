@@ -1,14 +1,28 @@
-import CalendarInput from "../../../ui/Inputs/CalendarInput";
 import Dropdown from "../../../ui/Inputs/Dropdown";
 import NumberInput from "../../../ui/Inputs/NumberInput";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import { bookingSchema } from "../../../schemas/bookingSchema";
-import { Formik } from "formik";
-import { Form } from "react-router";
+import { Formik, Form } from "formik";
+import { useNavigate } from "react-router-dom";
+import FormikCalendarInput from "../../Booking/components/FormikCalendarInput";
+import { useEffect, useState } from "react";
 
 export default function Booking({ shelterData, role }) {
+  const navigate = useNavigate();
+  const [price, setPrice] = useState(null);
+  // const shelterData = data;
+
+  useEffect(() => {
+    const newPrice =
+      role === "organization"
+        ? shelterData?.info?.price
+        : shelterData?.experience?.price;
+
+    setPrice(newPrice);
+  }, [role, shelterData]);
+
   return (
     <div className="w-full max-w-sm border border-gray-300 rounded-xl p-4 shadow-sm bg-white">
       <div className="mb-4">
@@ -22,10 +36,11 @@ export default function Booking({ shelterData, role }) {
               £{shelterData?.info.price || "99"}
             </Paragraph>
           )}
-          {role==='personal'&&            <Paragraph className="font-medium text-black">
+          {role === "personal" && (
+            <Paragraph className="font-medium text-black">
               £{shelterData?.experience.price || "99"}
             </Paragraph>
-}
+          )}
         </div>
       </div>
 
@@ -38,7 +53,16 @@ export default function Booking({ shelterData, role }) {
         }}
         validationSchema={bookingSchema}
         onSubmit={(values) => {
-          console.log("Booking submitted", values);
+          const payload = {
+            shelter: shelterData,
+            bookingForm: values,
+          };
+          navigate("/booking", {
+            state: {
+              shelter: { ...shelterData },
+              bookingForm: values,
+            },
+          });
         }}
       >
         {({ values, setFieldValue, errors, touched }) => (
@@ -75,7 +99,7 @@ export default function Booking({ shelterData, role }) {
                   From
                 </label>
                 <div className="flex justify-center">
-                  <CalendarInput
+                  <FormikCalendarInput
                     name="fromDate"
                     value={values.fromDate}
                     onChange={(val) => setFieldValue("fromDate", val)}
@@ -93,10 +117,10 @@ export default function Booking({ shelterData, role }) {
                   To
                 </label>
                 <div className="flex justify-center">
-                  <CalendarInput
+                  <FormikCalendarInput
                     name="toDate"
                     value={values.toDate}
-                    onChange={(val) => setFieldValue("toDate", val)}
+                    onChange={(val) => setFieldValue("fromDate", val)}
                   />
                 </div>
                 {errors.toDate && touched.toDate && (

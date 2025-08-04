@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export const addNewUser = async (userData, uid) => {
@@ -9,7 +18,7 @@ export const addNewUser = async (userData, uid) => {
       firstName: userData.firstName,
       lastName: userData.lastName,
       role: null,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     });
   } catch (error) {
     console.log(error);
@@ -49,7 +58,7 @@ export const addOrgnizationDoc = async (orgData, uid) => {
     docRef,
     {
       ...orgData,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     },
     { merge: true }
   );
@@ -61,7 +70,7 @@ export const updateOrganizationGallery = async (uid, galleryArray) => {
     await setDoc(
       docRef,
       {
-        gallery: galleryArray
+        gallery: galleryArray,
       },
       { merge: true }
     );
@@ -71,13 +80,13 @@ export const updateOrganizationGallery = async (uid, galleryArray) => {
 };
 
 export const getOrginzationDoc = async (uid) => {
-  const docRef = doc(db, 'organizations', uid)
+  const docRef = doc(db, "organizations", uid);
   const orgSnapshot = await getDoc(docRef);
   return orgSnapshot.data();
-}
+};
 
 export const getPersonalSitterDoc = async (uid) => {
-  const docRef = doc(db, 'personalSitters', uid);
+  const docRef = doc(db, "personalSitters", uid);
   const sitterSnapshot = await getDoc(docRef);
   return sitterSnapshot.data();
 };
@@ -95,9 +104,9 @@ export const updatePersonalSitterData = async (uid, updatedData) => {
 export const getAllCollectionDocs = async (collectionName) => {
   try {
     const querySnapshot = await getDocs(collection(db, collectionName));
-    const docs = querySnapshot.docs.map(doc => ({
+    const docs = querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     }));
     return docs;
   } catch (error) {
@@ -112,7 +121,7 @@ export const addPersonalSitterDoc = async (personalFormData, uid) => {
       docRef,
       {
         ...personalFormData,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
       },
       { merge: true }
     );
@@ -127,7 +136,7 @@ export const updatePersonalSitterGallery = async (uid, galleryArray) => {
     await setDoc(
       docRef,
       {
-        gallery: galleryArray
+        gallery: galleryArray,
       },
       { merge: true }
     );
@@ -140,9 +149,9 @@ export const getPetDocs = async (uid) => {
   try {
     const petsCollectionRef = collection(db, "users", uid, "pets");
     const querySnapshot = await getDocs(petsCollectionRef);
-    const pets = querySnapshot.docs.map(doc => ({
+    const pets = querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     }));
 
     return pets;
@@ -151,7 +160,6 @@ export const getPetDocs = async (uid) => {
     return [];
   }
 };
-
 
 export const getFullNameFromUserBySitterId = async (sitterId) => {
   if (!sitterId) return null;
@@ -171,8 +179,6 @@ export const getFullNameFromUserBySitterId = async (sitterId) => {
     return null;
   }
 };
-
-
 
 export const addUserNameToPersonalSitters = async () => {
   try {
@@ -202,5 +208,19 @@ export const addUserNameToPersonalSitters = async () => {
     }
   } catch (error) {
     console.error("Error updating userName fields:", error);
+  }
+};
+
+export const addPetDoc = async (uid, petData) => {
+  try {
+    const petsRef = collection(db, "users", uid, "pets");
+    const docRef = await addDoc(petsRef, {
+      ...petData,
+      createdAt: serverTimestamp(),
+    });
+    return docRef.id;
+  } catch (err) {
+    console.error("Error adding pet:", err);
+    throw err;
   }
 };

@@ -3,7 +3,7 @@ import Reviews from "../../ui/Reviews/Reviews";
 import ShelterInfo from "./components/ShelterInfo";
 import Booking from "./components/Booking";
 import AboutShelter from "./components/AboutShelter";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import {
   getOrginzationDoc,
   getPersonalSitterDoc,
@@ -11,9 +11,7 @@ import {
 import LoadingSpinner from "./../../ui/loading/LoadingSpinner";
 
 const Shelter = () => {
-  const params = useParams();
-  const shelterId = params.id;
-
+  const { id: shelterId } = useParams();
   const [shelterData, setShelterData] = useState();
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState(null);
