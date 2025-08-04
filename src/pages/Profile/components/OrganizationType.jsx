@@ -9,17 +9,17 @@ import PastReq from "./PastReq";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import LinkButton from "../../../ui/Buttons/LinkButton";
-import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
 import {
-  getPersonalSitterDoc,
-  updatePersonalSitterGallery,
+  getOrginzationDoc,
+  updateOrganizationGallery,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
+import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
+import LinkButton from "../../../ui/Buttons/LinkButton";
 
-export default function SitterType() {
+export default function OrganizationType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
-  const [sitterData, setSitterData] = useState(null);
+  const [organizationData, setOrganizationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditingGallery, setIsEditingGallery] = useState(false);
 
@@ -40,7 +40,6 @@ export default function SitterType() {
       owner: "John Smith",
     },
   ]);
-  ``;
 
   const [past, setPast] = useState([
     {
@@ -52,14 +51,16 @@ export default function SitterType() {
   ]);
 
   useEffect(() => {
-    const fetchSitterData = async () => {
-      if (user && userDoc && userDoc.role === "personal") {
+    console.log(import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY);
+
+    const fetchOrganizationData = async () => {
+      if (user && userDoc && userDoc.role === "org") {
         setLoading(true);
         try {
-          const data = await getPersonalSitterDoc(user.uid);
-          setSitterData(data);
+          const data = await getOrginzationDoc(user.uid);
+          setOrganizationData(data);
         } catch (error) {
-          console.error("Error fetching sitter data:", error);
+          console.error("Error fetching organization data:", error);
         } finally {
           setLoading(false);
         }
@@ -67,15 +68,15 @@ export default function SitterType() {
         setLoading(false);
       }
     };
-    fetchSitterData();
+    fetchOrganizationData();
   }, [user, userDoc]);
 
   if (userLoading || loading) {
-    return <div>Loading sitter data...</div>;
+    return <div>Loading organization data...</div>;
   }
 
-  if (!sitterData) {
-    return <div>No sitter data found.</div>;
+  if (!organizationData) {
+    return <div>No organization data found.</div>;
   }
 
   const handleApprove = (id) => {
@@ -104,12 +105,11 @@ export default function SitterType() {
           subTitle="Manage your personal information and preferences."
         />
         <UserProfileCard
-          avatarSrc={sitterData.profileSetup.profilePicture.cdnUrl}
-          // avatarSrc={sitterData.profileSetup.profilePicture.cdnUrl}
-          fullName={`${userDoc.firstName} ${userDoc.lastName}`}
-          email={userDoc.email}
-          phoneNumber={sitterData.contact.phoneNumber}
-          address={sitterData.contact.address}
+          avatarSrc={organizationData.branding.organizationLogo.cdnUrl}
+          fullName={organizationData.info.name}
+          email={organizationData.info.email}
+          phoneNumber={organizationData.contact.phoneNumber}
+          address={`${organizationData.contact.street}, ${organizationData.contact.district}, ${organizationData.contact.city}.`}
         />
       </div>
 
@@ -198,16 +198,16 @@ export default function SitterType() {
           <div>
             <ProfileSectionHeader
               title="Gallery"
-              subTitle="Showcase your sitting environment and space."
+              subTitle="Showcase your organization’s environment and space."
             />
           </div>
         </div>
 
         {!isEditingGallery ? (
           <>
-            {sitterData.gallery?.length > 0 ? (
+            {organizationData.gallery?.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-                {sitterData.gallery.map((img, index) => (
+                {organizationData.gallery.map((img, index) => (
                   <div key={index} className="rounded overflow-hidden">
                     <img
                       src={img.cdnUrl}
@@ -233,12 +233,12 @@ export default function SitterType() {
         ) : (
           <Formik
             initialValues={{
-              gallery: sitterData.gallery || [],
+              gallery: organizationData.gallery || [],
             }}
             onSubmit={async (values, { resetForm }) => {
               try {
-                await updatePersonalSitterGallery(user.uid, values.gallery);
-                setSitterData((prev) => ({
+                await updateOrganizationGallery(user.uid, values.gallery);
+                setOrganizationData((prev) => ({
                   ...prev,
                   gallery: values.gallery,
                 }));
@@ -264,10 +264,10 @@ export default function SitterType() {
                     Save
                   </FilledButton>
                   <LinkButton
-                    className="!text-paragraph-color"
-                    onClick={() => setIsEditingGallery(false)}
+                  className="!text-paragraph-color"
+                  onClick={() => setIsEditingGallery(false)}
                   >
-                    Cancel
+                  Cancel
                   </LinkButton>
                 </div>
               </Form>
@@ -286,41 +286,37 @@ export default function SitterType() {
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <ProfileSectionHeader
           title="More Information"
-          subTitle="Details about your service, housing, and pet preferences."
+          subTitle="Detailed organizational data including availability, banking, and documents."
         />
+
+        {/* Availability */}
         <div className="mt-6">
           <Heading className="text-header-sm mb-2 text-primary-color">
-            About Me
+            Availability
           </Heading>
           <Paragraph className="text-paragraph-color text-paragraph-sm">
-            {sitterData.aboutMe.bio}
+            From:{" "}
+            {new Date(organizationData.availableFrom).toLocaleDateString()}{" "}
+            <br />
+            To: {new Date(organizationData.availableTo).toLocaleDateString()}
           </Paragraph>
         </div>
-        <div className="mt-6">
-          <Heading className="text-header-sm mb-2 text-primary-color">
-            Years of Experience
-          </Heading>
-          <Paragraph className="text-paragraph-color text-paragraph-sm">
-            {sitterData.experience.yearsExperience} years
-          </Paragraph>
-        </div>
+
+        {/* Banking Information */}
         <div className="mt-6">
           <Heading className="text-header-sm mb-2 text-blue-900">
-            Pet Preferences
+            Banking Info
           </Heading>
           <Paragraph className="text-paragraph-color text-paragraph-sm">
-            {sitterData.petPreferences.petTypes.join(", ")}
+            Bank Name: {organizationData.banking.bankName} <br />
+            Account Holder: {organizationData.banking.accountHolderName} <br />
+            Account Number: {organizationData.banking.accountNumber} <br />
+            IBAN: {organizationData.banking.iban} <br />
+            Routing Number: {organizationData.banking.bankRoutingNumber}
           </Paragraph>
         </div>
-        <div className="mt-6">
-          <Heading className="text-header-sm mb-2 text-header-color">
-            Home Information
-          </Heading>
-          <Paragraph className="text-paragraph-color text-paragraph-sm">
-            Home Type: {sitterData.homeInfo.homeType} <br />
-            Has Kids: {sitterData.homeInfo.hasKids}
-          </Paragraph>
-        </div>
+
+        {/* Documents */}
         <div className="mt-6">
           <Heading className="text-header-sm mb-2 text-header-color">
             Legal Documents
@@ -328,12 +324,32 @@ export default function SitterType() {
           <ul className="list-disc ml-6 text-paragraph-sm text-paragraph-color">
             <li>
               <a
-                href={sitterData.profileSetup.personalId.cdnUrl}
+                href={organizationData.documents.businessLicense.cdnUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline"
               >
-                Personal ID
+                Business License
+              </a>
+            </li>
+            <li>
+              <a
+                href={organizationData.documents.insuranceCertificate.cdnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Insurance Certificate
+              </a>
+            </li>
+            <li>
+              <a
+                href={organizationData.documents.taxId.cdnUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Tax ID
               </a>
             </li>
           </ul>

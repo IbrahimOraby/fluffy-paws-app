@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 import UserType from "./components/UserType";
 import SitterType from "./components/SitterType";
+import useUserStore from "../../store/useUserStore";
+import OrganizationType from "./components/OrganizationType";
 
 export default function UserDashboard() {
-  // Set the user type. Can be 'user', 'sitter', or 'shelter'.
-  const [userType, setUserType] = useState("shelter");
+  const { userDoc, loading } = useUserStore();
+  // console.log("infoooooo%%%%%", userDoc);
 
   const renderUserSpecificContent = () => {
-    switch (userType) {
-      case "user":
-        return (
-          <>
-            <UserType />
-          </>
-        );
-      case "sitter":
-      case "shelter":
-        return (
-          <>
-            <SitterType />
-          </>
-        );
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    if (!userDoc || !userDoc.role) {
+      return <div>Please complete your profile information.</div>;
+    }
+
+    const userRole = userDoc.role;
+
+    switch (userRole) {
+      case "client":
+        return <UserType />;
+      case "personal":
+        return <SitterType />;
+      case "org":
+        return <OrganizationType />;
       default:
         return null;
     }

@@ -3,7 +3,7 @@ import profileImg from "../../../assets/images/man-159847_1280.png";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 
-export default function UserProfileCard({
+export default function ClientProfileCard({
   avatarSrc,
   fullName,
   email,
@@ -23,7 +23,7 @@ export default function UserProfileCard({
             Full Name
           </Paragraph>
           <SubHeading className="text-header-color text-subheader-md">
-            {fullName}
+            {fullName || "N/A"}
           </SubHeading>
         </div>
         <div>
@@ -31,29 +31,25 @@ export default function UserProfileCard({
             Email Address
           </Paragraph>
           <SubHeading className="text-header-color text-subheader-md">
-            {email}
+            {email || "N/A"}
           </SubHeading>
         </div>
-        {phoneNumber && (
-          <div>
-            <Paragraph className="text-paragraph-color text-paragraph-xs">
-              Phone Number
-            </Paragraph>
-            <SubHeading className="text-header-color text-subheader-md">
-              {phoneNumber}
-            </SubHeading>
-          </div>
-        )}
-        {address && (
-          <div>
-            <Paragraph className="text-paragraph-color text-paragraph-xs">
-              Address
-            </Paragraph>
-            <SubHeading className="text-header-color text-subheader-md">
-              {address}
-            </SubHeading>
-          </div>
-        )}
+        <div>
+          <Paragraph className="text-paragraph-color text-paragraph-xs">
+            Phone Number
+          </Paragraph>
+          <SubHeading className="text-header-color text-subheader-md">
+            {phoneNumber || "N/A"}
+          </SubHeading>
+        </div>
+        <div>
+          <Paragraph className="text-paragraph-color text-paragraph-xs">
+            Address
+          </Paragraph>
+          <SubHeading className="text-header-color text-subheader-md">
+            {address || "N/A"}
+          </SubHeading>
+        </div>
       </div>
     </div>
   );
