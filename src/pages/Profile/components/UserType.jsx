@@ -122,18 +122,8 @@ export default function UserType() {
           </FilledButton>
         </div>
         {/* Pet cards goes here */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
-          <PetProfileCard
-            petName="Buddy"
-            breedAge="Golden Retriever, 3 years old"
-            description=" Needs daily walks and loves treats."
-          />
-          <PetProfileCard
-            petName="Whiskers"
-            breedAge="Calico Cat, 5 years old"
-            description="Quiet, loves sunbathing."
-          />
-        </div>
+
+       
       </div>
 
       {/* ############ Bookings Input ############ */}
@@ -184,12 +174,12 @@ export default function UserType() {
             //   imageUrl={}
             description="Experienced dog walker and boarder."
           /> */}
-          {/* <FavouriteProfileCard
+      {/* <FavouriteProfileCard
             name="The Happy Paws Shelter"
             //   imageUrl={}
             description="Spacious facilities for all pets."
           /> */}
-        {/* </div>
+      {/* </div>
       </div> */}
     </>
   );
