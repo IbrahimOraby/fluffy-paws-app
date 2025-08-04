@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "3afaf",
+    "image": "https://randomuser.me/api/portraits/women/45.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Toto",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Simba",
+    "image": "https://randomuser.me/api/portraits/women/22.jpg"
+  }
+]

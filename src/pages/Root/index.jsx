@@ -7,20 +7,25 @@ import useUserStore from "../../store/useUserStore";
 import { useEffect } from "react";
 
 const Root = () => {
+
+  
   const location = useLocation();
   const showNavFooter = !location.pathname.includes("/select-role");
-  const { user, userDoc, loading, error, observeAuth } = useUserStore();
+  const user = useUserStore((state) => state.user);
+  const userDoc = useUserStore((state) => state.userDoc);
+  const userDataLoading = useUserStore((state) => state.loading);
+  const error = useUserStore((state) => state.error);
+  const observeAuth = useUserStore((state) => state.observeAuth);
 
   useEffect(() => {
-    const unsubscribe = observeAuth(); 
-    return () => unsubscribe(); 
+    const unsubscribe = observeAuth();
+    return () => unsubscribe();
   }, [observeAuth]);
 
   console.log("User:", user);
   console.log("User Document:", userDoc);
 
-
-  if (loading) return <LoadingSpinner />;
+  if (userDataLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

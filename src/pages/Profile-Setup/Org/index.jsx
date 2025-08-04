@@ -28,64 +28,72 @@ const OrganizationSetup = () => {
     {
       title: "Organization Info",
       subtitle:
-        "Please fill out the following information to set up your organization profile on Fluffy Paw.",
+        "Provide basic information about your organization and the services you offer.",
       action: "setInfo",
       fields: [
         {
           name: "name",
-          label: "Name",
+          label: "Organization Name",
           type: "text",
-          placeholder: "Enter organization name",
+          placeholder: "e.g., Fluffy Paws Shelter",
         },
         {
           name: "email",
-          label: "Email",
+          label: "Email Address",
           type: "email",
-          placeholder: "Enter organization email",
-        },
-        {
-          name: "location",
-          label: "Location",
-          type: "text",
-          placeholder: "Enter organization location",
+          placeholder: "e.g., contact@fluffypaws.com",
         },
         {
           name: "website",
           label: "Website",
           type: "text",
-          placeholder: "Enter organization website",
+          placeholder: "e.g., www.fluffypaws.com",
+        },
+        {
+          name: "price",
+          label: "Boarding Price (EGP per night)",
+          type: "text",
+          placeholder: "e.g., 250",
+        },
+        {
+          name: "petTypes",
+          label: "Which pets can you accommodate?",
+          type: "checkbox",
+          options: ["Dogs", "Cats"],
         },
       ],
       initialValues: {
         name: organizationData.info?.name || "",
         email: organizationData.info?.email || "",
-        location: organizationData.info?.location || "",
         website: organizationData.info?.website || "",
+        price: organizationData.info?.price || "",
+        petTypes: organizationData.info?.petTypes || "",
       },
       schema: infoSchema,
     },
     {
       title: "Documents",
-      subtitle: "Upload the necessary documents to verify your organization.",
+      subtitle:
+        "Upload official documents to verify and approve your organization for bookings.",
       action: "setDocuments",
       fields: [
         {
           name: "businessLicense",
           label: "Business License",
           type: "file",
-          placeholder: "Upload business license",
+          placeholder: "Attach a copy of your business license",
         },
         {
           name: "taxId",
-          label: "Tax ID",
+          label: "Tax Identification Document",
           type: "file",
-          placeholder: "Upload tax ID",
+          placeholder: "Upload your tax identification document",
         },
         {
           name: "insuranceCertificate",
           label: "Insurance Certificate",
           type: "file",
-          placeholder: "Upload insurance certificate",
+          placeholder: "Attach valid insurance certificate",
         },
       ],
       initialValues: {
@@ -105,31 +113,31 @@ const OrganizationSetup = () => {
           name: "accountHolderName",
           label: "Account Holder Name",
           type: "text",
-          placeholder: "Enter account holder name",
+          placeholder: "e.g. John Doe",
         },
         {
           name: "bankName",
           label: "Bank Name",
           type: "text",
-          placeholder: "Enter bank name",
+          placeholder: "e.g. Banque Misr, CIB, HSBC",
         },
         {
           name: "accountNumber",
           label: "Account Number",
           type: "text",
-          placeholder: "Enter account number",
+          placeholder: "e.g. 123456789012",
         },
         {
           name: "bankRoutingNumber",
           label: "Bank Routing Number",
           type: "text",
-          placeholder: "Enter bank routing number",
+          placeholder: "e.g. 012345678",
         },
         {
           name: "iban",
           label: "IBAN",
           type: "text",
-          placeholder: "Enter IBAN",
+          placeholder: "e.g. EG380019000500000000263180002",
         },
       ],
       initialValues: {
@@ -142,7 +150,7 @@ const OrganizationSetup = () => {
       schema: bankingSchema,
     },
     {
-      title: "Contact & Representative",
+      title: "Contact & Address",
       subtitle: "Help users find you easily",
       action: "setContact",
       fields: [
@@ -150,41 +158,46 @@ const OrganizationSetup = () => {
           name: "phoneNumber",
           label: "Phone Number",
           type: "text",
-          placeholder: "Enter phone number",
+          placeholder: "e.g. 01098880000",
         },
         {
-          name: "whatsAppNumber",
-          label: "WhatsApp Number",
+          name: "city",
+          label: "City",
+          type: "select",
+          placeholder: "select your city ",
+        },
+        {
+          name: "district",
+          label: "District",
           type: "text",
-          placeholder: "Enter WhatsApp number",
+          placeholder: "Enter your district",
         },
         {
-          name: "responsiblePersonName",
-          label: "Responsible Person Name",
+          name: "street",
+          label: "Street",
           type: "text",
-          placeholder: "Enter responsible person name",
+          placeholder: "Enter your street",
         },
         {
-          name: "responsiblePersonId",
-          label: "Responsible Person ID",
-          type: "file",
-          placeholder: "Upload responsible person ID",
+          name: "postlCode",
+          label: "Postal Code",
+          type: "text",
+          placeholder: "Enter your postal code",
         },
       ],
       initialValues: {
         phoneNumber: organizationData.contact?.phoneNumber || "",
-        whatsAppNumber: organizationData.contact?.whatsAppNumber || "",
-        responsiblePersonName:
-          organizationData.contact?.responsiblePersonName || "",
-        responsiblePersonId:
-          organizationData.contact?.responsiblePersonId || null,
+        city: organizationData.contact?.city || "",
+        district: organizationData.contact?.district || "",
+        street: organizationData.contact?.street || null,
+        postlCode: organizationData.contact?.postlCode || null,
       },
       schema: contactSchema,
     },
     {
       title: "Branding",
       subtitle:
-        "Present your organization professionally to help users trust you.",
+        "Present your organization professionally to help users trust you, description will be used to give clients information about your place.",
       action: "setBranding",
       fields: [
         {
@@ -218,7 +231,7 @@ const OrganizationSetup = () => {
   //* If currentFormIndex is 0, we show the organization license image
   const currentStep = steps[currentFormIndex - 1];
   const isLastStep = currentFormIndex === steps.length;
-  console.log(currentStep)
+  console.log(currentStep);
 
   return (
     <div className="flex flex-col h-screen">
@@ -280,7 +293,7 @@ const OrganizationSetup = () => {
             }
           }}
         >
-         {!isLastStep ? "Next" : isFormSubmitting ? "Submitting..." : "Submit"}
+          {!isLastStep ? "Next" : isFormSubmitting ? "Submitting..." : "Submit"}
         </FilledButton>
       </footer>
     </div>
