@@ -105,7 +105,7 @@ export default function Trustedsection() {
           imgclass="w-full h-[600px] object-cover"
         />
 
-        <div className="absolute top-[350px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-10">
+        <div className="absolute top-[350px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-1">
           <form className="flex flex-col gap-6">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Animal Section */}
