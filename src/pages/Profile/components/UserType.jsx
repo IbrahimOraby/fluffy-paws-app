@@ -99,7 +99,7 @@ export default function UserType() {
             validationSchema={validationSchema}
             onSubmit={async (values, { setSubmitting }) => {
               try {
-                await updateClientProfile(user.uid, values);
+                await updateClientData(user.uid, values);
                 setClientData(values);
                 setIsEditing(false);
               } catch (error) {
