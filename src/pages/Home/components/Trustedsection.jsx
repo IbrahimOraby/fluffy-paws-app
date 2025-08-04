@@ -135,9 +135,9 @@ export default function Trustedsection() {
           icon={<StaticUserIcon color="#BE5985" />}
           title="Personal Carer"
           description="Cheaper prices"
-          value="personal"
+          value="Personal Sitter"
           name="provider"
-          checked={selectedProvider === "personal"}
+          checked={selectedProvider === "Personal Sitter"}
           onChange={(e) => setSelectedProvider(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center"
         />
