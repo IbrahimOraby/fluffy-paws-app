@@ -1,15 +1,10 @@
 import React from "react";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import petOwnerImg from "../../../assets/images/eg9a_s0c1_201128.jpg";
-import sitterImg from "../../../assets/images/21200647.jpg";
-import shelterImg from "../../../assets/images/rlbm_6cj9_210914.jpg";
+import petOwnerImg from "../../../assets/images/clientImg.jpg";
+import sitterImg from "../../../assets/images/sitterImg.png";
+import shelterImg from "../../../assets/images/orgImg.jpg";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
-import {
-  StaticDogIcon,
-  StaticPawIcon,
-  StaticCatIcon,
-} from "../../../ui/Icons/StaticIcons";
 
 export default function UserRoleSelection() {
   const roles = [
@@ -18,39 +13,36 @@ export default function UserRoleSelection() {
       title: "Pet Owner",
       imgSrc: petOwnerImg,
       description: [
-        "Create and manage your pet's profile and health",
-        "Book trusted sitters or shelters",
-        "Track booking status and history",
-        "Connect with a community of pet lovers",
+        "Manage pet profiles and health.",
+        "Book trusted sitters and care.",
+        "Track bookings and history.",
+        "Join a pet community.",
       ],
       buttonName: "Pet Owner",
-      icon: <StaticDogIcon />,
     },
     {
       id: "sitter",
-      title: "Sitter",
+      title: "Personal Sitter",
       imgSrc: sitterImg,
       description: [
-        "Offer pet sitting, walking, and boarding",
-        "Set your own rates and availability",
-        "Connect with pet owners in your area",
-        "Manage your bookings and earnings",
+        "Offer pet care services.",
+        "Set own rates and hours.",
+        "Connect with local owners.",
+        "Manage bookings and earnings.",
       ],
       buttonName: "Sitter",
-      icon: <StaticPawIcon />,
     },
     {
       id: "shelter",
-      title: "Shelter",
+      title: "Organization",
       imgSrc: shelterImg,
       description: [
-        "Manage animal intake and adoption",
-        "Offer boarding and temporary housing",
-        "Connect with owners for fostering/adoption",
-        "Oversee facility operations and staff",
+        "Manage animal intake.",
+        "Offer boarding and housing.",
+        "Connect for adoptions.",
+        "Oversee facility operations.",
       ],
       buttonName: "Shelter",
-      icon: <StaticCatIcon />,
     },
   ];
 
@@ -69,32 +61,28 @@ export default function UserRoleSelection() {
           {roles.map((role) => (
             <div
               key={role.id}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col justify-between items-center text-center border border-gray-200"
+              className="bg-light-color rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col justify-between items-center text-center border border-gray-200"
             >
               <img
                 src={role.imgSrc}
                 alt={`${role.title} Icon`}
-                className="mb-6 w-34 h-34 object-cover rounded-full"
+                className="w-full h-60 object-cover mb-6 rounded-tl-xl rounded-tr-xl"
               />
-              <Heading className="text-header-md text-primary-color mb-4">
-                {" "}
-                {role.title}
-              </Heading>
-              <ul className="text-gray-700 text-left space-y-2 flex-grow mb-6">
+              <div className="h-10 mb-4 flex items-center">
+                <Heading className="text-header-md text-primary-color">
+                  {" "}
+                  {role.title}
+                </Heading>
+              </div>
+              <ul className="list-disc pl-6 pr-6 list-inside text-paragraph-color text-left space-y-2 mb-6">
                 {role.description.map((item, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start border-b-2 text-paragraph-color border-secondary-color pb-4 pt-4"
-                  >
-                    <span className="text-primary-color mr-2 text-xl leading-none">
-                      {role.icon}
-                    </span>{" "}
+                  <li key={index} className="pb-1">
                     {item}
                   </li>
                 ))}
               </ul>
               <FilledButton
-                className="w-full bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color py-3 px-6 text-lg"
+                className="w-[80%] mb-4 bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color py-3 px-6 text-lg"
                 onClick={() => console.log(`Selected: ${role.title}`)}
               >
                 {/* {role.buttonName} */}
