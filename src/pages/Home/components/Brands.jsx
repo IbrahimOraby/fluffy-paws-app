@@ -8,7 +8,7 @@ export default function Brands() {
     <>
     <div className="px-4 py-12">
       <Heading className="text-2xl md:text-3xl font-semibold text-[#414141] w-full text-left mb-4" >
-        Other brands in the Mad Paws Group
+        Other brands in the Fluffy Paws Group
       </Heading>
 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Card 1 */}

@@ -27,7 +27,8 @@ import {
   Instagram,
   Phone,
   Award,
-  Baby
+  Baby,
+  AlarmClock
 } from "lucide-react";
 
 const createStaticIcon =
@@ -73,7 +74,8 @@ const StaticCheckIcon = createStaticIcon(Check);
 const StaticInstagramIcon=createStaticIcon(Instagram);
 const StaticPhoneIcon = createStaticIcon(Phone);
 const StaticAwardIcon = createStaticIcon(Award);
-const StaticBabyIcon=createStaticIcon(Baby)
+const StaticBabyIcon=createStaticIcon(Baby);
+const StaticAlarmIcon = createStaticIcon(AlarmClock)
 
 //! Google Icon --- Not included by lucid
 
@@ -137,6 +139,7 @@ export {
   StaticInstagramIcon,
   StaticPhoneIcon,
   StaticAwardIcon,
-  StaticBabyIcon
+  StaticBabyIcon,
+  StaticAlarmIcon
 
 };

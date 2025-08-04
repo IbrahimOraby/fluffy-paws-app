@@ -1,6 +1,6 @@
-import React from 'react';
-import Heading from '../../../ui/Typography/Heading/Heading';
-import Paragraph from '../../../ui/Typography/Paragraph/Paragraph';
+import React from "react";
+import Heading from "../../../ui/Typography/Heading/Heading";
+import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 
 export default function Animalcard({
   icon,
@@ -10,18 +10,15 @@ export default function Animalcard({
   name,
   checked,
   onChange,
-  className = '',
-
+  className = "",
 }) {
   return (
     <label
-   
-      className={`relative card card-side p-3 gap-5 cursor-pointer transition-all duration-200 
-      border-2 ${checked ? 'border-[#BE5985]' : 'border-gray-300'} 
-      rounded-md shadow-none 
-      focus:outline-none focus:ring-0 active:ring-0 focus-visible:outline-none ${className}`}
+      className={` h-22! relative card card-side px-3 gap-5 cursor-pointer transition-all duration-200 
+  border-2 ${checked ? "border-[#BE5985]" : "border-gray-300"} 
+  rounded-md shadow-none 
+  !outline-none ${className}`} // <-- Added !outline-none to force override
     >
-   
       <input
         type="radio"
         name={name}
@@ -41,7 +38,6 @@ export default function Animalcard({
         </Heading>
         <Paragraph className="flex">{description}</Paragraph>
       </div>
- 
     </label>
   );
 }

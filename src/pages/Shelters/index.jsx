@@ -118,7 +118,7 @@ console.log(filteredShelters)
         </div>
       )}
       {loading && <LoadingSpinner />}
-      {filteredShelters.length === 0 && (
+      {(!loading&&filteredShelters.length === 0) && (
         <EmptyShelters
          
         />

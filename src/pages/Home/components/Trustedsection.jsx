@@ -311,7 +311,7 @@ export default function Trustedsection() {
               {/* Search Button */}
               <button
                 type="submit"
-                className="flex items-center justify-center gap-2 px-6 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 md:w-auto"
+                className="flex cursor-pointer items-center justify-center gap-2 px-6 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 md:w-auto"
                 style={{ backgroundColor: "#BE5985" }}
               >
                 <SearchIcon className="w-4 h-4" />
