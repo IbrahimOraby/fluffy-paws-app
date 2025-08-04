@@ -33,6 +33,16 @@ export const updateUserRole = async (uid, role) => {
     console.error("Error updating user role:", error);
   }
 };
+
+export const updateClientData = async (uid, updatedData) => {
+  const userRef = doc(db, "users", uid);
+  try {
+    await setDoc(userRef, updatedData, { merge: true });
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    throw error;
+  }
+};
 export const addOrgnizationDoc = async (orgData, uid) => {
   const docRef = doc(db, "organizations", uid);
   await setDoc(
