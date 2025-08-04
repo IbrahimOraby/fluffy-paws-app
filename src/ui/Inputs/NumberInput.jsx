@@ -1,23 +1,33 @@
 import React from "react";
+import { useField } from "formik";
 import { StaticPawIcon } from "../Icons/StaticIcons";
 
-export default function NumberInput() {
+export default function NumberInputFormik({ name, min = 1, max = 3 }) {
+  const [field, meta, helpers] = useField(name);
+
   return (
-    <div>
-      <div className={"flex items-center gap-4  px-3 py-2"}>
-        <span className=" text-base ">
-          <StaticPawIcon color="#be5985" />
-        </span>
-        <input
-          type="number"
-          className="input validator"
-          required
-          placeholder="Pets Number (up to 3)"
-          min="1"
-          max="3"
-          title="Pets Number"
-        />
-      </div>
+    <div className="flex items-center gap-4 px-3 py-2">
+      <StaticPawIcon color="#be5985" />
+
+      <input
+        type="number"
+        {...field} // name, value, onChange, onBlur
+        min={min}
+        max={max}
+        placeholder={`Pets Number (up to ${max})`}
+        className={`input validator ${
+          meta.touched && meta.error ? "border-red-500" : ""
+        }`}
+        onChange={(e) => {
+          // ensure value stays within range
+          const val = Math.max(min, Math.min(max, Number(e.target.value)));
+          helpers.setValue(val);
+        }}
+      />
+
+      {meta.touched && meta.error && (
+        <span className="text-red-500 text-xs ml-1">{meta.error}</span>
+      )}
     </div>
   );
 }
