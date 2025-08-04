@@ -5,6 +5,7 @@ import sitterImg from "../../../assets/images/sitterImg.png";
 import shelterImg from "../../../assets/images/orgImg.jpg";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
+import { Link, useNavigate } from "react-router";
 
 export default function UserRoleSelection() {
   const roles = [
@@ -19,6 +20,7 @@ export default function UserRoleSelection() {
         "Join a pet community.",
       ],
       buttonName: "Pet Owner",
+      path: "/Pet",
     },
     {
       id: "sitter",
@@ -31,6 +33,7 @@ export default function UserRoleSelection() {
         "Manage bookings and earnings.",
       ],
       buttonName: "Sitter",
+      path: "/select-role/personal",
     },
     {
       id: "shelter",
@@ -42,10 +45,12 @@ export default function UserRoleSelection() {
         "Connect for adoptions.",
         "Oversee facility operations.",
       ],
+      path: "/select-role/org",
       buttonName: "Shelter",
     },
   ];
 
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-12 mb-12 px-8 md:px-0">
       <div className="col-span-12 col-start-1 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 text-center">
@@ -82,10 +87,9 @@ export default function UserRoleSelection() {
                 ))}
               </ul>
               <FilledButton
+                onClick={()=>navigate(role.path)}
                 className="w-[80%] mb-4 bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color py-3 px-6 text-lg"
-                onClick={() => console.log(`Selected: ${role.title}`)}
               >
-                {/* {role.buttonName} */}
                 Choose
               </FilledButton>
             </div>
