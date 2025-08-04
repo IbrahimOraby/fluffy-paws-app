@@ -210,15 +210,6 @@ export const addUserNameToPersonalSitters = async () => {
     console.error("Error updating userName fields:", error);
   }
 };
-const docRef = doc(db, "organizations", uid);
-await setDoc(
-  docRef,
-  {
-    ...orgData,
-    createdAt: serverTimestamp(),
-  },
-  { merge: true }
-);
 
 export const addPetDoc = async (uid, petData) => {
   try {

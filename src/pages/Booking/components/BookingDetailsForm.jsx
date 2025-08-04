@@ -14,12 +14,8 @@ import { initiatePayment } from "../../../services/paymentService";
 import useClientStore from "../../../store/clientStore";
 import useUserStore from "../../../store/useUserStore";
 
-export default function BookingDetailsForm({
-  setCurrentStep,
-  sitter,
-  defaultBooking = {},
-}) {
-  const dailyRate = sitter.pricePerNight || 50; // fallback if missing
+export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
+  const dailyRate = sitter.info.price || 50;
   const firebaseUser = useUserStore((s) => s.user);
   const userDoc = useUserStore((s) => s.userDoc);
   const userId = firebaseUser?.uid || "";
@@ -53,7 +49,7 @@ export default function BookingDetailsForm({
           /*  Build payload to send to backend */
           const payload = {
             userId: userId,
-            shelterId: sitter.id || "unknown-shelter",
+            shelterId: sitter.uid || "unknown-shelter",
             amount,
             userData: {
               firstName,

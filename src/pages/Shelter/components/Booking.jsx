@@ -7,16 +7,21 @@ import { bookingSchema } from "../../../schemas/bookingSchema";
 import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import FormikCalendarInput from "../../Booking/components/FormikCalendarInput";
+import { useEffect, useState } from "react";
 
 export default function Booking({ shelterData, role }) {
   const navigate = useNavigate();
-  const [price, setPrice] = useState(0);
-  const shelterData = data;
-  const pricePerNight = shelterData.pricePerNight;
+  const [price, setPrice] = useState(null);
+  // const shelterData = data;
 
   useEffect(() => {
-    setPrice(data.pricePerNight);
-  }, []);
+    const newPrice =
+      role === "organization"
+        ? shelterData?.info?.price
+        : shelterData?.experience?.price;
+
+    setPrice(newPrice);
+  }, [role, shelterData]);
 
   return (
     <div className="w-full max-w-sm border border-gray-300 rounded-xl p-4 shadow-sm bg-white">
