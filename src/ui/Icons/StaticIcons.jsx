@@ -19,6 +19,7 @@ import {
   Navigation,
   CalendarDays,
   LogIn,
+  LogOut,
   X,
   Menu,
   FileIcon,
@@ -60,6 +61,7 @@ const StaticPasswordIcon = createStaticIcon(KeyRound);
 const StaticEyeIcon = createStaticIcon(Eye);
 const StaticEyeOffIcon = createStaticIcon(EyeOff);
 const StaticLogInIcon = createStaticIcon(LogIn);
+const StaticLogOutIcon = createStaticIcon(LogOut);
 const StaticXIcon = createStaticIcon(X);
 const StaticMenuIcon = createStaticIcon(Menu);
 const StaticFileIcon = createStaticIcon(FileIcon);
@@ -119,6 +121,7 @@ export {
   StaticEyeIcon,
   StaticEyeOffIcon,
   StaticLogInIcon,
+  StaticLogOutIcon,
   StaticXIcon,
   StaticMenuIcon,
   StaticFileIcon,
