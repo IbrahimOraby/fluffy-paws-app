@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Badge from "../../../ui/Badge/Badge";
 import ButtonWithIcon from "../../../ui/Buttons/ButtonWithIcon";
 import {
@@ -10,6 +10,7 @@ import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 
 const ShelterCard = ({
+  id,
   name,
   city,
   distance,
@@ -17,63 +18,63 @@ const ShelterCard = ({
   rating,
   reviewsNum,
   description,
-  startdate,
-  enddate,
+  image,
 }) => {
+  console.log({
+    id,
+    name,
+    city,
+    distance,
+    price,
+    rating,
+    reviewsNum,
+    description,
+    image,
+  });
   return (
-    <>
-      <div className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300">
-        <img
-          className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
-          src="https://res.cloudinary.com/madpaws/image/upload/c_limit,f_auto,h_980,q_auto,w_980/v1/uploads/1896910/madpaws_1743484947_67eb7813c77ca.jpeg.jpg"
-          alt="Shelter preview"
-        />
+    <Link
+      to={`/shelter/${id}`}
+      className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300 cursor-pointer"
+    >
+      <img
+        className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
+        src={image}
+      />
 
-        <div className="flex flex-col flex-1 justify-between items-start">
-          <div className="flex w-full items-center justify-between mb-2">
-            <SubHeading type="h2" className="text-subheader-lg text-header-color">
-              {name}
-            </SubHeading>
-            <ButtonWithIcon
-              className="hover:bg-light-hover-color"
-              icon={<StaticHeartIcon size={18} color="#be5985" />}
-            />
-          </div>
-
-          <Paragraph className="text-paragraph-lg text-paragraph-color hidden sm:block">
-            {description}
-          </Paragraph>
-
-          <Paragraph className="text-paragraph-md text-paragraph-color mb-3">
-            {city} ({distance})
-          </Paragraph>
-
-          <div className="flex items-center mb-2">
-            <Paragraph className="text-paragraph-sm text-paragraph-color">
-              ${price} / night
-            </Paragraph>
-            <div className="divider divider-horizontal"></div>
-            <Rating rating={rating} reviewsNum={reviewsNum} />
-          </div>
-
-          {/* Start & End Date */}
-          {(startdate || enddate) && (
-            <div className="text-xs text-gray-600 bg-gray-100 px-3 py-2 rounded-md w-full mb-2">
-              <p>
-                <span className="font-semibold text-gray-800">Available:</span>{" "}
-                {startdate || "N/A"} to {enddate || "N/A"}
-              </p>
-            </div>
-          )}
-
-          <Badge
-            className="bg-primary-color-100 text-primary-color my-2"
-            text={"Certified"}
-            icon={<StaticVerifiedIcon size={18} color="#be5985" />}
+      <div className="flex flex-col flex-1 justify-between items-start">
+        <div className="flex w-full items-center justify-between mb-2">
+          <SubHeading type="h2" className="text-subheader-lg text-header-color">
+            {name}
+          </SubHeading>
+          <ButtonWithIcon
+            className="hover:bg-light-hover-color"
+            icon={<StaticHeartIcon size={18} color="#be5985" />}
           />
         </div>
+
+        <Paragraph className="text-paragraph-lg text-paragraph-color hidden sm:block">
+          {description}
+        </Paragraph>
+
+        <Paragraph className="text-paragraph-md text-paragraph-color mb-3">
+          {city}
+        </Paragraph>
+
+        <div className="flex items-center mb-2">
+          <Paragraph className="text-paragraph-sm text-paragraph-color">
+            £{price} / night
+          </Paragraph>
+          <div className="divider divider-horizontal"></div>
+          <Rating rating={rating} reviewsNum={reviewsNum} />
+        </div>
+
+        <Badge
+          className="bg-primary-color-100 text-primary-color my-2"
+          text={"Certified"}
+          icon={<StaticVerifiedIcon size={18} color="#be5985" />}
+        />
       </div>
-    </>
+    </Link>
   );
 };
 

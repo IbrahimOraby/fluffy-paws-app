@@ -47,6 +47,8 @@ function CustomForm({
             availableFrom: currentDate.toISOString(),
             availableTo: oneYearLater.toISOString(),
             isAuthenticated: false,
+            userName: user.displayName,
+            uid: user.uid,
             aboutMe: values,
           };
           await addPersonalSitterDoc(finalPersonalFormData, user.uid);

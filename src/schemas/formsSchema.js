@@ -115,6 +115,11 @@ export const personalExperienceSchema = Yup.object({
     .typeError("Experience must be a number")
     .min(0, "Experience must be a positive number")
     .required("Experience is required"),
+  price: Yup.number()
+    .typeError("Price must be a number")
+    .positive("Price must be greater than 0")
+    .required("Price is required"),
+
 });
 
 export const personalHomeInfoSchema = Yup.object({

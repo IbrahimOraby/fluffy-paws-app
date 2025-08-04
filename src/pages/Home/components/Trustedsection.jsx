@@ -1,71 +1,94 @@
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import BackgroundImageCard from './BackgroundImageCard';
-import Animalcard from './Animalcard';
-import homeImg from '../../../assets/images/homeimg1.jpg';
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router";
+import BackgroundImageCard from "./BackgroundImageCard";
+import Animalcard from "./Animalcard";
+import homeImg from "../../../assets/images/homeimg1.jpg";
 import {
   StaticCatIcon,
   StaticDogIcon,
   StaticMapIcon,
   StaticUserIcon,
-} from '../../../ui/Icons/StaticIcons';
-import Heading from '../../../ui/Typography/Heading/Heading';
-import { HomeIcon, SearchIcon } from 'lucide-react';
-import CalendarInput from '../../../ui/Inputs/CalendarInput';
-import { filtersSchema } from '../../../schemas/formhomeSchema'
+} from "../../../ui/Icons/StaticIcons";
+import Heading from "../../../ui/Typography/Heading/Heading";
+import { HomeIcon, SearchIcon } from "lucide-react";
+import CalendarInput from "../../../ui/Inputs/CalendarInput";
+import { filtersSchema } from "../../../schemas/formhomeSchema";
 
 export default function Trustedsection() {
   const navigate = useNavigate();
 
-  const [selectedAnimal, setSelectedAnimal] = useState('');
-  const [selectedProvider, setSelectedProvider] = useState('');
-  const [animalError, setAnimalError] = useState('');
-const [providerError, setProviderError] = useState('');
+  const [selectedAnimal, setSelectedAnimal] = useState("");
+  const [selectedProvider, setSelectedProvider] = useState("");
+  const [animalError, setAnimalError] = useState("");
+  const [providerError, setProviderError] = useState("");
 
   const egyptGovernorates = [
-    "Cairo", "Giza", "Alexandria", "Dakahlia", "Red Sea", "Beheira", "Fayoum", "Gharbia",
-    "Ismailia", "Monufia", "Minya", "Qaliubiya", "New Valley", "Suez", "Aswan", "Assiut",
-    "Beni Suef", "Port Said", "Damietta", "Sharkia", "South Sinai", "Kafr El Sheikh",
-    "Matruh", "Luxor", "Qena", "North Sinai", "Sohag"
+    "All",
+    "Cairo",
+    "Giza",
+    "Alexandria",
+    "Dakahlia",
+    "Red Sea",
+    "Beheira",
+    "Fayoum",
+    "Gharbia",
+    "Ismailia",
+    "Monufia",
+    "Minya",
+    "Qaliubiya",
+    "New Valley",
+    "Suez",
+    "Aswan",
+    "Assiut",
+    "Beni Suef",
+    "Port Said",
+    "Damietta",
+    "Sharkia",
+    "South Sinai",
+    "Kafr El Sheikh",
+    "Matruh",
+    "Luxor",
+    "Qena",
+    "North Sinai",
+    "Sohag",
   ];
 
   const formik = useFormik({
     initialValues: {
-      location: '',
-      startDate: '',
-      endDate: '',
+      location: "",
+      // startDate: "",
+      // endDate: "",
     },
-      validationSchema: filtersSchema,
-  onSubmit: (values) => {
-  let isValid = true;
+    validationSchema: filtersSchema,
+    onSubmit: (values) => {
+      let isValid = true;
 
-  if (!selectedAnimal) {
-    setAnimalError('Please select an animal');
-    isValid = false;
-  } else {
-    setAnimalError('');
-  }
+      if (!selectedAnimal) {
+        setAnimalError("Please select an animal");
+        isValid = false;
+      } else {
+        setAnimalError("");
+      }
 
-  if (!selectedProvider) {
-    setProviderError('Please select a provider');
-    isValid = false;
-  } else {
-    setProviderError('');
-  }
+      if (!selectedProvider) {
+        setProviderError("Please select a provider");
+        isValid = false;
+      } else {
+        setProviderError("");
+      }
 
-  if (!isValid) return;
+      if (!isValid) return;
 
-  const formValues = {
-    ...values,
-    animal: selectedAnimal,
-    provider: selectedProvider,
-  };
+      const formValues = {
+        ...values,
+        animal: selectedAnimal,
+        provider: selectedProvider,
+      };
 
-  const query = new URLSearchParams(formValues).toString();
-  navigate(`/shelters?${query}`);
-}
-
+      const query = new URLSearchParams(formValues).toString();
+      navigate(`/shelters?${query}`);
+    },
   });
 
   const AnimalSelection = () => (
@@ -80,24 +103,25 @@ const [providerError, setProviderError] = useState('');
           description="Including puppys"
           value="dogs"
           name="animal"
-          checked={selectedAnimal === 'dogs'}
+          checked={selectedAnimal === "dogs"}
           onChange={(e) => setSelectedAnimal(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center"
         />
-     
+
         <Animalcard
           icon={<StaticCatIcon color="#BE5985" />}
           title="Cats"
           description="Including kittens"
           value="cats"
           name="animal"
-          checked={selectedAnimal === 'cats'}
+          checked={selectedAnimal === "cats"}
           onChange={(e) => setSelectedAnimal(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center"
         />
-        
       </div>
-         {animalError && <p className="text-red-500 text-sm mt-1">{animalError}</p>}
+      {animalError && (
+        <p className="text-red-500 text-sm mt-1">{animalError}</p>
+      )}
     </div>
   );
 
@@ -113,7 +137,7 @@ const [providerError, setProviderError] = useState('');
           description="Cheaper prices"
           value="personal"
           name="provider"
-          checked={selectedProvider === 'personal'}
+          checked={selectedProvider === "personal"}
           onChange={(e) => setSelectedProvider(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center"
         />
@@ -123,13 +147,14 @@ const [providerError, setProviderError] = useState('');
           description="See our trusted partners"
           value="organization"
           name="provider"
-          checked={selectedProvider === 'organization'}
+          checked={selectedProvider === "organization"}
           onChange={(e) => setSelectedProvider(e.target.value)}
           className="w-full sm:w-1/2 h-[100px] items-center "
-          
         />
       </div>
-      {providerError && <p className="text-red-500 text-sm mt-1">{providerError}</p>}
+      {providerError && (
+        <p className="text-red-500 text-sm mt-1">{providerError}</p>
+      )}
     </div>
   );
 
@@ -145,61 +170,64 @@ const [providerError, setProviderError] = useState('');
           imgclass="w-full h-[300px] sm:h-[400px] object-cover"
         />
 
-        <form onSubmit={formik.handleSubmit} className="mt-6 px-4 flex flex-col gap-10">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="mt-6 px-4 flex flex-col gap-10"
+        >
           <AnimalSelection />
           <ProviderSelection />
 
           {/* Location + Dates */}
           <div className="flex flex-col gap-3 flex-1">
             {/* Dropdown Location */}
-  <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
+            <div
+              className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
          focus-within:ring-2 
          focus-within:ring-[#BE5985] 
-         focus-within:ring-offset-2 ">
-         <StaticMapIcon className="w-5 h-5 text-gray-500" />
-         <select
-           name="location"
-           value={location}
-           onChange={(e) => setLocation(e.target.value)}
-           className="w-full bg-transparent outline-none text-sm"
-         >
-           <option value="" disabled hidden>
-             Select your Location
-           </option>
-           {egyptGovernorates.map((gov) => (
-             <option key={gov} value={gov}>
-               {gov}
-             </option>
-           ))}
-         </select>
-       </div>
+         focus-within:ring-offset-2 "
+            >
+              <StaticMapIcon className="w-5 h-5 text-gray-500" />
+              <select
+                name="location"
+                value={formik.values.location}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="w-full bg-transparent outline-none text-sm"
+              >
+                <option value="" disabled hidden>
+                  Select your Location
+                </option>
+                {egyptGovernorates.map((gov) => (
+                  <option key={gov} value={gov}>
+                    {gov}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-
-            <div className="flex flex-col sm:flex-row gap-3">
+            {/* <div className="flex flex-col sm:flex-row gap-3">
               <CalendarInput
                 placeholder="Start date"
                 name="startDate"
                 value={formik.values.startDate}
-                onChange={(val) => formik.setFieldValue('startDate', val)}
-                  error={formik.touched.startDate && formik.errors.startDate}
-                
+                onChange={(val) => formik.setFieldValue("startDate", val)}
+                error={formik.touched.startDate && formik.errors.startDate}
               />
 
               <CalendarInput
                 placeholder="End date"
                 name="endDate"
                 value={formik.values.endDate}
-                onChange={(val) => formik.setFieldValue('endDate', val)}
-                  error={formik.touched.endDate && formik.errors.endDate}
+                onChange={(val) => formik.setFieldValue("endDate", val)}
+                error={formik.touched.endDate && formik.errors.endDate}
               />
-
-            </div>
+            </div> */}
           </div>
 
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 px-5 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 w-full"
-            style={{ backgroundColor: '#BE5985' }}
+            className="flex cursor-pointer items-center justify-center gap-2 px-5 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 w-full"
+            style={{ backgroundColor: "#BE5985" }}
           >
             <SearchIcon className="w-4 h-4" />
             Search for a sitter
@@ -227,60 +255,64 @@ const [providerError, setProviderError] = useState('');
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div className="flex flex-col gap-3 flex-1">
                 {/* Dropdown Location */}
-             <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-150">
-  <StaticMapIcon className="w-5 h-5 text-gray-500" />
+                <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-150">
+                  <StaticMapIcon className="w-5 h-5 text-gray-500" />
 
-  <select
-    name="location"
-    value={formik.values.location}
-    onChange={formik.handleChange}
-    className="w-full bg-transparent outline-none text-sm"
-  >
-    <option value="" disabled hidden>
-      Select your Location
-    </option>
-    {egyptGovernorates.map((gov) => (
-      <option key={gov} value={gov}>
-        {gov}
-      </option>
-    ))}
-  </select>
+                  <select
+                    name="location"
+                    value={formik.values.location}
+                    onChange={formik.handleChange}
+                    className="w-full bg-transparent outline-none text-sm"
+                  >
+                    <option value="" disabled hidden>
+                      Select your Location
+                    </option>
+                    {egyptGovernorates.map((gov) => (
+                      <option key={gov} value={gov}>
+                        {gov}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="">
+                  {formik.touched.location && formik.errors.location && (
+                    <span className="text-red-500 text-sm mt-1  ">
+                      {formik.errors.location}
+                    </span>
+                  )}
+                </div>
 
-</div>
-  <div className="">
-    {formik.touched.location && formik.errors.location && (
-  <span className="text-red-500 text-sm mt-1  ">{formik.errors.location}</span>
-)}
-</div>
-  
-
-                <div className="flex flex-col sm:flex-row gap-3">
+                {/* <div className="flex flex-col sm:flex-row gap-3">
                   <CalendarInput
                     placeholder="Start date"
                     name="startDate"
                     value={formik.values.startDate}
-                    onChange={(val) => formik.setFieldValue('startDate', val)}
+                    onChange={(val) => formik.setFieldValue("startDate", val)}
                   />
                   {formik.touched.startDate && formik.errors.startDate && (
-  <p className="text-red-500 text-sm mt-1">{formik.errors.startDate}</p>
-)}
+                    <p className="text-red-500 text-sm mt-1">
+                      {formik.errors.startDate}
+                    </p>
+                  )}
                   <CalendarInput
                     placeholder="End date"
                     name="endDate"
                     value={formik.values.endDate}
-                    onChange={(val) => formik.setFieldValue('endDate', val)}
+                    onChange={(val) => formik.setFieldValue("endDate", val)}
                   />
                   {formik.touched.endDate && formik.errors.endDate && (
-  <p className="text-red-500 text-sm mt-1">{formik.errors.endDate}</p>
-)}
-                </div>
+                    <p className="text-red-500 text-sm mt-1">
+                      {formik.errors.endDate}
+                    </p>
+                  )}
+                </div> */}
               </div>
 
               {/* Search Button */}
               <button
                 type="submit"
                 className="flex items-center justify-center gap-2 px-6 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 md:w-auto"
-                style={{ backgroundColor: '#BE5985' }}
+                style={{ backgroundColor: "#BE5985" }}
               >
                 <SearchIcon className="w-4 h-4" />
                 Search for a sitter

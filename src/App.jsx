@@ -22,7 +22,7 @@ export default function App() {
       children: [
         { path: "/", element: <Home /> },
         { path: "/shelters", element: <Shelters /> },
-        { path: "/shelter", element: <Shelter /> },
+        { path: "/shelter/:id", element: <Shelter /> },
         { path: "/profile", element: <Profile /> },
         { path: "/signup", element: <Signup /> },
         { path: "/signin", element: <Signin /> },

@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export const addNewUser = async (userData, uid) => {
@@ -77,5 +77,58 @@ export const addPersonalSitterDoc = async (personalFormData, uid) => {
     );
   } catch (err) {
     console.log("Error: Something wrong happened while submitting", err);
+  }
+};
+
+
+export const getFullNameFromUserBySitterId = async (sitterId) => {
+  if (!sitterId) return null;
+
+  try {
+    const userRef = doc(db, "users", sitterId);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      return `${data.firstName} ${data.lastName}`.trim();
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Failed to fetch full name:", error);
+    return null;
+  }
+};
+
+
+
+export const addUserNameToPersonalSitters = async () => {
+  try {
+    const sittersRef = collection(db, "personalSitters");
+    const sittersSnapshot = await getDocs(sittersRef);
+
+    for (const sitterDoc of sittersSnapshot.docs) {
+      const sitterId = sitterDoc.id;
+      const userRef = doc(db, "users", sitterId);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        const firstName = userData.firstName || "";
+        const lastName = userData.lastName || "";
+        const fullName = `${firstName} ${lastName}`.trim();
+
+        const sitterRef = doc(db, "personalSitters", sitterId);
+        await updateDoc(sitterRef, {
+          userName: fullName,
+        });
+
+        console.log(`Updated ${sitterId} with userName: ${fullName}`);
+      } else {
+        console.warn(`User with ID ${sitterId} not found in users collection`);
+      }
+    }
+  } catch (error) {
+    console.error("Error updating userName fields:", error);
   }
 };

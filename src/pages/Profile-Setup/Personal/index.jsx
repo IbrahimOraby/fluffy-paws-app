@@ -134,9 +134,16 @@ function PersonalSetup() {
           type: "text",
           placeholder: "e.g., 2 (enter the number of years)",
         },
+        {
+          name: "price",
+          label: "Boarding Price (EGP per night)",
+          type: "text",
+          placeholder: "e.g., 250",
+        },
       ],
       initialValues: {
         yearsExperience: personalFormData.experience?.yearsExperience || "",
+        price:personalFormData.experience?.price || "",
       },
       schema: personalExperienceSchema,
     },
