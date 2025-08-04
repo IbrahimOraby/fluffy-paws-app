@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CalendarInput from "../../../ui/Inputs/CalendarInput";
 import Dropdown from "../../../ui/Inputs/Dropdown";
 import NumberInput from "../../../ui/Inputs/NumberInput";
 import Heading from "../../../ui/Typography/Heading/Heading";
@@ -7,11 +6,15 @@ import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import data from "../../../data/shelterData.json";
 import { bookingSchema } from "../../../schemas/bookingSchema";
-import { Formik } from "formik";
-import { Form } from "react-router";
+import { Formik, Form } from "formik";
+import { useNavigate } from "react-router-dom";
+import FormikCalendarInput from "../../Booking/components/FormikCalendarInput";
 
 export default function Booking() {
-  const [price, setPrice] = useState([]);
+  const navigate = useNavigate();
+  const [price, setPrice] = useState(0);
+  const shelterData = data;
+  const pricePerNight = shelterData.pricePerNight;
 
   useEffect(() => {
     setPrice(data.pricePerNight);
@@ -38,7 +41,16 @@ export default function Booking() {
         }}
         validationSchema={bookingSchema}
         onSubmit={(values) => {
-          console.log("Booking submitted", values);
+          const payload = {
+            shelter: shelterData,
+            bookingForm: values,
+          };
+          navigate("/booking", {
+            state: {
+              shelter: { ...shelterData },
+              bookingForm: values,
+            },
+          });
         }}
       >
         {({ values, setFieldValue, errors, touched }) => (
@@ -75,7 +87,7 @@ export default function Booking() {
                   From
                 </label>
                 <div className="flex justify-center">
-                  <CalendarInput
+                  <FormikCalendarInput
                     name="fromDate"
                     value={values.fromDate}
                     onChange={(val) => setFieldValue("fromDate", val)}
@@ -93,10 +105,10 @@ export default function Booking() {
                   To
                 </label>
                 <div className="flex justify-center">
-                  <CalendarInput
+                  <FormikCalendarInput
                     name="toDate"
                     value={values.toDate}
-                    onChange={(val) => setFieldValue("toDate", val)}
+                    onChange={(val) => setFieldValue("fromDate", val)}
                   />
                 </div>
                 {errors.toDate && touched.toDate && (
