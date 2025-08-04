@@ -10,7 +10,7 @@ import {
   personalExperienceSchema,
   personalHomeInfoSchema,
   personalPetPreferencesSchema,
-  personalProfileSetupSchema
+  personalProfileSetupSchema,
 } from "../../../schemas/formsSchema";
 
 function PersonalSetup() {
@@ -35,31 +35,52 @@ function PersonalSetup() {
       action: "setContact",
       fields: [
         {
-          name: "address",
-          label: "Address",
-          type: "text",
-          placeholder: "Enter your address"
-        },
-        {
           name: "phoneNumber",
           label: "Phone Number",
-          type: "tel",
-          placeholder: "Enter your phone number"
+          type: "text",
+          placeholder: "e.g. 01098880000",
+        },
+        {
+          name: "city",
+          label: "City",
+          type: "select",
+          placeholder: "select your city ",
+        },
+        {
+          name: "district",
+          label: "District",
+          type: "text",
+          placeholder: "Enter your district",
+        },
+        {
+          name: "street",
+          label: "Street",
+          type: "text",
+          placeholder: "Enter your street",
+        },
+        {
+          name: "postlCode",
+          label: "Postal Code",
+          type: "text",
+          placeholder: "Enter your postal code",
         },
         {
           name: "socialMediaAccount",
           label: "Social Media Account*",
           type: "text",
           placeholder:
-            "Enter a social media account, e.g., instagram.com/yourusername"
-        }
+            "Enter a social media account, e.g., instagram.com/yourusername",
+        },
       ],
       initialValues: {
-        address: personalFormData.contact?.address || "",
         phoneNumber: personalFormData.contact?.phoneNumber || "",
-        socialMediaAccount: personalFormData.contact?.socialMediaAccount || ""
+        city: personalFormData.contact?.city || "",
+        district: personalFormData.contact?.district || "",
+        street: personalFormData.contact?.street || "",
+        postlCode: personalFormData.contact?.postlCode || "",
+        socialMediaAccount: personalFormData.contact?.socialMediaAccount || "",
       },
-      schema: personalContactSchema
+      schema: personalContactSchema,
     },
     {
       title: "Availability",
@@ -75,15 +96,15 @@ function PersonalSetup() {
             "A few times a week",
             "Once a week",
             "Once a month",
-            "Not sure yet"
-          ]
-        }
+            "Not sure yet",
+          ],
+        },
       ],
       initialValues: {
         availableDays:
-          personalFormData.availabilityFrequency?.availableDays || ""
+          personalFormData.availabilityFrequency?.availableDays || "",
       },
-      schema: personalAvailabilityFrequencySchema
+      schema: personalAvailabilityFrequencySchema,
     },
     {
       title: "Pet Preferences",
@@ -94,13 +115,13 @@ function PersonalSetup() {
           name: "petTypes",
           label: "Which pets can you look after?",
           type: "checkbox",
-          options: ["Dogs", "Cats"]
-        }
+          options: ["Dogs", "Cats"],
+        },
       ],
       initialValues: {
-        petTypes: personalFormData.petPreferences?.petTypes || ""
+        petTypes: personalFormData.petPreferences?.petTypes || "",
       },
-      schema: personalPetPreferencesSchema
+      schema: personalPetPreferencesSchema,
     },
     {
       title: "Experience",
@@ -111,13 +132,20 @@ function PersonalSetup() {
           name: "yearsExperience",
           label: "Years of Experience",
           type: "text",
-          placeholder: "e.g., 2 (enter the number of years)"
-        }
+          placeholder: "e.g., 2 (enter the number of years)",
+        },
+        {
+          name: "price",
+          label: "Boarding Price (EGP per night)",
+          type: "text",
+          placeholder: "e.g., 250",
+        },
       ],
       initialValues: {
-        yearsExperience: personalFormData.experience?.yearsExperience || ""
+        yearsExperience: personalFormData.experience?.yearsExperience || "",
+        price:personalFormData.experience?.price || "",
       },
-      schema: personalExperienceSchema
+      schema: personalExperienceSchema,
     },
     {
       title: "Home Information",
@@ -128,20 +156,20 @@ function PersonalSetup() {
           name: "homeType",
           label: "What type of home do you live in?",
           type: "radio",
-          options: ["An Apartment", "A House"]
+          options: ["An Apartment", "A House"],
         },
         {
           name: "hasKids",
           label: "Do you have kids at home?",
           type: "radio",
-          options: ["Yes", "No"]
-        }
+          options: ["Yes", "No"],
+        },
       ],
       initialValues: {
         homeType: personalFormData.homeInfo?.homeType || "",
-        hasKids: personalFormData.homeInfo?.hasKids || ""
+        hasKids: personalFormData.homeInfo?.hasKids || "",
       },
-      schema: personalHomeInfoSchema
+      schema: personalHomeInfoSchema,
     },
     {
       title: "Upload Your Photo and ID",
@@ -152,38 +180,39 @@ function PersonalSetup() {
           name: "profilePicture",
           type: "file",
           label: "Profile Picture",
-          placeholder: "Upload your profile picture"
+          placeholder: "Upload your profile picture",
         },
         {
           name: "personalId",
           type: "file",
           label: "Personal ID",
-          placeholder: "Upload your ID"
-        }
+          placeholder: "Upload your ID",
+        },
       ],
       initialValues: {
         profilePicture: personalFormData.profileSetup?.profilePicture || "",
-        personalId: personalFormData.profileSetup?.personalId || ""
+        personalId: personalFormData.profileSetup?.personalId || "",
       },
-      schema: personalProfileSetupSchema
+      schema: personalProfileSetupSchema,
     },
     {
       title: "Tell Us About Yourself",
-      subtitle: "Let pet owners know a little more about you — this will appear in your profile.",
+      subtitle:
+        "Let pet owners know a little more about you — this will appear in your profile.",
       action: "setAboutMe",
       fields: [
         {
           name: "bio",
           label: "About Me",
           placeholder: "Write a short introduction about yourself...",
-          type: "textarea"
-        }
+          type: "textarea",
+        },
       ],
       initialValues: {
-        bio: personalFormData.aboutMe?.bio || ""
+        bio: personalFormData.aboutMe?.bio || "",
       },
-      schema: personalAboutMeSchema
-    }
+      schema: personalAboutMeSchema,
+    },
   ];
 
   const currentStep = steps[currentFormIndex - 1];

@@ -1,6 +1,7 @@
 import React from 'react'
 import IconWithTextBlock from './IconWithTextBlock'
 import Heading from '../../../ui/Typography/Heading/Heading'
+import { StaticAlarmIcon, StaticBuildingIcon } from '../../../ui/Icons/StaticIcons'
 
 
 const HomeIcon = () => (
@@ -55,6 +56,15 @@ export default function Services() {
       description: "We make sure your pet is well-fed and gets their medications on time, exactly as instructed.",
       icon: <MedicalIcon />
     },
+    {title:'Shelter Boarding',
+      description:"Trusted shelter care for your pet when you're away. Affordable, safe, and monitored by professionals. Perfect for extended trips or emergencies",
+      icon:<StaticBuildingIcon color='#be5985'/>
+    },
+    {title:'Last-Minute Booking',
+      description:"Unexpected plans? No worries! Find trusted sitters available on short notice for emergencies or sudden trips.",
+      icon:<StaticAlarmIcon color='#be5985'/>
+    }
+
   ]
 
   return (

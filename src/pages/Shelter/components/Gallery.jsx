@@ -5,11 +5,10 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 export default function Gallery({ images }) {
   const firstFourImg = images?.slice(0, 4) || [];
-
   const fancyboxItems =
     images?.map((img) => ({
-      src: img,
-      thumb: img,
+      src: img.cdnUrl,
+      thumb: img.cdnUrl,
     })) || [];
 
   const fancyboxOptions = {
@@ -64,7 +63,7 @@ export default function Gallery({ images }) {
             className={`overflow-hidden rounded-lg shadow-md ${colSpanClass}`}
           >
             <img
-              src={img}
+              src={img.cdnUrl}
               alt={`img ${index + 1}`}
               className="w-full h-full object-cover aspect-video transform hover:scale-105 transition-transform duration-300"
               onClick={() => openFancybox(index)}

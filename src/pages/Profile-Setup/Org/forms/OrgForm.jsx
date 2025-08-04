@@ -24,7 +24,6 @@ const OrgForm = ({
   const resetForm = useOrganizationStore((state) => state.resetForm);
 
   const navigate = useNavigate();
-  // console.log(formikRef.current.errors);
   return (
     <Formik
       innerRef={formikRef}
@@ -42,6 +41,7 @@ const OrgForm = ({
             availableFrom: currentDate.toISOString(),
             availableTo: oneYearLater.toISOString(),
             isAuthenticated: false,
+            uid:user.uid,
           };
           await addOrgnizationDoc(finalOrgData, user.uid);
           setIsFormSubmitting(false);

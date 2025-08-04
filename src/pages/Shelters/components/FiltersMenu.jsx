@@ -1,45 +1,89 @@
-import React from "react";
-import IconPlaceholderInput from "../../../ui/Inputs/Iconplaceholderinput";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import {
   StaticMapIcon,
   StaticPawIcon,
   StaticSearchIcon,
+  StaticUserIcon,
 } from "../../../ui/Icons/StaticIcons";
-import CalendarInput from "./../../../ui/Inputs/CalendarInput";
 import FilledButton from "../../../ui/Buttons/FilledButton";
-import Select from "../../../ui/Inputs/Select";
+import { ProviderSelect } from "./FilterSelect";
+
+const egyptGovernorates = [
+  "All", "Cairo", "Port Said", "Alexandria", "Giza", "Dakahlia", "Red Sea",
+  "Beheira", "Fayoum", "Gharbia", "Ismailia", "Monufia", "Minya", "Qaliubiya",
+  "New Valley", "Suez", "Aswan", "Assiut", "Beni Suef", "Damietta", "Sharkia",
+  "South Sinai", "Kafr El Sheikh", "Matruh", "Luxor", "Qena", "North Sinai", "Sohag"
+];
 
 const FiltersMenu = () => {
-  return (
-    <div className="bg-light-color mb-5 p-4 flex flex-col gap-2 md:flex-row md:justify-center items-center">
-      <IconPlaceholderInput
-        icon={<StaticMapIcon />}
-        placeholder={"Portsaid, Egypt"}
-        className="w-full md:w-[176px]"
-      />
-      <IconPlaceholderInput
-        icon={<StaticPawIcon />}
-        placeholder={"1 Puppy"}
-        className="w-full md:w-[176px]"
-      />
-      <div className="flex gap-5  w-full max-w-lg justify-around ">
-        <CalendarInput width="w-full" />
-        <CalendarInput width="w-full" />
-      </div>
+  const locationHook = useLocation();
+  const navigate = useNavigate();
 
-        {/* max-w-lg = 512px, which is equal the size of two inputs to be symetric  */}
-      <div className="flex w-full max-w-lg gap-2 md:w-3xs ">
-        <FilledButton className=" bg-primary-color hover:bg-primary-color-500 text-white rounded-4xl w-1/2 min-w-[120px] px-0 ">
-          <StaticSearchIcon size={15}/>
-          Search
-        </FilledButton>
-        <Select
-          options={["Price", "Reviews", "Nearby"]}
-          title={"Sort By"}
-          containerClass="w-1/2 min-w-[120px]"
-          className="rounded-4xl hover:bg-primary-color-100 w-full px-0 "
+  const [location, setLocation] = useState("");
+  const [pet, setPet] = useState("");
+  const [provider, setprovider] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(locationHook.search);
+    setLocation(params.get("location") || "");
+    setPet(params.get("animal") || "");
+    setprovider(params.get("provider") || "");
+  }, [locationHook.search]);
+
+  const handleSearch = () => {
+    setIsLoading(true);
+
+    const params = new URLSearchParams();
+    if (location) params.set("location", location);
+    if (pet) params.set("animal", pet);
+    if (provider) params.set("provider", provider);
+
+    setTimeout(() => {
+      navigate(`/shelters?${params.toString()}`);
+      setIsLoading(false);
+    }, 400); 
+  };
+
+  const pets = ["All", "Dogs", "Cats"];
+  const providers = ["All", "Organization", "Personal Sitter"];
+
+  return (
+    <div className="bg-light-color mb-5 p-4 flex flex-wrap gap-y-3 gap-x-4 justify-evenly items-center">
+      <div className="flex gap-5 flex-wrap sm:flex-nowrap">
+        <ProviderSelect
+          items={egyptGovernorates}
+          selectedItem={location}
+          setSelectedItem={setLocation}
+          icon={StaticMapIcon}
+        />
+
+        <ProviderSelect
+          icon={StaticPawIcon}
+          items={pets}
+          selectedItem={pet}
+          setSelectedItem={setPet}
+        />
+
+        <ProviderSelect
+          items={providers}
+          selectedItem={provider}
+          setSelectedItem={setprovider}
+          icon={StaticUserIcon}
         />
       </div>
+
+      <FilledButton
+        className={`rounded-4xl w-full md:w-[120px] sm:w-[100px] px-0 ${
+          isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary-color"
+        } text-white`}
+        onClick={handleSearch}
+        disabled={isLoading}
+      >
+        <StaticSearchIcon size={15} />
+        {isLoading ? "Searching..." : "Search"}
+      </FilledButton>
     </div>
   );
 };

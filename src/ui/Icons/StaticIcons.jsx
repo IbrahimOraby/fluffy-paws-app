@@ -23,7 +23,12 @@ import {
   X,
   Menu,
   FileIcon,
-  Check
+  Check,
+  Instagram,
+  Phone,
+  Award,
+  Baby,
+  AlarmClock
 } from "lucide-react";
 
 const createStaticIcon =
@@ -66,6 +71,11 @@ const StaticXIcon = createStaticIcon(X);
 const StaticMenuIcon = createStaticIcon(Menu);
 const StaticFileIcon = createStaticIcon(FileIcon);
 const StaticCheckIcon = createStaticIcon(Check);
+const StaticInstagramIcon=createStaticIcon(Instagram);
+const StaticPhoneIcon = createStaticIcon(Phone);
+const StaticAwardIcon = createStaticIcon(Award);
+const StaticBabyIcon=createStaticIcon(Baby);
+const StaticAlarmIcon = createStaticIcon(AlarmClock)
 
 //! Google Icon --- Not included by lucid
 
@@ -125,5 +135,11 @@ export {
   StaticXIcon,
   StaticMenuIcon,
   StaticFileIcon,
-  StaticCheckIcon
+  StaticCheckIcon,
+  StaticInstagramIcon,
+  StaticPhoneIcon,
+  StaticAwardIcon,
+  StaticBabyIcon,
+  StaticAlarmIcon
+
 };

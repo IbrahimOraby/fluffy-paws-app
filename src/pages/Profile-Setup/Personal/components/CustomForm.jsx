@@ -9,6 +9,8 @@ import MyTextArea from "../../../../ui/Inputs/MyTextArea";
 import { useNavigate } from "react-router";
 import { addPersonalSitterDoc } from "../../../../services/firestore_service";
 import useUserStore from "../../../../store/useUserStore";
+import MySelectInput from "../../../../ui/Inputs/MySelectInput";
+import { currentDate, oneYearLater } from "../../../../utils/dateHelpers";
 
 function CustomForm({
   fields,
@@ -17,7 +19,7 @@ function CustomForm({
   schema,
   isLastForm,
   handlePersonalFormSubmit,
-  setIsFormSubmitting
+  setIsFormSubmitting,
 }) {
   const nextForm = usePersonalFormStore((state) => state.nextForm);
   const user = useUserStore((state) => state.user);
@@ -42,12 +44,21 @@ function CustomForm({
           setIsFormSubmitting(true);
           const finalPersonalFormData = {
             ...personalFormData,
-            aboutMe: values
+            availableFrom: currentDate.toISOString(),
+            availableTo: oneYearLater.toISOString(),
+            isAuthenticated: false,
+            userName: user.displayName,
+            uid: user.uid,
+            aboutMe: values,
           };
           await addPersonalSitterDoc(finalPersonalFormData, user.uid);
           setIsFormSubmitting(false);
+
+          setTimeout(() => {
+            resetForm();
+          }, 1000);
+
           navigate("/");
-          resetForm();
         } else {
           nextForm();
         }
@@ -73,6 +84,43 @@ function CustomForm({
                   name={field.name}
                   type={field.type}
                 />
+              )}
+              {field.type === "select" && (
+                <MySelectInput
+                  key={field.name}
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                >
+                  <option value="">Select a governorate</option>
+                  <option value="Cairo">Cairo</option>
+                  <option value="Giza">Giza</option>
+                  <option value="Alexandria">Alexandria</option>
+                  <option value="Dakahlia">Dakahlia</option>
+                  <option value="Red Sea">Red Sea</option>
+                  <option value="Beheira">Beheira</option>
+                  <option value="Fayoum">Fayoum</option>
+                  <option value="Gharbia">Gharbia</option>
+                  <option value="Ismailia">Ismailia</option>
+                  <option value="Monufia">Monufia</option>
+                  <option value="Minya">Minya</option>
+                  <option value="Qaliubiya">Qaliubiya</option>
+                  <option value="New Valley">New Valley</option>
+                  <option value="Suez">Suez</option>
+                  <option value="Aswan">Aswan</option>
+                  <option value="Assiut">Assiut</option>
+                  <option value="Beni Suef">Beni Suef</option>
+                  <option value="Port Said">Port Said</option>
+                  <option value="Damietta">Damietta</option>
+                  <option value="Sharkia">Sharkia</option>
+                  <option value="South Sinai">South Sinai</option>
+                  <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                  <option value="Matrouh">Matrouh</option>
+                  <option value="Luxor">Luxor</option>
+                  <option value="Qena">Qena</option>
+                  <option value="North Sinai">North Sinai</option>
+                  <option value="Sohag">Sohag</option>
+                </MySelectInput>
               )}
               {field.type === "radio" && (
                 <div className="mb-4">
