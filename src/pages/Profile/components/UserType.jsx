@@ -6,24 +6,30 @@ import FilledButton from "../../../ui/Buttons/FilledButton";
 import BookingCardProfile from "./BookingCardProfile";
 import FavouriteProfileCard from "./FavouriteProfileCard";
 import UserProfileCard from "./UserProfileCard";
-import { getCurrentUserDoc } from "../../../services/firestore_service";
+import {
+  getCurrentUserDoc,
+  getPetDocs,
+} from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 
 export default function UserType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
   const [clientData, setClientData] = useState(null);
+  const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     const fetchClientData = async () => {
       if (user && userDoc && userDoc.role === "client") {
         setLoading(true);
         try {
           const data = await getCurrentUserDoc(user);
           setClientData(data);
-          console.log("@@@@@",data);
-          
+          // console.log("@@@@@",data);
+          const petsData = await getPetDocs(user.uid);
+          setPets(petsData);
+          console.log("Client Data fetched:", data);
+          console.log("Pets Data fetched:", petsData);
         } catch (error) {
           console.error("Error fetching client data:", error);
         } finally {
@@ -160,7 +166,7 @@ export default function UserType() {
       </div>
 
       {/* ############ Favourite Input ############ */}
-      <input
+      {/* <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -172,20 +178,19 @@ export default function UserType() {
           subTitle="Keep track of your preferred sitters and shelters here for easy
           re-booking."
         />
-        {/* Favourites list goes here */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <FavouriteProfileCard
             name="Sitter Emily R."
             //   imageUrl={}
             description="Experienced dog walker and boarder."
-          />
+          /> */}
           {/* <FavouriteProfileCard
             name="The Happy Paws Shelter"
             //   imageUrl={}
             description="Spacious facilities for all pets."
           /> */}
-        </div>
-      </div>
+        {/* </div>
+      </div> */}
     </>
   );
 }
