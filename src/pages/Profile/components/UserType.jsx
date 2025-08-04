@@ -5,7 +5,6 @@ import PetProfileCard from "./PetProfileCard";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import BookingCardProfile from "./BookingCardProfile";
 import FavouriteProfileCard from "./FavouriteProfileCard";
-import UserProfileCard from "./UserProfileCard";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -16,6 +15,7 @@ import {
 import useUserStore from "../../../store/useUserStore";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import MyTextInput from "../../../ui/Inputs//MyTextInput";
+import ClientProfileCard from "./ClientProfileCard";
 
 export default function UserType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
@@ -77,16 +77,25 @@ export default function UserType() {
         defaultChecked
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Profile"
-          subTitle="Manage your personal information and preferences."
-        />
-        <FilledButton
-          className="bg-primary-color text-white rounded-3xl"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? "Cancel" : "Edit Profile"}
-        </FilledButton>
+        <div className="flex items-center justify-between">
+          {" "}
+          <div>
+            {" "}
+            <ProfileSectionHeader
+              title="Your Profile"
+              subTitle="Manage your personal information and preferences."
+            />
+          </div>
+          <div>
+            {" "}
+            <FilledButton
+              className="bg-primary-color text-white rounded-3xl"
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? "Cancel" : "Edit Profile"}
+            </FilledButton>
+          </div>
+        </div>
         {isEditing ? (
           <Formik
             initialValues={{
@@ -131,7 +140,7 @@ export default function UserType() {
             )}
           </Formik>
         ) : (
-          <UserProfileCard
+          <ClientProfileCard
             avatarSrc={clientData.avatarSrc}
             fullName={`${clientData.firstName || ""} ${
               clientData.lastName || ""
