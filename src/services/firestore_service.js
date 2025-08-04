@@ -125,3 +125,19 @@ export const updatePersonalSitterGallery = async (uid, galleryArray) => {
     console.error("Error updating sitter gallery images:", error);
   }
 };
+
+export const getPetDocs = async (uid) => {
+  try {
+    const petsCollectionRef = collection(db, "users", uid, "pets");
+    const querySnapshot = await getDocs(petsCollectionRef);
+    const pets = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    return pets;
+  } catch (error) {
+    console.error("Error fetching pets for user:", error);
+    return [];
+  }
+};
