@@ -45,11 +45,42 @@ export const addOrgnizationDoc = async (orgData, uid) => {
   );
 };
 
+export const updateOrganizationGallery = async (uid, galleryArray) => {
+  const docRef = doc(db, "organizations", uid);
+  try {
+    await setDoc(
+      docRef,
+      {
+        gallery: galleryArray
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.error("Error updating gallery images:", error);
+  }
+};
+
 export const getOrginzationDoc = async (uid) => {
   const docRef = doc(db, 'organizations', uid)
   const orgSnapshot = await getDoc(docRef);
   return orgSnapshot.data();
 }
+
+export const getPersonalSitterDoc = async (uid) => {
+  const docRef = doc(db, 'personalSitters', uid);
+  const sitterSnapshot = await getDoc(docRef);
+  return sitterSnapshot.data();
+};
+
+export const updatePersonalSitterData = async (uid, updatedData) => {
+  const docRef = doc(db, "personalSitters", uid);
+  try {
+    await setDoc(docRef, updatedData, { merge: true });
+  } catch (error) {
+    console.error("Error updating personal sitter data:", error);
+    throw error;
+  }
+};
 
 export const getAllCollectionDocs = async (collectionName) => {
   try {
@@ -77,5 +108,36 @@ export const addPersonalSitterDoc = async (personalFormData, uid) => {
     );
   } catch (err) {
     console.log("Error: Something wrong happened while submitting", err);
+  }
+};
+
+export const updatePersonalSitterGallery = async (uid, galleryArray) => {
+  const docRef = doc(db, "personalSitters", uid);
+  try {
+    await setDoc(
+      docRef,
+      {
+        gallery: galleryArray
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.error("Error updating sitter gallery images:", error);
+  }
+};
+
+export const getPetDocs = async (uid) => {
+  try {
+    const petsCollectionRef = collection(db, "users", uid, "pets");
+    const querySnapshot = await getDocs(petsCollectionRef);
+    const pets = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    return pets;
+  } catch (error) {
+    console.error("Error fetching pets for user:", error);
+    return [];
   }
 };
