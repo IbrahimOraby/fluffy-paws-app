@@ -3,9 +3,6 @@ import { Formik, Form } from "formik";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 
 import Heading from "../../../ui/Typography/Heading/Heading";
-import { differenceInCalendarDays, parseISO } from "date-fns";
-
-import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import PetCard from "./PetCard";
