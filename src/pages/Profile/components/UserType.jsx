@@ -5,19 +5,24 @@ import PetProfileCard from "./PetProfileCard";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import BookingCardProfile from "./BookingCardProfile";
 import FavouriteProfileCard from "./FavouriteProfileCard";
-import UserProfileCard from "./UserProfileCard";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 import {
   getCurrentUserDoc,
   getPetDocs,
+  updateClientData,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
+import MyTextInput from "../../../ui/Inputs//MyTextInput";
+import ClientProfileCard from "./ClientProfileCard";
 
 export default function UserType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
   const [clientData, setClientData] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchClientData = async () => {
@@ -43,6 +48,16 @@ export default function UserType() {
     fetchClientData();
   }, [user, userDoc]);
 
+  const validationSchema = Yup.object({
+    firstName: Yup.string().required("Required"),
+    lastName: Yup.string().required("Required"),
+    email: Yup.string().email("Invalid email address").required("Required"),
+    phoneNumber: Yup.string()
+      .matches(/^\+?[0-9]{10,15}$/, "Invalid phone number format")
+      .notRequired(),
+    address: Yup.string().notRequired(),
+  });
+
   if (userLoading || loading) {
     return <div>Loading organization data...</div>;
   }
@@ -62,16 +77,79 @@ export default function UserType() {
         defaultChecked
       />
       <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Profile"
-          subTitle="Manage your personal information and preferences."
-        />
-        <UserProfileCard
-          fullName={`${clientData.firstName} ${clientData.lastName}`}
-          email={clientData.email}
-          // phoneNumber={clientData.firstName}
-          // address="123 Main St, Anytown, USA"
-        />
+        <div className="flex items-center justify-between">
+          {" "}
+          <div>
+            {" "}
+            <ProfileSectionHeader
+              title="Your Profile"
+              subTitle="Manage your personal information and preferences."
+            />
+          </div>
+          <div>
+            {" "}
+            <FilledButton
+              className="bg-primary-color text-white rounded-3xl"
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? "Cancel" : "Edit Profile"}
+            </FilledButton>
+          </div>
+        </div>
+        {isEditing ? (
+          <Formik
+            initialValues={{
+              firstName: clientData.firstName || "",
+              lastName: clientData.lastName || "",
+              email: clientData.email || "",
+              phoneNumber: clientData.phoneNumber || "",
+              address: clientData.address || "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                await updateClientData(user.uid, values);
+                setClientData(values);
+                setIsEditing(false);
+              } catch (error) {
+                console.error("Failed to update user data:", error);
+              } finally {
+                setSubmitting(false);
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form className="space-y-4">
+                <MyTextInput label="First Name" name="firstName" type="text" />
+                <MyTextInput label="Last Name" name="lastName" type="text" />
+                <MyTextInput label="Email Address" name="email" type="email" />
+                <MyTextInput
+                  label="Phone Number"
+                  name="phoneNumber"
+                  type="tel"
+                />
+                <MyTextInput label="Address" name="address" type="text" />
+                <FilledButton
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-primary-color text-white rounded-3xl"
+                >
+                  {isSubmitting ? "Saving..." : "Save Changes"}
+                </FilledButton>
+              </Form>
+            )}
+          </Formik>
+        ) : (
+          <ClientProfileCard
+            avatarSrc={clientData.avatarSrc}
+            fullName={`${clientData.firstName || ""} ${
+              clientData.lastName || ""
+            }`}
+            email={clientData.email || "N/A"}
+            phoneNumber={clientData.phoneNumber || "N/A"}
+            address={clientData.address || "N/A"}
+          />
+        )}
       </div>
 
       {/* ############ Messages Input ############ */}
