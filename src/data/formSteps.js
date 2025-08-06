@@ -6,11 +6,29 @@ export const formSteps = [
       { name: "name", label: "What's his name?", type: "text" },
       { name: "age", label: "What's his age?", type: "number" },
       {
-        name: "gender",
-        label: "Is it male or female?",
-        type: "select",
-        options: ["Male", "Female"],
+        name: "type",
+        label: "Cat or Dog ?",
+        type: "checkbox",
+        options: [
+          { label: "Cat", value: "cat" },
+          { label: "Dog", value: "dog" },
+        ],
       },
+      {
+        name: "gender",
+        label: "Male or Female ?",
+        type: "checkbox",
+        options: [
+          { label: "Male", value: "male" },
+          { label: "Female", value: "female" },
+        ],
+      },
+      // {
+      //   name: "gender",
+      //   label: "Is it male or female?",
+      //   type: "select",
+      //   options: ["Male", "Female"],
+      // },
       { name: "desexed", label: "Is he desexed?", type: "text" },
     ],
   },

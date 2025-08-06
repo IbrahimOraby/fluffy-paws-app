@@ -30,8 +30,22 @@ export default function PetWizardForm({ onStepChange }) {
       onStepChange(step.title);
     }
   }, [stepIndex]);
+  // const initialValues = {};
+  // step.fields.forEach((f) => (initialValues[f.name] = ""));
+
   const initialValues = {};
-  step.fields.forEach((f) => (initialValues[f.name] = ""));
+  step.fields.forEach((f) => {
+    switch (f.type) {
+      case "checkbox":
+        initialValues[f.name] = [];
+        break;
+      case "file":
+        initialValues[f.name] = null;
+        break;
+      default:
+        initialValues[f.name] = "";
+    }
+  });
 
   const handleSubmit = async (values) => {
     const filteredValues = {};
@@ -60,6 +74,7 @@ export default function PetWizardForm({ onStepChange }) {
 
   return (
     <PetFormStep
+      enableReinitialize
       step={step}
       stepIndex={stepIndex}
       initialValues={initialValues}
