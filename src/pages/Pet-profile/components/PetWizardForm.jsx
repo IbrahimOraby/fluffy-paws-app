@@ -9,6 +9,7 @@ import {
 } from "../../../schemas/petSchema.js";
 import useClientStore from "../../../store/clientStore.js";
 import { auth } from "../../../firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const schemas = {
   petProfile: petProfileSchema,
@@ -24,7 +25,7 @@ export default function PetWizardForm({ onStepChange }) {
   const setData = useClientStore(
     (s) => s[`set${step.key.charAt(0).toUpperCase() + step.key.slice(1)}`]
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (onStepChange) {
       onStepChange(step.title);
@@ -69,7 +70,8 @@ export default function PetWizardForm({ onStepChange }) {
     if (!ok) return alert("Error saving pet");
 
     useClientStore.getState().resetFormProgress();
-    alert("Pet saved ");
+    // alert("Pet saved ");
+    navigate("/profile");
   };
 
   return (

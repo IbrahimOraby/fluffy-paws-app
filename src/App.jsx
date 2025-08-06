@@ -8,11 +8,12 @@ import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import SelectRole from './pages/Profile-Setup'
-import OrganizationSetup from './pages/Profile-Setup/Org'
-import PersonalSetup from './pages/Profile-Setup/Personal'
+import SelectRole from "./pages/Profile-Setup";
+import OrganizationSetup from "./pages/Profile-Setup/Org";
+import PersonalSetup from "./pages/Profile-Setup/Personal";
 import PetWizardForm from "./pages/Pet-profile";
 import Booking from "./pages/Booking";
+import AddReview from "./pages/Shelter/components/AddReview";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -32,8 +33,9 @@ export default function App() {
         { path: "/typography", element: <Typography /> },
         { path: "/Pet", element: <PetWizardForm /> },
         { path: "/booking", element: <Booking /> },
-      ]
-    }
+        { path: "/shelters/:shelterId/add-review", element: <AddReview /> },
+      ],
+    },
   ]);
   return <RouterProvider router={router}></RouterProvider>;
 }

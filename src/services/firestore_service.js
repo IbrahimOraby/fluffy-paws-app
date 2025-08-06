@@ -7,6 +7,9 @@ import {
   updateDoc,
   collection,
   addDoc,
+  query,
+  orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
@@ -223,4 +226,22 @@ export const addPetDoc = async (uid, petData) => {
     console.error("Error adding pet:", err);
     throw err;
   }
+};
+
+export const addOrganizationReview = async (orgId, reviewData) => {
+  const reviewsRef = collection(db, "organizations", orgId, "reviews");
+  await addDoc(reviewsRef, {
+    ...reviewData,
+    createdAt: serverTimestamp(),
+  });
+};
+
+export const listenOrgReviews = (orgId, callback) => {
+  const q = query(
+    collection(db, "organizations", orgId, "reviews"),
+    orderBy("createdAt", "desc")
+  );
+  return onSnapshot(q, (snap) =>
+    callback(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+  );
 };
