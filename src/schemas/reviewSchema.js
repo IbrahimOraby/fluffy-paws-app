@@ -6,8 +6,9 @@ export const reviewSchema = Yup.object({
     .required("Review is required"),
 
   rating: Yup.number()
-    .min(1, "Rating must be at least 1")
-    .max(5, "Rating cannot exceed 5")
+    // .min(1, "Rating must be at least 1")
+    // .max(5, "Rating cannot exceed 5")
+    .oneOf([1, 2, 3, 4, 5])
     .required("Rating is required"),
 
   petType: Yup.array()

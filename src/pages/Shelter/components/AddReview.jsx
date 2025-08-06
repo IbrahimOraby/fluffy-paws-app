@@ -10,16 +10,18 @@ import { addOrganizationReview } from "../../../services/firestore_service.js";
 import { auth } from "../../../firebaseConfig";
 import { useParams, useNavigate } from "react-router-dom";
 import { StaticStarIcon } from "../../../ui/Icons/StaticIcons.jsx";
+import DropdownFormik from "../../../ui/Inputs/Dropdown.jsx";
 
 export default function AddReview() {
   const { shelterId } = useParams();
   const navigate = useNavigate();
+  const ratingOptions = ["1", "2", "3", "4", "5"];
 
-  const initialValues = { review: "", rating: 1, petType: [] };
+  const initialValues = { review: "", rating: "", petType: [] };
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <div className="min-w-[50%] border border-primary-color rounded-xl p-4">
+      <div className=" border border-primary-color rounded-xl p-6">
         <Formik
           initialValues={initialValues}
           validationSchema={reviewSchema}
@@ -43,32 +45,52 @@ export default function AddReview() {
         >
           {({ isSubmitting }) => (
             <Form className="space-y-6 flex flex-col items-center">
-              <Heading className="text-center">Add Your Review</Heading>
+              <Heading className="text-center text-2xl block mb-3">
+                Add Your Review
+              </Heading>
 
               <MyTextArea
                 label="Review"
                 name="review"
                 placeholder="Share your experience..."
+                className="font-medium block mb-2"
               />
 
-              <NumberInputFormik
-                name="rating"
-                min={1}
-                max={5}
-                icon={<StaticStarIcon color="#F7C457" fill="#F7C457" />}
-              />
-
-              <div>
-                <label className="font-medium block mb-2">Pet Type</label>
-                <div className="flex gap-4 flex-wrap">
-                  <MyCheckboxInput name="petType" value="cat" label="Cat" />
-                  <MyCheckboxInput name="petType" value="dog" label="Dog" />
+              <div className="flex justify-around mt-0">
+                <div>
+                  <label className="font-medium block mb-2">Rating</label>
+                  <div>
+                    {/* <NumberInputFormik
+                      name="rating"
+                      min={1}
+                      max={5}
+                      icon={<StaticStarIcon color="#F7C457" fill="#F7C457" />}
+                    /> */}
+                    <DropdownFormik
+                      name="rating"
+                      options={ratingOptions}
+                      icon={<StaticStarIcon color="#F7C457" fill="#F7C457" />}
+                    />
+                    <ErrorMessage
+                      name="rating"
+                      component="div"
+                      className="text-error text-sm mt-1"
+                    />
+                  </div>
                 </div>
-                <ErrorMessage
-                  name="petType"
-                  component="div"
-                  className="text-error text-sm mt-1"
-                />
+
+                <div>
+                  <label className="font-medium block mb-4 ">Pet Type</label>
+                  <div className="flex gap-4 flex-wrap">
+                    <MyCheckboxInput name="petType" value="cat" label="Cat" />
+                    <MyCheckboxInput name="petType" value="dog" label="Dog" />
+                  </div>
+                  <ErrorMessage
+                    name="petType"
+                    component="div"
+                    className="text-error text-sm mt-1"
+                  />
+                </div>
               </div>
 
               <FilledButton
