@@ -13,8 +13,10 @@ import { StaticStarIcon } from "../../../ui/Icons/StaticIcons.jsx";
 import DropdownFormik from "../../../ui/Inputs/Dropdown.jsx";
 
 export default function AddReview() {
+  // Get org/shelter ID from the URL
   const { shelterId } = useParams();
   const navigate = useNavigate();
+  // Allowed rating values (used in the dropdown)
   const ratingOptions = ["1", "2", "3", "4", "5"];
 
   const initialValues = { review: "", rating: "", petType: [] };
@@ -26,9 +28,10 @@ export default function AddReview() {
           initialValues={initialValues}
           validationSchema={reviewSchema}
           onSubmit={async (vals, { setSubmitting }) => {
+            // Ensure the user is logged in
             const user = auth.currentUser;
             if (!user) return alert("Please log in");
-
+            // Persist the review in Firestore
             await addOrganizationReview(shelterId, {
               authorId: user.uid,
               authorName: user.displayName || "Anonymous",

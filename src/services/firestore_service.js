@@ -227,6 +227,7 @@ export const addPetDoc = async (uid, petData) => {
     throw err;
   }
 };
+// Save a single review document under: organizations/{orgId}/reviews
 
 export const addOrganizationReview = async (orgId, reviewData) => {
   const reviewsRef = collection(db, "organizations", orgId, "reviews");
@@ -235,6 +236,7 @@ export const addOrganizationReview = async (orgId, reviewData) => {
     createdAt: serverTimestamp(),
   });
 };
+// Real-time listener that returns the latest reviews (newest first)
 
 export const listenOrgReviews = (orgId, callback) => {
   const q = query(
