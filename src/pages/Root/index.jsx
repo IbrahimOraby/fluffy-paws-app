@@ -7,8 +7,6 @@ import useUserStore from "../../store/useUserStore";
 import { useEffect } from "react";
 
 const Root = () => {
-
-  
   const location = useLocation();
   const showNavFooter = !location.pathname.includes("/select-role");
   const user = useUserStore((state) => state.user);
@@ -21,6 +19,14 @@ const Root = () => {
     const unsubscribe = observeAuth();
     return () => unsubscribe();
   }, [observeAuth]);
+
+  useEffect(() => {
+    if (user?.uid) {
+      localStorage.setItem("uid", JSON.stringify(user.uid));
+    } else {
+      localStorage.setItem("uid", null);
+    }
+  }, [user]);
 
   console.log("User:", user);
   console.log("User Document:", userDoc);

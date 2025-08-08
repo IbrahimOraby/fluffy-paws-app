@@ -23,9 +23,10 @@ function SideDrawer() {
   const handleSignOut = async () => {
     try {
       await signOutUser();
+      localStorage.setItem("uid", null);
       const drawer = document.getElementById("nav-drawer");
       if (drawer) drawer.checked = false;
-      navigate('/')
+      navigate("/");
     } catch (err) {
       console.error("Sign-out failed:", err);
     }
