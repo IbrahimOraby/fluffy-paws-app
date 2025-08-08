@@ -14,6 +14,7 @@ import PersonalSetup from "./pages/Profile-Setup/Personal";
 import PetWizardForm from "./pages/Pet-profile";
 import Booking from "./pages/Booking";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -24,10 +25,16 @@ export default function App() {
         { path: "/", element: <Home /> },
         { path: "/shelters", element: <Shelters /> },
         { path: "/shelter/:id", element: <Shelter /> },
-        { path: "/signup", element: <Signup /> },
-        { path: "/signin", element: <Signin /> },
         { path: "/typography", element: <Typography /> },
 
+        {
+          element: <PublicRoute />,
+          children: [
+            { path: "/signup", element: <Signup /> },
+            { path: "/signin", element: <Signin /> }
+          ]
+        },
+        
         {
           element: <ProtectedRoute />,
           children: [
