@@ -15,6 +15,7 @@ import PetWizardForm from "./pages/Pet-profile";
 import Booking from "./pages/Booking";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import RoleSetupRoute from "./components/RoleSetupRoute";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -34,14 +35,19 @@ export default function App() {
             { path: "/signin", element: <Signin /> }
           ]
         },
-        
+
         {
           element: <ProtectedRoute />,
           children: [
             { path: "/profile", element: <Profile /> },
-            { path: "/select-role", element: <SelectRole /> },
-            { path: "/select-role/org", element: <OrganizationSetup /> },
-            { path: "/select-role/personal", element: <PersonalSetup /> },
+            {
+              element: <RoleSetupRoute />,
+              children: [
+                { path: "/select-role", element: <SelectRole /> },
+                { path: "/select-role/org", element: <OrganizationSetup /> },
+                { path: "/select-role/personal", element: <PersonalSetup /> }
+              ]
+            },
             { path: "/Pet", element: <PetWizardForm /> },
             { path: "/booking", element: <Booking /> }
           ]

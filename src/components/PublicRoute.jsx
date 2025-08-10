@@ -13,7 +13,8 @@ function PublicRoute() {
   }, [user, navigate]);
 
 
-  if (user) return null; // Prevent rendering if already redirected
+  // prevent rendering if already redirected
+  if (user) return null; 
 
   return <Outlet />;
 }
