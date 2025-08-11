@@ -1,21 +1,24 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { differenceInCalendarDays, parseISO } from "date-fns";
-
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import PetCard from "./PetCard";
 import FormikCalendarInput from "./FormikCalendarInput";
 import MyTextInput from "../../../ui/Inputs/MyTextInput";
-
 import { bookingSchema } from "../../../schemas/bookingDetailsSchema";
 import { initiatePayment } from "../../../services/paymentService";
 import useClientStore from "../../../store/clientStore";
 import useUserStore from "../../../store/useUserStore";
+import PetRadioCard from "./PetSelectCard";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebaseConfig";
+import PetSelectCard from "./PetSelectCard";
 
 export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
-  const dailyRate = sitter.info.price || 50;
+  const dailyRate = sitter.info.price || 99;
   const firebaseUser = useUserStore((s) => s.user);
   const userDoc = useUserStore((s) => s.userDoc);
   const userId = firebaseUser?.uid || "";
@@ -23,7 +26,36 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
   const lastName = userDoc?.lastName || "";
   const email = userDoc?.email || firebaseUser?.email || "";
   const phone = firebaseUser?.phoneNumber || "+201111111111";
-  const pets = userDoc?.pets || [];
+  const defaultPetCount = defaultBooking?.petCount || 1;
+  const [pets, setPets] = useState([]);
+  const [petsLoading, setPetsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!firebaseUser?.uid) return;
+    let cancelled = false;
+
+    (async () => {
+      try {
+        setPetsLoading(true);
+        const colRef = collection(db, "users", firebaseUser.uid, "pets");
+        const snap = await getDocs(colRef);
+        const rows = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        if (!cancelled) {
+          setPets(rows);
+          console.log("[pets]", rows);
+        }
+      } catch (e) {
+        console.error("Load pets failed:", e);
+      } finally {
+        if (!cancelled) setPetsLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [firebaseUser?.uid]);
+
   return (
     <Formik
       initialValues={{
@@ -32,6 +64,8 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
           ? new Date(defaultBooking.fromDate)
           : "",
         toDate: defaultBooking.toDate ? new Date(defaultBooking.toDate) : "",
+        petCount: defaultPetCount,
+        selectedPetIds: [],
       }}
       validationSchema={bookingSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -43,8 +77,9 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
             values.toDate,
             values.fromDate
           );
-          /*   Paymob expects piasters (EGP × 100) */
-          const amount = nights * dailyRate;
+          const amount = nights * dailyRate * values.petCount;
+          console.log(amount);
+          console.log(defaultPetCount);
 
           /*  Build payload to send to backend */
           const payload = {
@@ -78,40 +113,90 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
         }
       }}
     >
-      {({ isSubmitting }) => (
-        <Form className="flex flex-col gap-4 w-full">
-          <Heading className="text-lg font-semibold mb-3">
-            Booking details
-          </Heading>
+      {({ isSubmitting, values, setFieldValue }) => {
+        const maxSelectable = Number(values.petCount) || 1;
 
-          {/* Location */}
-          <MyTextInput name="location" placeholder="Location" />
+        const togglePet = (id) => {
+          const selected = values.selectedPetIds || [];
+          const isSelected = selected.includes(id);
 
-          {/* Dates */}
-          <div className="flex flex-col sm:flex-row gap-2 w-full justify-around mb-4">
-            <FormikCalendarInput name="fromDate" />
-            <FormikCalendarInput name="toDate" />
-          </div>
+          if (!isSelected && selected.length >= maxSelectable) return;
 
-          <Paragraph className="text-sm text-gray-500 text-center sm:text-left">
-            Make sure your pet profile is complete before sending the request
-          </Paragraph>
+          const next = isSelected
+            ? selected.filter((x) => x !== id)
+            : [...selected, id];
+          setFieldValue("selectedPetIds", next);
+        };
 
-          {/* User's pet cards */}
-          <div className="flex gap-2 flex-wrap">
-            <PetCard />
-          </div>
+        return (
+          <Form className="flex flex-col gap-4 w-full">
+            <Heading className="text-lg font-semibold mb-3">
+              Booking details
+            </Heading>
 
-          {/* Submit */}
-          <FilledButton
-            type="submit"
-            disabled={isSubmitting}
-            className="bg-primary-color text-white rounded-xl w-full"
-          >
-            {isSubmitting ? "Processing…" : "Book now"}
-          </FilledButton>
-        </Form>
-      )}
+            {/* Location */}
+            <MyTextInput name="location" placeholder="Location" />
+
+            {/* Dates */}
+            <div className="flex flex-col sm:flex-row gap-2 w-full justify-around mb-4">
+              <FormikCalendarInput name="fromDate" />
+              <FormikCalendarInput name="toDate" />
+            </div>
+
+            <Paragraph className="text-sm text-gray-500 text-center sm:text-left">
+              Make sure your pet profile is complete before sending the request
+            </Paragraph>
+
+            {/* User's pet cards */}
+            {petsLoading ? (
+              <Paragraph className="text-sm text-gray-500">
+                Loading pets…
+              </Paragraph>
+            ) : pets.length === 0 ? (
+              <Paragraph className="text-sm text-gray-500">
+                No pets found.
+              </Paragraph>
+            ) : (
+              <div className="flex justify-center gap-3">
+                {pets.map((p, idx) => {
+                  const id = p.id || p.uid || `pet-${idx}`;
+                  const petName = p.name || "Pet";
+                  const photo =
+                    p.photo?.photo?.cdnUrl ||
+                    p.photo?.cdnUrl ||
+                    p.photoUrl ||
+                    "";
+
+                  return (
+                    <PetSelectCard
+                      key={id}
+                      name="selectedPetIds"
+                      value={id}
+                      title={petName}
+                      photoUrl={photo}
+                      checked={(values.selectedPetIds || []).includes(id)}
+                      disabled={
+                        !(values.selectedPetIds || []).includes(id) &&
+                        (values.selectedPetIds || []).length >= maxSelectable
+                      }
+                      onChange={() => togglePet(id)}
+                    />
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Submit */}
+            <FilledButton
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-primary-color text-white rounded-xl w-full"
+            >
+              {isSubmitting ? "Processing…" : "Book now"}
+            </FilledButton>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

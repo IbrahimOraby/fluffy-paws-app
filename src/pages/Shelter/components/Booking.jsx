@@ -14,6 +14,7 @@ export default function Booking({ shelterData, role }) {
   const [price, setPrice] = useState(null);
   // const shelterData = data;
 
+  // Compute nightly rate directly from shelterData + role
   useEffect(() => {
     const newPrice =
       role === "organization"
@@ -119,7 +120,7 @@ export default function Booking({ shelterData, role }) {
                   <FormikCalendarInput
                     name="toDate"
                     value={values.toDate}
-                    onChange={(val) => setFieldValue("fromDate", val)}
+                    onChange={(val) => setFieldValue("toDate", val)}
                   />
                 </div>
                 {errors.toDate && touched.toDate && (
