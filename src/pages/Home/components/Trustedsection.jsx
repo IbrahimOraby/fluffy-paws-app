@@ -165,7 +165,7 @@ export default function Trustedsection() {
         <BackgroundImageCard
           img={homeImg}
           h="Trusted pet care, anytime, anywhere"
-          p="Find trusted pet sitters & dog walkers near you"
+          p="Find trusted pet sitters near you"
           buttonclass="hidden"
           imgclass="w-full h-[300px] sm:h-[400px] object-cover"
         />
@@ -240,12 +240,12 @@ export default function Trustedsection() {
         <BackgroundImageCard
           img={homeImg}
           h="Trusted pet care, anytime, anywhere"
-          p="Find trusted pet sitters & dog walkers near you"
+          p="Find trusted pet sitters  near you"
           buttonclass="hidden"
           imgclass="w-full h-[600px] object-cover"
         />
 
-        <div className="absolute top-[350px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-1">
+        <div className="absolute top-[400px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-1">
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6">
             <div className="flex flex-col lg:flex-row gap-8">
               <AnimalSelection />

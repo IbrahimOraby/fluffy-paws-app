@@ -20,10 +20,14 @@ export default function Brands() {
               className="w-full h-auto object-contain"
             />
           </div>
+        <a   target="_blank"
+        href='https://petchemist.com.au/?utm_source=madpaws&utm_medium=futures&utm_campaign=homepage'>
           <OptionButton
+
             title={'Shop Pet Healthy'}
             className="rounded-3xl capitalize bg-[#14607a] border-0 text-white px-6 py-2 text-lg hover:bg-[#1c7f9f] transition-all duration-300 ease-in-out"
           />
+          </a>
           <div className="max-w-[250px] w-full">
             <img
               src="https://www.madpaws.com.au/marketplace/images/homepage/petchemist.webp"
@@ -42,10 +46,13 @@ export default function Brands() {
               className="w-full h-auto object-contain"
             />
           </div>
+          <a target='_blanck' 
+          href='https://waggly.com.au/?utm_source=madpaws&utm_medium=futures&utm_campaign=homepage'>
           <OptionButton
             title={'Shop toys and treats'}
             className="rounded-3xl capitalize bg-[#8f4d96] border-0 text-white px-6 py-2 text-lg hover:bg-[#a65cad] transition-all duration-300 ease-in-out"
           />
+          </a>
           <div className="max-w-[250px] w-full">
             <img
               src="https://www.madpaws.com.au/marketplace/images/homepage/waggly.webp"
@@ -64,10 +71,14 @@ export default function Brands() {
               className="w-full h-auto object-contain"
             />
           </div>
+          <a
+          target='_blanck'
+          href='https://www.sashbeds.com/?utm_source=madpaws&utm_medium=futures&utm_campaign=homepage'>
           <OptionButton
             title={'Shop dog beds'}
             className="rounded-full capitalize bg-[#914a27] border-0 text-white px-6 py-2 text-lg hover:bg-[#a85b35] transition-all duration-300 ease-in-out"
           />
+          </a>
           <div className="max-w-[250px] w-full">
             <img
               src="https://www.madpaws.com.au/marketplace/images/homepage/sash.webp"
