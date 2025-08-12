@@ -122,7 +122,7 @@ export default function OrganizationType() {
       setPendingBookings(pendingBookings.filter((b) => b.id !== bookingId));
       setPastBookings([
         ...pastBookings,
-        { ...declinedBooking, paymentStatus: "cancelled" },
+        { ...declinedBooking, paymentStatus: "failed" },
       ]);
     } catch (error) {
       console.error("Failed to decline booking:", error);
@@ -165,15 +165,14 @@ export default function OrganizationType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-
         {/* Pending Requests */}
         <div className="mt-6">
           <Heading className="text-header-sm mb-3 text-primary-color">
             Pending Requests
           </Heading>
           <div className="space-y-4">
-            {pending.length > 0 ? (
-              pending.map((booking) => (
+            {pendingBookings.length > 0 ? (
+              pendingBookings.map((booking) => (
                 <PendingReq
                   key={booking.id}
                   booking={booking}
@@ -188,15 +187,14 @@ export default function OrganizationType() {
             )}
           </div>
         </div>
-
         {/* Approved Bookings */}
         <div className="mt-10">
           <Heading className="text-header-sm mb-3 text-blue-900">
             Upcoming Bookings
           </Heading>
           <div className="space-y-4">
-            {approved.length > 0 ? (
-              approved.map((booking) => (
+            {approvedBookings.length > 0 ? (
+              approvedBookings.map((booking) => (
                 <ApprovedReq key={booking.id} booking={booking} />
               ))
             ) : (
@@ -206,15 +204,14 @@ export default function OrganizationType() {
             )}
           </div>
         </div>
-
         {/* Past Bookings */}
         <div className="mt-10">
           <Heading className="text-header-sm mb-3 text-header-color">
             Past Bookings
           </Heading>
           <div className="space-y-4">
-            {past.length > 0 ? (
-              past.map((booking) => (
+            {pastBookings.length > 0 ? (
+              pastBookings.map((booking) => (
                 <PastReq key={booking.id} booking={booking} />
               ))
             ) : (
