@@ -28,35 +28,35 @@ export default function OrganizationType() {
   const [approvedBookings, setApprovedBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
 
-  const [pending, setPending] = useState([
-    {
-      id: 1,
-      name: "Max",
-      date: "2025-08-02",
-      owner: "Sarah Johnson",
-    },
-  ]);
+  // const [pending, setPending] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Max",
+  //     date: "2025-08-02",
+  //     owner: "Sarah Johnson",
+  //   },
+  // ]);
 
-  const [approved, setApproved] = useState([
-    {
-      id: 2,
-      name: "Bella",
-      date: "2025-08-15",
-      owner: "John Smith",
-    },
-  ]);
+  // const [approved, setApproved] = useState([
+  //   {
+  //     id: 2,
+  //     name: "Bella",
+  //     date: "2025-08-15",
+  //     owner: "John Smith",
+  //   },
+  // ]);
 
-  const [past, setPast] = useState([
-    {
-      id: 3,
-      name: "Charlie",
-      date: "2025-07-10",
-      owner: "Lina George",
-    },
-  ]);
+  // const [past, setPast] = useState([
+  //   {
+  //     id: 3,
+  //     name: "Charlie",
+  //     date: "2025-07-10",
+  //     owner: "Lina George",
+  //   },
+  // ]);
 
   useEffect(() => {
-    console.log(import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY);
+    // console.log(import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY);
 
     const fetchOrganizationData = async () => {
       if (user && userDoc && userDoc.role === "org") {
@@ -64,6 +64,13 @@ export default function OrganizationType() {
         try {
           const data = await getOrginzationDoc(user.uid);
           setOrganizationData(data);
+
+          const { pending, approved, past } = await getOrganizationBookings(
+            user.uid
+          );
+          setPendingBookings(pending);
+          setApprovedBookings(approved);
+          setPastBookings(past);
         } catch (error) {
           console.error("Error fetching organization data:", error);
         } finally {
@@ -84,14 +91,42 @@ export default function OrganizationType() {
     return <div>No organization data found.</div>;
   }
 
-  const handleApprove = (id) => {
-    const booking = pending.find((b) => b.id === id);
-    setApproved([...approved, booking]);
-    setPending(pending.filter((b) => b.id !== id));
+  // const handleApprove = (id) => {
+  //   const booking = pending.find((b) => b.id === id);
+  //   setApproved([...approved, booking]);
+  //   setPending(pending.filter((b) => b.id !== id));
+  // };
+
+  // const handleDecline = (id) => {
+  //   setPending(pending.filter((b) => b.id !== id));
+  // };
+
+  const handleApprove = async (bookingId) => {
+    try {
+      await updateBookingStatus(bookingId, "approved");
+      const approvedBooking = pendingBookings.find((b) => b.id === bookingId);
+      setPendingBookings(pendingBookings.filter((b) => b.id !== bookingId));
+      setApprovedBookings([
+        ...approvedBookings,
+        { ...approvedBooking, paymentStatus: "approved" },
+      ]);
+    } catch (error) {
+      console.error("Failed to approve booking:", error);
+    }
   };
 
-  const handleDecline = (id) => {
-    setPending(pending.filter((b) => b.id !== id));
+  const handleDecline = async (bookingId) => {
+    try {
+      await updateBookingStatus(bookingId, "cancelled");
+      const declinedBooking = pendingBookings.find((b) => b.id === bookingId);
+      setPendingBookings(pendingBookings.filter((b) => b.id !== bookingId));
+      setPastBookings([
+        ...pastBookings,
+        { ...declinedBooking, paymentStatus: "cancelled" },
+      ]);
+    } catch (error) {
+      console.error("Failed to decline booking:", error);
+    }
   };
 
   return (
@@ -269,10 +304,10 @@ export default function OrganizationType() {
                     Save
                   </FilledButton>
                   <LinkButton
-                  className="!text-paragraph-color"
-                  onClick={() => setIsEditingGallery(false)}
+                    className="!text-paragraph-color"
+                    onClick={() => setIsEditingGallery(false)}
                   >
-                  Cancel
+                    Cancel
                   </LinkButton>
                 </div>
               </Form>
