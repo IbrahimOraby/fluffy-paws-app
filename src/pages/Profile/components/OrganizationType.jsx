@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import ProfileSectionHeader from "./ProfileSectionHeader";
-import MessageItem from "./MessageItem";
 import UserProfileCard from "./UserProfileCard";
 import PendingReq from "./PendingReq";
 import ApprovedReq from "./ApprovedReq";
@@ -12,6 +11,8 @@ import FilledButton from "../../../ui/Buttons/FilledButton";
 import {
   getOrginzationDoc,
   updateOrganizationGallery,
+  getOrganizationBookings,
+  updateBookingStatus,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
@@ -22,6 +23,10 @@ export default function OrganizationType() {
   const [organizationData, setOrganizationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditingGallery, setIsEditingGallery] = useState(false);
+
+  const [pendingBookings, setPendingBookings] = useState([]);
+  const [approvedBookings, setApprovedBookings] = useState([]);
+  const [pastBookings, setPastBookings] = useState([]);
 
   const [pending, setPending] = useState([
     {
