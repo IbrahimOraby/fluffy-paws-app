@@ -238,6 +238,16 @@ export const addOrganizationReview = async (orgId, reviewData) => {
 };
 // Real-time listener that returns the latest reviews (newest first)
 
+export const listenOrgReviews = (orgId, callback) => {
+  const q = query(
+    collection(db, "organizations", orgId, "reviews"),
+    orderBy("createdAt", "desc")
+  );
+  return onSnapshot(q, (snap) =>
+    callback(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+  );
+};
+
 export const listenOrgRating = (orgId, callback) => {
   const q = query(collection(db, "organizations", orgId, "reviews"));
   return onSnapshot(q, (snap) => {

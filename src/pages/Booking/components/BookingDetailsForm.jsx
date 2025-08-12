@@ -56,6 +56,17 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
     };
   }, [firebaseUser?.uid]);
 
+  const pickPetPreview = (p) => ({
+    id: p.id,
+    name: p.name || "",
+    type: p.petType || p.type || "",
+    breed: p.breed || "",
+    gender: p.gender || "",
+    age: p.age || "",
+    weight: p.weight || "",
+    photoUrl: p.photo?.photo?.cdnUrl || p.photo?.cdnUrl || p.photoUrl || "",
+  });
+
   return (
     <Formik
       initialValues={{
@@ -81,6 +92,13 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
           console.log(amount);
           console.log(defaultPetCount);
 
+          //  pets selected (FULL DATA, not all pets!)
+          const selectedIds = values.selectedPetIds || [];
+          const selectedPetsFull = pets
+            .filter((p) => selectedIds.includes(p.id))
+            .map(pickPetPreview);
+
+
           /*  Build payload to send to backend */
           const payload = {
             userId: userId,
@@ -94,9 +112,12 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
             },
             bookingData: {
               location: values.location,
-              fromDate: values.fromDate,
-              toDate: values.toDate,
-              petIds: pets.map((p) => p.id),
+              fromDate: values.fromDate?.toISOString?.() || values.fromDate,
+              toDate: values.toDate?.toISOString?.() || values.toDate,
+              nights, // << duration
+              petCount: values.petCount,
+              petIds: selectedIds, 
+              pets: selectedPetsFull,
             },
           };
 
