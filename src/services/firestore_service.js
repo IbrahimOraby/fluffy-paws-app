@@ -226,3 +226,34 @@ export const addPetDoc = async (uid, petData) => {
     throw err;
   }
 };
+
+export const getOrganizationBookings = async (organizationId) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("shelterId", "==", organizationId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const pending = bookings.filter((booking) => booking.paymentStatus === "pending");
+    const approved = bookings.filter((booking) => booking.paymentStatus === "paid");
+    const past = bookings.filter((booking) => booking.paymentStatus === "completed" || booking.paymentStatus === "failed");
+
+    return { pending, approved, past };
+  } catch (error) {
+    console.error("Error fetching organization bookings:", error);
+    return { pending: [], approved: [], past: [] };
+  }
+};
+
+export const updateBookingStatus = async (bookingId, newStatus) => {
+  try {
+    const bookingRef = doc(db, "bookings", bookingId);
+    await updateDoc(bookingRef, { paymentStatus: newStatus });
+  } catch (error) {
+    console.error("Error updating booking status:", error);
+    throw error;
+  }
+};
