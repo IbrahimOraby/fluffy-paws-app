@@ -28,36 +28,7 @@ export default function OrganizationType() {
   const [approvedBookings, setApprovedBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
 
-  // const [pending, setPending] = useState([
-  //   {
-  //     id: 1,
-  //     name: "Max",
-  //     date: "2025-08-02",
-  //     owner: "Sarah Johnson",
-  //   },
-  // ]);
-
-  // const [approved, setApproved] = useState([
-  //   {
-  //     id: 2,
-  //     name: "Bella",
-  //     date: "2025-08-15",
-  //     owner: "John Smith",
-  //   },
-  // ]);
-
-  // const [past, setPast] = useState([
-  //   {
-  //     id: 3,
-  //     name: "Charlie",
-  //     date: "2025-07-10",
-  //     owner: "Lina George",
-  //   },
-  // ]);
-
   useEffect(() => {
-    // console.log(import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY);
-
     const fetchOrganizationData = async () => {
       if (user && userDoc && userDoc.role === "org") {
         setLoading(true);
@@ -90,16 +61,6 @@ export default function OrganizationType() {
   if (!organizationData) {
     return <div>No organization data found.</div>;
   }
-
-  // const handleApprove = (id) => {
-  //   const booking = pending.find((b) => b.id === id);
-  //   setApproved([...approved, booking]);
-  //   setPending(pending.filter((b) => b.id !== id));
-  // };
-
-  // const handleDecline = (id) => {
-  //   setPending(pending.filter((b) => b.id !== id));
-  // };
 
   const handleApprove = async (bookingId) => {
     try {
@@ -207,7 +168,7 @@ export default function OrganizationType() {
         {/* Past Bookings */}
         <div className="mt-10">
           <Heading className="text-header-sm mb-3 text-header-color">
-            Past Bookings
+            Cancelled Bookings
           </Heading>
           <div className="space-y-4">
             {pastBookings.length > 0 ? (
@@ -216,7 +177,7 @@ export default function OrganizationType() {
               ))
             ) : (
               <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No past bookings yet.
+                No cancelled bookings yet.
               </Paragraph>
             )}
           </div>
