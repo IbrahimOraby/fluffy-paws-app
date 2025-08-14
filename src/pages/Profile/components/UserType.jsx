@@ -152,32 +152,6 @@ export default function UserType() {
         )}
       </div>
 
-      {/* ############ Messages Input ############ */}
-      {/* <input
-        type="radio"
-        name="dashboard_tabs"
-        className="tab text-lg"
-        aria-label="Messages"
-      />
-      <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Messages"
-          subTitle="Manage all your conversations with sitters and shelters here."
-        />
-        <ul className="mt-4 space-y-3">
-          <MessageItem
-            sender="Sitter John"
-            messageSnippet="Looking forward to boarding Buster!"
-            timestamp="2 hours ago"
-          />
-          <MessageItem
-            sender="Shelter Haven"
-            messageSnippet="Confirming your booking for Luna."
-            timestamp="Yesterday"
-          />
-        </ul>
-      </div> */}
-
       {/* ############ MyPets Input ############ */}
       <input
         type="radio"
@@ -190,15 +164,15 @@ export default function UserType() {
           <div>
             <ProfileSectionHeader
               title="Your Beloved Pets"
-              subTitle="Here you can add, edit, or remove your pet's profiles."
+              subTitle="Here you can edit your pet's profiles."
             />
           </div>
-          {/* <FilledButton
+          <FilledButton
             className="bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color"
             onClick=""
           >
             Add Pet
-          </FilledButton> */}
+          </FilledButton>
         </div>
         {/* Pet cards goes here */}
 
