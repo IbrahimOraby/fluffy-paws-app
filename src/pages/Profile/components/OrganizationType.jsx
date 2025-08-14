@@ -17,6 +17,7 @@ import {
 import useUserStore from "../../../store/useUserStore";
 import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
 import LinkButton from "../../../ui/Buttons/LinkButton";
+import PetDashboard from "./PetDashboard";
 
 export default function OrganizationType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
@@ -42,6 +43,10 @@ export default function OrganizationType() {
           setPendingBookings(pending);
           setApprovedBookings(approved);
           setPastBookings(past);
+
+          console.log("Pending Bookings:", pending);
+          console.log("Approved Bookings:", approved);
+          console.log("Past Bookings:", past);
         } catch (error) {
           console.error("Error fetching organization data:", error);
         } finally {
@@ -183,7 +188,7 @@ export default function OrganizationType() {
           </div>
         </div>
       </div>
-      
+
       {/* ############ Pets Dashboard Input ############ */}
       <input
         type="radio"
@@ -194,26 +199,12 @@ export default function OrganizationType() {
       <div className="tab-content border-base-300 bg-base-100 p-10">
         <ProfileSectionHeader
           title="Pets Dashboard"
-          subTitle="View pets for all pending and approved bookings."
+          subTitle="View and manage details of all pets from pending and approved bookings."
         />
-
-        {petsDashboard.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            {petsDashboard.map((petData) => (
-              <div key={petData.pet.id} className="border p-4 rounded-lg">
-                <h3 className="font-bold text-lg">{petData.pet.name}</h3>
-                <p>
-                  Owner: {petData.client.firstName} {petData.client.lastName}
-                </p>
-                <p>Status: {petData.status}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-            No pets found for your bookings.
-          </Paragraph>
-        )}
+        <PetDashboard
+          pendingBookings={pendingBookings}
+          approvedBookings={approvedBookings}
+        />
       </div>
 
       {/* ############ Gallery Input ############ */}
