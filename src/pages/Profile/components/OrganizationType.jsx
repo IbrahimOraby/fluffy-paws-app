@@ -183,6 +183,38 @@ export default function OrganizationType() {
           </div>
         </div>
       </div>
+      
+      {/* ############ Pets Dashboard Input ############ */}
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Pets Dashboard"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <ProfileSectionHeader
+          title="Pets Dashboard"
+          subTitle="View pets for all pending and approved bookings."
+        />
+
+        {petsDashboard.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            {petsDashboard.map((petData) => (
+              <div key={petData.pet.id} className="border p-4 rounded-lg">
+                <h3 className="font-bold text-lg">{petData.pet.name}</h3>
+                <p>
+                  Owner: {petData.client.firstName} {petData.client.lastName}
+                </p>
+                <p>Status: {petData.status}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+            No pets found for your bookings.
+          </Paragraph>
+        )}
+      </div>
 
       {/* ############ Gallery Input ############ */}
       <input
