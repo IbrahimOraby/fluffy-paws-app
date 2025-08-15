@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import ProfileSectionHeader from "./ProfileSectionHeader";
-import MessageItem from "./MessageItem";
 import UserProfileCard from "./UserProfileCard";
 import PendingReq from "./PendingReq";
 import ApprovedReq from "./ApprovedReq";
@@ -12,10 +11,13 @@ import FilledButton from "../../../ui/Buttons/FilledButton";
 import {
   getOrginzationDoc,
   updateOrganizationGallery,
+  getOrganizationBookings,
+  updateBookingStatus,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
 import LinkButton from "../../../ui/Buttons/LinkButton";
+import PetDashboard from "./PetDashboard";
 
 export default function OrganizationType() {
   const { user, userDoc, loading: userLoading } = useUserStore();
@@ -23,42 +25,39 @@ export default function OrganizationType() {
   const [loading, setLoading] = useState(true);
   const [isEditingGallery, setIsEditingGallery] = useState(false);
 
-  const [pending, setPending] = useState([
-    {
-      id: 1,
-      name: "Max",
-      date: "2025-08-02",
-      owner: "Sarah Johnson",
-    },
-  ]);
+  const [incomingBookings, setIncomingBookings] = useState([]);
+  const [pastBookings, setPastBookings] = useState([]);
 
-  const [approved, setApproved] = useState([
-    {
-      id: 2,
-      name: "Bella",
-      date: "2025-08-15",
-      owner: "John Smith",
-    },
-  ]);
-
-  const [past, setPast] = useState([
-    {
-      id: 3,
-      name: "Charlie",
-      date: "2025-07-10",
-      owner: "Lina George",
-    },
-  ]);
+  const [allBookings, setAllBookings] = useState([]);
 
   useEffect(() => {
-    console.log(import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY);
-
     const fetchOrganizationData = async () => {
       if (user && userDoc && userDoc.role === "org") {
         setLoading(true);
         try {
           const data = await getOrginzationDoc(user.uid);
           setOrganizationData(data);
+
+          const allBookings = await getOrganizationBookings(user.uid);
+          setAllBookings(allBookings);
+
+          const now = new Date();
+
+          const incoming = allBookings.filter(
+            (booking) =>
+              booking.toDate && new Date(booking.toDate.toDate()) >= now
+          );
+
+          const past = allBookings.filter(
+            (booking) =>
+              booking.toDate && new Date(booking.toDate.toDate()) < now
+          );
+
+          setIncomingBookings(incoming);
+          setPastBookings(past);
+
+          console.log("Incoming Bookings:", incoming);
+          console.log("Past Bookings:", past);
         } catch (error) {
           console.error("Error fetching organization data:", error);
         } finally {
@@ -78,16 +77,6 @@ export default function OrganizationType() {
   if (!organizationData) {
     return <div>No organization data found.</div>;
   }
-
-  const handleApprove = (id) => {
-    const booking = pending.find((b) => b.id === id);
-    setApproved([...approved, booking]);
-    setPending(pending.filter((b) => b.id !== id));
-  };
-
-  const handleDecline = (id) => {
-    setPending(pending.filter((b) => b.id !== id));
-  };
 
   return (
     <>
@@ -125,43 +114,19 @@ export default function OrganizationType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-
-        {/* Pending Requests */}
+        {/* Incoming Bookings */}
         <div className="mt-6">
           <Heading className="text-header-sm mb-3 text-primary-color">
-            Pending Requests
+            Incoming Bookings
           </Heading>
           <div className="space-y-4">
-            {pending.length > 0 ? (
-              pending.map((booking) => (
-                <PendingReq
-                  key={booking.id}
-                  booking={booking}
-                  onApprove={handleApprove}
-                  onDecline={handleDecline}
-                />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No pending requests.
-              </Paragraph>
-            )}
-          </div>
-        </div>
-
-        {/* Approved Bookings */}
-        <div className="mt-10">
-          <Heading className="text-header-sm mb-3 text-blue-900">
-            Upcoming Bookings
-          </Heading>
-          <div className="space-y-4">
-            {approved.length > 0 ? (
-              approved.map((booking) => (
+            {incomingBookings.length > 0 ? (
+              incomingBookings.map((booking) => (
                 <ApprovedReq key={booking.id} booking={booking} />
               ))
             ) : (
               <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No upcoming bookings.
+                No incoming bookings.
               </Paragraph>
             )}
           </div>
@@ -173,8 +138,8 @@ export default function OrganizationType() {
             Past Bookings
           </Heading>
           <div className="space-y-4">
-            {past.length > 0 ? (
-              past.map((booking) => (
+            {pastBookings.length > 0 ? (
+              pastBookings.map((booking) => (
                 <PastReq key={booking.id} booking={booking} />
               ))
             ) : (
@@ -184,6 +149,25 @@ export default function OrganizationType() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* ############ Pets Dashboard Input ############ */}
+      <input
+        type="radio"
+        name="dashboard_tabs"
+        className="tab text-lg"
+        aria-label="Pets Dashboard"
+      />
+      <div className="tab-content border-base-300 bg-base-100 p-10">
+        <ProfileSectionHeader
+          title="Pets Dashboard"
+          subTitle="View and manage details of all pets from pending and approved bookings."
+        />
+        {/* <PetDashboard
+          // pendingBookings={pendingBookings}
+          // approvedBookings={approvedBookings}
+        /> */}
+        <PetDashboard allBookings={allBookings} />
       </div>
 
       {/* ############ Gallery Input ############ */}
@@ -264,10 +248,10 @@ export default function OrganizationType() {
                     Save
                   </FilledButton>
                   <LinkButton
-                  className="!text-paragraph-color"
-                  onClick={() => setIsEditingGallery(false)}
+                    className="!text-paragraph-color"
+                    onClick={() => setIsEditingGallery(false)}
                   >
-                  Cancel
+                    Cancel
                   </LinkButton>
                 </div>
               </Form>

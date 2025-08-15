@@ -17,9 +17,14 @@ export default function PetProfileCard({ pet }) {
     photo,
   } = pet;
 
-  const vaccinations = health?.vaccinations
-    ? JSON.parse(health.vaccinations)
-    : [];
+  let vaccinations = [];
+  if (health && health.vaccinations) {
+    try {
+      vaccinations = JSON.parse(health.vaccinations);
+    } catch (error) {
+      console.error("Failed to parse vaccinations JSON:", error);
+    }
+  }
 
   console.log(weight);
 
