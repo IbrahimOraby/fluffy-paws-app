@@ -244,6 +244,23 @@ export const getOrganizationBookings = async (organizationId) => {
   }
 };
 
+export const getClientBookings = async (userId) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return bookings;
+  } catch (error) {
+    console.error("Error fetching client bookings:", error);
+    return [];
+  }
+};
+
 export const updateBookingStatus = async (bookingId, newStatus) => {
   try {
     const bookingRef = doc(db, "bookings", bookingId);
