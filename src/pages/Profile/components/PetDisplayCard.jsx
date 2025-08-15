@@ -3,7 +3,7 @@ import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 
 export default function PetDisplayCard({ pet }) {
-  const { name, breed, age, gender, photoUrl, status } = pet;
+  const { name, breed, age, gender, photoUrl } = pet;
   const vaccinations = pet.health?.vaccinations ? pet.health.vaccinations : [];
 
   return (
@@ -60,17 +60,6 @@ export default function PetDisplayCard({ pet }) {
               </ul>
             </div>
           )}
-        </div>
-        <div className="card-actions justify-center mt-4">
-          <span
-            className={`badge ${
-              status === "pending"
-                ? "badge-warning text-warning-content"
-                : "badge-success text-success-content"
-            } badge-lg`}
-          >
-            {status === "pending" ? "Pending" : "Approved"}
-          </span>
         </div>
       </div>
     </div>

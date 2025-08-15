@@ -25,10 +25,6 @@ export default function OrganizationType() {
   const [loading, setLoading] = useState(true);
   const [isEditingGallery, setIsEditingGallery] = useState(false);
 
-  // const [pendingBookings, setPendingBookings] = useState([]);
-  // const [approvedBookings, setApprovedBookings] = useState([]);
-  // const [pastBookings, setPastBookings] = useState([]);
-
   const [incomingBookings, setIncomingBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
 
@@ -81,34 +77,6 @@ export default function OrganizationType() {
   if (!organizationData) {
     return <div>No organization data found.</div>;
   }
-
-  const handleApprove = async (bookingId) => {
-    try {
-      await updateBookingStatus(bookingId, "approved");
-      const approvedBooking = pendingBookings.find((b) => b.id === bookingId);
-      setPendingBookings(pendingBookings.filter((b) => b.id !== bookingId));
-      setApprovedBookings([
-        ...approvedBookings,
-        { ...approvedBooking, paymentStatus: "approved" },
-      ]);
-    } catch (error) {
-      console.error("Failed to approve booking:", error);
-    }
-  };
-
-  const handleDecline = async (bookingId) => {
-    try {
-      await updateBookingStatus(bookingId, "cancelled");
-      const declinedBooking = pendingBookings.find((b) => b.id === bookingId);
-      setPendingBookings(pendingBookings.filter((b) => b.id !== bookingId));
-      setPastBookings([
-        ...pastBookings,
-        { ...declinedBooking, paymentStatus: "failed" },
-      ]);
-    } catch (error) {
-      console.error("Failed to decline booking:", error);
-    }
-  };
 
   return (
     <>
