@@ -4,8 +4,9 @@ import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 
 export default function PetDisplayCard({ pet }) {
   const { name, breed, age, gender, photoUrl } = pet;
-  const vaccinations = pet.health?.vaccinations ? pet.health.vaccinations : [];
-
+  const vaccinations = pet.health?.vaccinations && Array.isArray(pet.health.vaccinations)
+  ? pet.health.vaccinations
+  : [];
   return (
     <div className="card bg-base-100 shadow-xl border border-light-color p-6 flex flex-col items-center text-center">
       <div className="mb-4">
