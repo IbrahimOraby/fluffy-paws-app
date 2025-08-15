@@ -11,6 +11,7 @@ import {
   getCurrentUserDoc,
   getPetDocs,
   updateClientData,
+  getClientBookings,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
@@ -23,6 +24,9 @@ export default function UserType() {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+
+  const [incomingBookings, setIncomingBookings] = useState([]);
+  const [pastBookings, setPastBookings] = useState([]);
 
   useEffect(() => {
     const fetchClientData = async () => {
@@ -219,7 +223,7 @@ export default function UserType() {
       </div>
 
       {/* ############ Favourite Input ############ */}
-      {/* <input
+      <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -236,14 +240,14 @@ export default function UserType() {
             name="Sitter Emily R."
             //   imageUrl={}
             description="Experienced dog walker and boarder."
-          /> */}
-      {/* <FavouriteProfileCard
+          />
+          <FavouriteProfileCard
             name="The Happy Paws Shelter"
             //   imageUrl={}
             description="Spacious facilities for all pets."
-          /> */}
-      {/* </div>
-      </div> */}
+          />
+        </div>
+      </div>
     </>
   );
 }
