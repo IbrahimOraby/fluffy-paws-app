@@ -8,11 +8,14 @@ import Shelter from "./pages/Shelter";
 import Profile from "./pages/profile";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import SelectRole from './pages/Profile-Setup'
-import OrganizationSetup from './pages/Profile-Setup/Org'
-import PersonalSetup from './pages/Profile-Setup/Personal'
+import SelectRole from "./pages/Profile-Setup";
+import OrganizationSetup from "./pages/Profile-Setup/Org";
+import PersonalSetup from "./pages/Profile-Setup/Personal";
 import PetWizardForm from "./pages/Pet-profile";
 import Booking from "./pages/Booking";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import RoleSetupRoute from "./components/RoleSetupRoute";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -23,15 +26,32 @@ export default function App() {
         { path: "/", element: <Home /> },
         { path: "/shelters", element: <Shelters /> },
         { path: "/shelter/:id", element: <Shelter /> },
-        { path: "/profile", element: <Profile /> },
-        { path: "/signup", element: <Signup /> },
-        { path: "/signin", element: <Signin /> },
-        { path: "/select-role", element: <SelectRole /> },
-        { path: "/select-role/org", element: <OrganizationSetup /> },
-        { path: "/select-role/personal", element: <PersonalSetup /> },
         { path: "/typography", element: <Typography /> },
-        { path: "/Pet", element: <PetWizardForm /> },
-        { path: "/booking", element: <Booking /> },
+
+        {
+          element: <PublicRoute />,
+          children: [
+            { path: "/signup", element: <Signup /> },
+            { path: "/signin", element: <Signin /> }
+          ]
+        },
+
+        {
+          element: <ProtectedRoute />,
+          children: [
+            { path: "/profile", element: <Profile /> },
+            {
+              element: <RoleSetupRoute />,
+              children: [
+                { path: "/select-role", element: <SelectRole /> },
+                { path: "/select-role/org", element: <OrganizationSetup /> },
+                { path: "/select-role/personal", element: <PersonalSetup /> }
+              ]
+            },
+            { path: "/Pet", element: <PetWizardForm /> },
+            { path: "/booking", element: <Booking /> }
+          ]
+        }
       ]
     }
   ]);
