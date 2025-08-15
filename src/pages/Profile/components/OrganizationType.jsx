@@ -25,8 +25,11 @@ export default function OrganizationType() {
   const [loading, setLoading] = useState(true);
   const [isEditingGallery, setIsEditingGallery] = useState(false);
 
-  const [pendingBookings, setPendingBookings] = useState([]);
-  const [approvedBookings, setApprovedBookings] = useState([]);
+  // const [pendingBookings, setPendingBookings] = useState([]);
+  // const [approvedBookings, setApprovedBookings] = useState([]);
+  // const [pastBookings, setPastBookings] = useState([]);
+
+  const [incomingBookings, setIncomingBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
 
   useEffect(() => {
