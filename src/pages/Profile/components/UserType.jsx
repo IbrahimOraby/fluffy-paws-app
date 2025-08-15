@@ -35,11 +35,28 @@ export default function UserType() {
         try {
           const data = await getCurrentUserDoc(user);
           setClientData(data);
-          // console.log("@@@@@",data);
+  
           const petsData = await getPetDocs(user.uid);
           setPets(petsData);
+  
+          const allBookings = await getClientBookings(user.uid);
+          const now = new Date();
+          
+          const incoming = allBookings.filter(
+            (booking) => new Date(booking.toDate.toDate()) >= now
+          );
+          
+          const past = allBookings.filter(
+            (booking) => new Date(booking.toDate.toDate()) < now
+          );
+          
+          setIncomingBookings(incoming);
+          setPastBookings(past);
+  
           console.log("Client Data fetched:", data);
           console.log("Pets Data fetched:", petsData);
+          console.log("Incoming Bookings:", incoming);
+          console.log("Past Bookings:", past);
         } catch (error) {
           console.error("Error fetching client data:", error);
         } finally {
