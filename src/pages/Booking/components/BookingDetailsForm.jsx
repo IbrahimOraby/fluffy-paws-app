@@ -57,13 +57,8 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
   }, [firebaseUser?.uid]);
 
   const pickPetPreview = (p) => ({
-    id: p.id,
-    name: p.name || "",
-    type: p.petType || p.type || "",
-    breed: p.breed || "",
-    gender: p.gender || "",
-    age: p.age || "",
-    weight: p.weight || "",
+ 
+    ...p,
     photoUrl: p.photo?.photo?.cdnUrl || p.photo?.cdnUrl || p.photoUrl || "",
   });
 
@@ -98,7 +93,6 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
             .filter((p) => selectedIds.includes(p.id))
             .map(pickPetPreview);
 
-
           /*  Build payload to send to backend */
           const payload = {
             userId: userId,
@@ -116,7 +110,7 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
               toDate: values.toDate?.toISOString?.() || values.toDate,
               nights, // << duration
               petCount: values.petCount,
-              petIds: selectedIds, 
+              petIds: selectedIds,
               pets: selectedPetsFull,
             },
           };
