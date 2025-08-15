@@ -237,14 +237,10 @@ export const getOrganizationBookings = async (organizationId) => {
       ...doc.data(),
     }));
 
-    const pending = bookings.filter((booking) => booking.paymentStatus === "pending");
-    const approved = bookings.filter((booking) => booking.paymentStatus === "paid");
-    const past = bookings.filter((booking) => booking.paymentStatus === "completed" || booking.paymentStatus === "failed");
-
-    return { pending, approved, past };
+    return bookings; 
   } catch (error) {
     console.error("Error fetching organization bookings:", error);
-    return { pending: [], approved: [], past: [] };
+    return [];
   }
 };
 
