@@ -40,15 +40,23 @@ export default function OrganizationType() {
           const data = await getOrginzationDoc(user.uid);
           setOrganizationData(data);
 
-          const { pending, approved, past } = await getOrganizationBookings(
-            user.uid
+          const allBookings = await getOrganizationBookings(user.uid);
+          const now = new Date();
+
+          const incoming = allBookings.filter(
+            (booking) =>
+              booking.toDate && new Date(booking.toDate.toDate()) >= now
           );
-          setPendingBookings(pending);
-          setApprovedBookings(approved);
+
+          const past = allBookings.filter(
+            (booking) =>
+              booking.toDate && new Date(booking.toDate.toDate()) < now
+          );
+
+          setIncomingBookings(incoming);
           setPastBookings(past);
 
-          console.log("Pending Bookings:", pending);
-          console.log("Approved Bookings:", approved);
+          console.log("Incoming Bookings:", incoming);
           console.log("Past Bookings:", past);
         } catch (error) {
           console.error("Error fetching organization data:", error);
