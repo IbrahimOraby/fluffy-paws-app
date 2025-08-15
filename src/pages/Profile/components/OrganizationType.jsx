@@ -32,6 +32,8 @@ export default function OrganizationType() {
   const [incomingBookings, setIncomingBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
 
+  const [allBookings, setAllBookings] = useState([]);
+
   useEffect(() => {
     const fetchOrganizationData = async () => {
       if (user && userDoc && userDoc.role === "org") {
@@ -41,6 +43,8 @@ export default function OrganizationType() {
           setOrganizationData(data);
 
           const allBookings = await getOrganizationBookings(user.uid);
+          setAllBookings(allBookings);
+
           const now = new Date();
 
           const incoming = allBookings.filter(
@@ -142,49 +146,28 @@ export default function OrganizationType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-        {/* Pending Requests */}
+        {/* Incoming Bookings */}
         <div className="mt-6">
           <Heading className="text-header-sm mb-3 text-primary-color">
-            Pending Requests
+            Incoming Bookings
           </Heading>
           <div className="space-y-4">
-            {pendingBookings.length > 0 ? (
-              pendingBookings.map((booking) => (
-                <PendingReq
-                  key={booking.id}
-                  booking={booking}
-                  onApprove={handleApprove}
-                  onDecline={handleDecline}
-                />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No pending requests.
-              </Paragraph>
-            )}
-          </div>
-        </div>
-        {/* Approved Bookings */}
-        <div className="mt-10">
-          <Heading className="text-header-sm mb-3 text-blue-900">
-            Upcoming Bookings
-          </Heading>
-          <div className="space-y-4">
-            {approvedBookings.length > 0 ? (
-              approvedBookings.map((booking) => (
+            {incomingBookings.length > 0 ? (
+              incomingBookings.map((booking) => (
                 <ApprovedReq key={booking.id} booking={booking} />
               ))
             ) : (
               <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No upcoming bookings.
+                No incoming bookings.
               </Paragraph>
             )}
           </div>
         </div>
+
         {/* Past Bookings */}
         <div className="mt-10">
           <Heading className="text-header-sm mb-3 text-header-color">
-            Cancelled Bookings
+            Past Bookings
           </Heading>
           <div className="space-y-4">
             {pastBookings.length > 0 ? (
@@ -193,7 +176,7 @@ export default function OrganizationType() {
               ))
             ) : (
               <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No cancelled bookings yet.
+                No past bookings yet.
               </Paragraph>
             )}
           </div>
@@ -212,10 +195,11 @@ export default function OrganizationType() {
           title="Pets Dashboard"
           subTitle="View and manage details of all pets from pending and approved bookings."
         />
-        <PetDashboard
-          pendingBookings={pendingBookings}
-          approvedBookings={approvedBookings}
-        />
+        {/* <PetDashboard
+          // pendingBookings={pendingBookings}
+          // approvedBookings={approvedBookings}
+        /> */}
+        <PetDashboard allBookings={allBookings} />
       </div>
 
       {/* ############ Gallery Input ############ */}
