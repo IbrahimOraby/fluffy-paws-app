@@ -35,28 +35,30 @@ export default function UserType() {
         try {
           const data = await getCurrentUserDoc(user);
           setClientData(data);
-  
+
           const petsData = await getPetDocs(user.uid);
           setPets(petsData);
-  
+
           const allBookings = await getClientBookings(user.uid);
           const now = new Date();
+
+          const incoming = allBookings.filter((booking) => {
+            const toDate = booking.bookingData?.toDate?.toDate
+              ? booking.bookingData.toDate.toDate()
+              : new Date(booking.bookingData?.toDate);
+            return toDate >= now;
+          });
           
-          const incoming = allBookings.filter(
-            (booking) => new Date(booking.toDate.toDate()) >= now
-          );
+          const past = allBookings.filter((booking) => {
+            const toDate = booking.bookingData?.toDate?.toDate
+              ? booking.bookingData.toDate.toDate()
+              : new Date(booking.bookingData?.toDate);
+            return toDate < now;
+          });
           
-          const past = allBookings.filter(
-            (booking) => new Date(booking.toDate.toDate()) < now
-          );
-          
+
           setIncomingBookings(incoming);
           setPastBookings(past);
-  
-          console.log("Client Data fetched:", data);
-          console.log("Pets Data fetched:", petsData);
-          console.log("Incoming Bookings:", incoming);
-          console.log("Past Bookings:", past);
         } catch (error) {
           console.error("Error fetching client data:", error);
         } finally {
@@ -68,6 +70,10 @@ export default function UserType() {
     };
     fetchClientData();
   }, [user, userDoc]);
+
+  // useEffect(() => {
+  //   console.log("Incoming Bookings updated:", incomingBookings);
+  // }, [incomingBookings]);
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required("Required"),
@@ -222,21 +228,51 @@ export default function UserType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-        {/* Booking list goes here */}
-        <ul className="mt-4 space-y-3">
-          <BookingCardProfile
-            title="Buddy's Stay with Sitter Jane"
-            dates="July 20 - July 25, 2025"
-            status="Confirmed"
-            statusType="success"
-          />
-          <BookingCardProfile
-            title="Whiskers at Shelter Paws"
-            dates="August 10 - August 15, 2025"
-            status="Pending"
-            statusType="warning"
-          />
-        </ul>
+        {/* Upcoming Bookings */}
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold text-primary-color mb-3">
+            Upcoming Bookings
+          </h3>
+          <ul className="space-y-3">
+            {incomingBookings.length > 0 ? (
+              incomingBookings.map((booking) => (
+                <BookingCardProfile
+                  key={booking.id}
+                  booking={booking}
+                  status="Confirmed"
+                  statusType="success"
+                />
+              ))
+            ) : (
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                You have no upcoming bookings.
+              </Paragraph>
+            )}
+          </ul>
+        </div>
+
+        {/* Past Bookings */}
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-header-color mb-3">
+            Past Bookings
+          </h3>
+          <ul className="space-y-3">
+            {pastBookings.length > 0 ? (
+              pastBookings.map((booking) => (
+                <BookingCardProfile
+                  key={booking.id}
+                  booking={booking}
+                  status="Completed"
+                  statusType="neutral"
+                />
+              ))
+            ) : (
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                No past bookings found.
+              </Paragraph>
+            )}
+          </ul>
+        </div>
       </div>
 
       {/* ############ Favourite Input ############ */}
