@@ -8,6 +8,7 @@ import {
   collection,
   addDoc,
   query,
+  where,
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
@@ -267,4 +268,48 @@ export const listenOrgRating = (orgId, callback) => {
     const avg = count ? Number((sum / count).toFixed(2)) : 0;
     callback({ avg, count, breakdown });
   });
+};
+
+export const getOrganizationBookings = async (organizationId) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("shelterId", "==", organizationId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return bookings; 
+  } catch (error) {
+    console.error("Error fetching organization bookings:", error);
+    return [];
+  }
+};
+
+export const getClientBookings = async (userId) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return bookings;
+  } catch (error) {
+    console.error("Error fetching client bookings:", error);
+    return [];
+  }
+};
+
+export const updateBookingStatus = async (bookingId, newStatus) => {
+  try {
+    const bookingRef = doc(db, "bookings", bookingId);
+    await updateDoc(bookingRef, { paymentStatus: newStatus });
+  } catch (error) {
+    console.error("Error updating booking status:", error);
+    throw error;
+  }
 };

@@ -11,6 +11,7 @@ import {
   getCurrentUserDoc,
   getPetDocs,
   updateClientData,
+  getClientBookings,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
@@ -24,6 +25,9 @@ export default function UserType() {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
+  const [incomingBookings, setIncomingBookings] = useState([]);
+  const [pastBookings, setPastBookings] = useState([]);
+
   useEffect(() => {
     const fetchClientData = async () => {
       if (user && userDoc && userDoc.role === "client") {
@@ -31,11 +35,30 @@ export default function UserType() {
         try {
           const data = await getCurrentUserDoc(user);
           setClientData(data);
-          // console.log("@@@@@",data);
+
           const petsData = await getPetDocs(user.uid);
           setPets(petsData);
-          console.log("Client Data fetched:", data);
-          console.log("Pets Data fetched:", petsData);
+
+          const allBookings = await getClientBookings(user.uid);
+          const now = new Date();
+
+          const incoming = allBookings.filter((booking) => {
+            const toDate = booking.bookingData?.toDate?.toDate
+              ? booking.bookingData.toDate.toDate()
+              : new Date(booking.bookingData?.toDate);
+            return toDate >= now;
+          });
+          
+          const past = allBookings.filter((booking) => {
+            const toDate = booking.bookingData?.toDate?.toDate
+              ? booking.bookingData.toDate.toDate()
+              : new Date(booking.bookingData?.toDate);
+            return toDate < now;
+          });
+          
+
+          setIncomingBookings(incoming);
+          setPastBookings(past);
         } catch (error) {
           console.error("Error fetching client data:", error);
         } finally {
@@ -47,6 +70,10 @@ export default function UserType() {
     };
     fetchClientData();
   }, [user, userDoc]);
+
+  // useEffect(() => {
+  //   console.log("Incoming Bookings updated:", incomingBookings);
+  // }, [incomingBookings]);
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required("Required"),
@@ -152,32 +179,6 @@ export default function UserType() {
         )}
       </div>
 
-      {/* ############ Messages Input ############ */}
-      {/* <input
-        type="radio"
-        name="dashboard_tabs"
-        className="tab text-lg"
-        aria-label="Messages"
-      />
-      <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Messages"
-          subTitle="Manage all your conversations with sitters and shelters here."
-        />
-        <ul className="mt-4 space-y-3">
-          <MessageItem
-            sender="Sitter John"
-            messageSnippet="Looking forward to boarding Buster!"
-            timestamp="2 hours ago"
-          />
-          <MessageItem
-            sender="Shelter Haven"
-            messageSnippet="Confirming your booking for Luna."
-            timestamp="Yesterday"
-          />
-        </ul>
-      </div> */}
-
       {/* ############ MyPets Input ############ */}
       <input
         type="radio"
@@ -190,15 +191,15 @@ export default function UserType() {
           <div>
             <ProfileSectionHeader
               title="Your Beloved Pets"
-              subTitle="Here you can add, edit, or remove your pet's profiles."
+              subTitle="Here you can edit your pet's profiles."
             />
           </div>
-          {/* <FilledButton
+          <FilledButton
             className="bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color"
             onClick=""
           >
             Add Pet
-          </FilledButton> */}
+          </FilledButton>
         </div>
         {/* Pet cards goes here */}
 
@@ -227,25 +228,55 @@ export default function UserType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-        {/* Booking list goes here */}
-        <ul className="mt-4 space-y-3">
-          <BookingCardProfile
-            title="Buddy's Stay with Sitter Jane"
-            dates="July 20 - July 25, 2025"
-            status="Confirmed"
-            statusType="success"
-          />
-          <BookingCardProfile
-            title="Whiskers at Shelter Paws"
-            dates="August 10 - August 15, 2025"
-            status="Pending"
-            statusType="warning"
-          />
-        </ul>
+        {/* Upcoming Bookings */}
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold text-primary-color mb-3">
+            Upcoming Bookings
+          </h3>
+          <ul className="space-y-3">
+            {incomingBookings.length > 0 ? (
+              incomingBookings.map((booking) => (
+                <BookingCardProfile
+                  key={booking.id}
+                  booking={booking}
+                  status="Confirmed"
+                  statusType="success"
+                />
+              ))
+            ) : (
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                You have no upcoming bookings.
+              </Paragraph>
+            )}
+          </ul>
+        </div>
+
+        {/* Past Bookings */}
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-header-color mb-3">
+            Past Bookings
+          </h3>
+          <ul className="space-y-3">
+            {pastBookings.length > 0 ? (
+              pastBookings.map((booking) => (
+                <BookingCardProfile
+                  key={booking.id}
+                  booking={booking}
+                  status="Completed"
+                  statusType="neutral"
+                />
+              ))
+            ) : (
+              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                No past bookings found.
+              </Paragraph>
+            )}
+          </ul>
+        </div>
       </div>
 
       {/* ############ Favourite Input ############ */}
-      {/* <input
+      <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -262,14 +293,14 @@ export default function UserType() {
             name="Sitter Emily R."
             //   imageUrl={}
             description="Experienced dog walker and boarder."
-          /> */}
-      {/* <FavouriteProfileCard
+          />
+          <FavouriteProfileCard
             name="The Happy Paws Shelter"
             //   imageUrl={}
             description="Spacious facilities for all pets."
-          /> */}
-      {/* </div>
-      </div> */}
+          />
+        </div>
+      </div>
     </>
   );
 }

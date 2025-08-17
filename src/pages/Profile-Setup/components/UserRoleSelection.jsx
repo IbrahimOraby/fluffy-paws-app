@@ -6,11 +6,13 @@ import shelterImg from "../../../assets/images/orgImg.jpg";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import { Link, useNavigate } from "react-router";
+import { updateUserRole } from "../../../services/firestore_service";
+import useUserStore from "../../../store/useUserStore";
 
 export default function UserRoleSelection() {
   const roles = [
     {
-      id: "owner",
+      id: "client",
       title: "Pet Owner",
       imgSrc: petOwnerImg,
       description: [
@@ -23,7 +25,7 @@ export default function UserRoleSelection() {
       path: "/Pet",
     },
     {
-      id: "sitter",
+      id: "personal",
       title: "Personal Sitter",
       imgSrc: sitterImg,
       description: [
@@ -36,7 +38,7 @@ export default function UserRoleSelection() {
       path: "/select-role/personal",
     },
     {
-      id: "shelter",
+      id: "org",
       title: "Organization",
       imgSrc: shelterImg,
       description: [
@@ -51,6 +53,13 @@ export default function UserRoleSelection() {
   ];
 
   const navigate = useNavigate();
+  const currentUser = useUserStore((state) => state.user);
+
+  const handleRoleSelect = async (role, path) => {
+    await updateUserRole(currentUser.uid, role);
+    navigate(path);
+  };
+
   return (
     <div className="grid grid-cols-12 mb-12 px-8 md:px-0">
       <div className="col-span-12 col-start-1 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 text-center">
@@ -87,7 +96,9 @@ export default function UserRoleSelection() {
                 ))}
               </ul>
               <FilledButton
-                onClick={()=>navigate(role.path)}
+                onClick={() => {
+                  handleRoleSelect(role.id, role.path);
+                }}
                 className="w-[80%] mb-4 bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color py-3 px-6 text-lg"
               >
                 Choose

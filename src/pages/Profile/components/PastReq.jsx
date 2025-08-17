@@ -2,19 +2,46 @@ import React from "react";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 
 export default function PastReq({ booking }) {
+  const ownerName = booking.customer
+    ? `${booking.customer.firstName} ${booking.customer.lastName}`
+    : "N/A";
+  const fromDate = booking.fromDate
+    ? new Date(booking.fromDate.toDate()).toLocaleDateString()
+    : "N/A";
+  const toDate = booking.toDate
+    ? new Date(booking.toDate.toDate()).toLocaleDateString()
+    : "N/A";
+
   return (
-    <div className="p-4 rounded-lg bg-gray-100">
-      <Paragraph className="text-paragraph-md">
-        <span className="text-paragraph-color">Pet: </span>
-        {booking.name}
-      </Paragraph>
-      <Paragraph className="text-paragraph-md">
-        <span className="text-paragraph-color">Owner: </span>
-        {booking.owner}
-      </Paragraph>
-      <Paragraph className="text-paragraph-xs text-paragraph-color mt-4">
-        Date: {booking.date}
-      </Paragraph>
-    </div>
+    <>
+      {booking.pets && booking.pets.length > 0 ? (
+        <div className="p-4 rounded-lg bg-gray-100">
+          <div className="flex flex-col gap-1">
+            {booking.pets.map((pet, index) => (
+              <Paragraph key={index} className="text-paragraph-md">
+                <span className="text-paragraph-color">Pet {index + 1}: </span>
+                {pet.name} ({pet.breed})
+              </Paragraph>
+            ))}
+            <Paragraph className="text-paragraph-md mt-2">
+              <span className="text-paragraph-color">Owner: </span>
+              {ownerName}
+            </Paragraph>
+            <Paragraph className="text-paragraph-xs text-paragraph-color mt-4">
+              Date: {fromDate} to {toDate}
+            </Paragraph>
+            <Paragraph className="text-paragraph-xs text-paragraph-color">
+              Nights: {booking.nights}
+            </Paragraph>
+          </div>
+        </div>
+      ) : (
+        <div className="text-center p-4">
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
+            No Cancelled bookings yet.
+          </Paragraph>
+        </div>
+      )}
+    </>
   );
 }

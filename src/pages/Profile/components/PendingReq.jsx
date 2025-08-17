@@ -4,19 +4,33 @@ import FilledButton from "../../../ui/Buttons/FilledButton";
 import LinkButton from "../../../ui/Buttons/LinkButton";
 
 export default function PendingReq({ booking, onApprove, onDecline }) {
+  const ownerName = booking.customer ? `${booking.customer.firstName} ${booking.customer.lastName}` : "N/A";
+  const fromDate = booking.fromDate ? new Date(booking.fromDate.toDate()).toLocaleDateString() : "N/A";
+  const toDate = booking.toDate ? new Date(booking.toDate.toDate()).toLocaleDateString() : "N/A";
+
   return (
     <div className="p-4 rounded-lg flex justify-between items-center bg-light-color">
       <div>
-        <Paragraph className="text-paragraph-md">
-          <span className="text-paragraph-color">Pet:</span> {booking.name}
-        </Paragraph>
+        {booking.pets && booking.pets.length > 0 && (
+          <div className="flex flex-col gap-1">
+            {booking.pets.map((pet, index) => (
+              <Paragraph key={index} className="text-paragraph-md">
+                <span className="text-paragraph-color">Pet {index + 1}:</span> {pet.name} ({pet.breed})
+              </Paragraph>
+            ))}
+          </div>
+        )}
 
-        <Paragraph className="text-paragraph-md">
-          <span className="text-gray-600">Owner:</span> {booking.owner}
+        <Paragraph className="text-paragraph-md mt-2">
+          <span className="text-gray-600">Owner:</span> {ownerName}
         </Paragraph>
-
+        
         <Paragraph className="text-paragraph-xs text-paragraph-color mt-4">
-          <span className="text-gray-600">Date:</span> {booking.date}
+          <span className="text-gray-600">Date:</span> {fromDate} to {toDate}
+        </Paragraph>
+        
+        <Paragraph className="text-paragraph-xs text-paragraph-color">
+          <span className="text-gray-600">Nights:</span> {booking.nights}
         </Paragraph>
       </div>
 

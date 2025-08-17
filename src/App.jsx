@@ -13,6 +13,9 @@ import OrganizationSetup from "./pages/Profile-Setup/Org";
 import PersonalSetup from "./pages/Profile-Setup/Personal";
 import PetWizardForm from "./pages/Pet-profile";
 import Booking from "./pages/Booking";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import RoleSetupRoute from "./components/RoleSetupRoute";
 import AddReview from "./pages/Shelter/components/AddReview";
 export default function App() {
   const router = createBrowserRouter([
@@ -24,18 +27,35 @@ export default function App() {
         { path: "/", element: <Home /> },
         { path: "/shelters", element: <Shelters /> },
         { path: "/shelter/:id", element: <Shelter /> },
-        { path: "/profile", element: <Profile /> },
-        { path: "/signup", element: <Signup /> },
-        { path: "/signin", element: <Signin /> },
-        { path: "/select-role", element: <SelectRole /> },
-        { path: "/select-role/org", element: <OrganizationSetup /> },
-        { path: "/select-role/personal", element: <PersonalSetup /> },
         { path: "/typography", element: <Typography /> },
-        { path: "/Pet", element: <PetWizardForm /> },
-        { path: "/booking", element: <Booking /> },
-        { path: "/shelters/:shelterId/add-review", element: <AddReview /> },
-      ],
-    },
+
+        {
+          element: <PublicRoute />,
+          children: [
+            { path: "/signup", element: <Signup /> },
+            { path: "/signin", element: <Signin /> }
+          ]
+        },
+
+        {
+          element: <ProtectedRoute />,
+          children: [
+            { path: "/profile", element: <Profile /> },
+            {
+              element: <RoleSetupRoute />,
+              children: [
+                { path: "/select-role", element: <SelectRole /> },
+                { path: "/select-role/org", element: <OrganizationSetup /> },
+                { path: "/select-role/personal", element: <PersonalSetup /> }
+              ]
+            },
+            { path: "/Pet", element: <PetWizardForm /> },
+            { path: "/shelters/:shelterId/add-review", element: <AddReview /> },
+            { path: "/booking", element: <Booking /> }
+          ]
+        }
+      ]
+    }
   ]);
   return <RouterProvider router={router}></RouterProvider>;
 }
