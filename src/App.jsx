@@ -16,6 +16,7 @@ import Booking from "./pages/Booking";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import RoleSetupRoute from "./components/RoleSetupRoute";
+import AddReview from "./pages/Shelter/components/AddReview";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -49,6 +50,7 @@ export default function App() {
               ]
             },
             { path: "/Pet", element: <PetWizardForm /> },
+            { path: "/shelters/:shelterId/add-review", element: <AddReview /> },
             { path: "/booking", element: <Booking /> }
           ]
         }

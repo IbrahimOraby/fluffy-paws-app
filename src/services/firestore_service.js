@@ -9,6 +9,8 @@ import {
   addDoc,
   query,
   where,
+  orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
@@ -225,6 +227,47 @@ export const addPetDoc = async (uid, petData) => {
     console.error("Error adding pet:", err);
     throw err;
   }
+};
+// Save a single review document under: organizations/{orgId}/reviews
+
+export const addOrganizationReview = async (orgId, reviewData) => {
+  const reviewsRef = collection(db, "organizations", orgId, "reviews");
+  await addDoc(reviewsRef, {
+    ...reviewData,
+    createdAt: serverTimestamp(),
+  });
+};
+// Real-time listener that returns the latest reviews (newest first)
+
+export const listenOrgReviews = (orgId, callback) => {
+  const q = query(
+    collection(db, "organizations", orgId, "reviews"),
+    orderBy("createdAt", "desc")
+  );
+  return onSnapshot(q, (snap) =>
+    callback(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+  );
+};
+
+export const listenOrgRating = (orgId, callback) => {
+  const q = query(collection(db, "organizations", orgId, "reviews"));
+  return onSnapshot(q, (snap) => {
+    let sum = 0,
+      count = 0;
+    const breakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    snap.forEach((d) => {
+      const r = Number(d.data()?.rating) || 0;
+      if (r >= 1 && r <= 5) {
+        sum += r;
+        count += 1;
+        breakdown[r] += 1;
+      }
+    });
+
+    const avg = count ? Number((sum / count).toFixed(2)) : 0;
+    callback({ avg, count, breakdown });
+  });
 };
 
 export const getOrganizationBookings = async (organizationId) => {

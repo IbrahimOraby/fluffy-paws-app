@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Reviews from "../../ui/Reviews/Reviews";
+import Reviews from "./components/Reviews";
 import ShelterInfo from "./components/ShelterInfo";
 import Booking from "./components/Booking";
 import AboutShelter from "./components/AboutShelter";
@@ -66,7 +66,7 @@ const Shelter = () => {
         </div>
       </div>
 
-      <Reviews />
+      <Reviews shelterId={shelterId} />
     </>
   );
 };

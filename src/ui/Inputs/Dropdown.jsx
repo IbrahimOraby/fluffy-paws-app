@@ -2,22 +2,24 @@ import React from "react";
 import { useField } from "formik";
 import { StaticCatIcon } from "../Icons/StaticIcons";
 
-export default function DropdownFormik({ name, options = [] }) {
-  // field = { name, value, onChange, onBlur }
-  // meta   = { touched, error }
+export default function DropdownFormik({
+  name,
+  options = [],
+  icon = <StaticCatIcon color="#be5985" />,
+}) {
   const [field, meta] = useField(name);
 
   return (
     <div className="flex items-center gap-4 px-3 py-2">
-      <StaticCatIcon color="#be5985" />
+      {icon}
 
       <select
-        {...field} // name, value, onChange, onBlur
+        {...field}
         className={`input ${
           meta.touched && meta.error ? "border-red-500" : ""
         }`}
       >
-        <option value="">Select Pet Type</option>
+        <option value="">Select option</option>
         {options.map((opt) => (
           <option key={opt} value={opt}>
             {opt}

@@ -3,8 +3,20 @@ import * as Yup from "yup";
 export const petProfileSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   age: Yup.number().required("Age is required"),
-  gender: Yup.string().required("Gender is required"),
+  // gender: Yup.string().required("Gender is required"),
+  gender: Yup.array()
+    .of(Yup.string().oneOf(["male", "female"]))
+    // .min(1, "Please select at least one pet type")
+    .max(1, "Select **only** one gender")
+    .required("Please select at least one gender")
+    .ensure(),
   desexed: Yup.string().required("Required"),
+  type: Yup.array()
+    .of(Yup.string().oneOf(["cat", "dog"]))
+    // .min(1, "Please select at least one pet type")
+    .max(1, "Select **only** one pet type")
+    .required("Please select at least one pet type")
+    .ensure(),
 });
 
 export const petTraitsSchema = Yup.object({
