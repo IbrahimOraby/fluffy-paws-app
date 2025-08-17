@@ -57,7 +57,6 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
   }, [firebaseUser?.uid]);
 
   const pickPetPreview = (p) => ({
- 
     ...p,
     photoUrl: p.photo?.photo?.cdnUrl || p.photo?.cdnUrl || p.photoUrl || "",
   });
