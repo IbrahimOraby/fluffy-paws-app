@@ -8,6 +8,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import FilledButton from "../../../ui/Buttons/FilledButton.jsx";
 import RatingStars from "./RatingStars";
 import PetIcon from "./PetIcon.jsx";
+
+
 export default function Reviews({ shelterId }) {
   const [reviews, setReviews] = useState([]);
   // const { id: shelterId } = useParams();
@@ -26,7 +28,7 @@ export default function Reviews({ shelterId }) {
           </Heading>
           <FilledButton
             className="bg-primary-color rounded-xl text-white"
-            onClick={() => navigate(`/shelters/${shelterId}/add-review`)}
+            onClick={() => navigate(`/shelter/${shelterId}/add-review`)}
           >
             Add Review
           </FilledButton>

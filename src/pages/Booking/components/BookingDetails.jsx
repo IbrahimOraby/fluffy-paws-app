@@ -30,7 +30,7 @@ export default function BookingDetails({ shelter, bookingForm }) {
             </Heading>
             <Paragraph className="text-sm text-gray-500">
               ⭐ {shelter.rating} ({shelter?.reviews?.length ?? 0}
-              Ratings) &nbsp;&nbsp; {shelter.info.price} / night
+              Ratings) &nbsp;&nbsp; £{shelter.info.price} / night
             </Paragraph>
           </div>
         </div>

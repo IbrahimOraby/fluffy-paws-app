@@ -13,7 +13,7 @@ import useClientStore from "../../../store/clientStore";
 import useUserStore from "../../../store/useUserStore";
 import PetRadioCard from "./PetSelectCard";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 import PetSelectCard from "./PetSelectCard";
 
@@ -31,29 +31,25 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
   const [petsLoading, setPetsLoading] = useState(true);
 
   useEffect(() => {
-    if (!firebaseUser?.uid) return;
-    let cancelled = false;
-
-    (async () => {
-      try {
-        setPetsLoading(true);
-        const colRef = collection(db, "users", firebaseUser.uid, "pets");
-        const snap = await getDocs(colRef);
+    if (!firebaseUser?.uid) {
+      setPets([]);
+      return;
+    }
+    const colRef = collection(db, "users", firebaseUser.uid, "pets");
+    const unsubscribe = onSnapshot(
+      colRef,
+      (snap) => {
         const rows = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        if (!cancelled) {
-          setPets(rows);
-          console.log("[pets]", rows);
-        }
-      } catch (e) {
-        console.error("Load pets failed:", e);
-      } finally {
-        if (!cancelled) setPetsLoading(false);
+        setPets(rows);
+        setPetsLoading(false);
+      },
+      (err) => {
+        console.error(err);
+        setPetsLoading(false);
       }
-    })();
+    );
 
-    return () => {
-      cancelled = true;
-    };
+    return () => unsubscribe();
   }, [firebaseUser?.uid]);
 
   const pickPetPreview = (p) => ({

@@ -18,7 +18,6 @@ export default function AddReview() {
   const navigate = useNavigate();
   // Allowed rating values (used in the dropdown)
   const ratingOptions = ["1", "2", "3", "4", "5"];
-
   const initialValues = { review: "", rating: "", petType: [] };
 
   return (
@@ -27,7 +26,7 @@ export default function AddReview() {
         <Formik
           initialValues={initialValues}
           validationSchema={reviewSchema}
-          onSubmit={async (vals, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             // Ensure the user is logged in
             const user = auth.currentUser;
             if (!user) return alert("Please log in");
@@ -36,13 +35,13 @@ export default function AddReview() {
               authorId: user.uid,
               authorName: user.displayName || "Anonymous",
               authorAvatar: user.photoURL || "",
-              rating: vals.rating,
-              petType: vals.petType[0],
-              comment: vals.review,
+              rating: values.rating,
+              petType: values.petType[0],
+              comment: values.review,
             });
 
             setSubmitting(false);
-            // navigate(`/shelters/${shelterId}`);
+
             navigate(-1);
           }}
         >

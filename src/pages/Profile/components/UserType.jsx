@@ -17,14 +17,15 @@ import useUserStore from "../../../store/useUserStore";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import MyTextInput from "../../../ui/Inputs//MyTextInput";
 import ClientProfileCard from "./ClientProfileCard";
+import { useNavigate } from "react-router-dom";
 
 export default function UserType() {
+  const navigate = useNavigate();
   const { user, userDoc, loading: userLoading } = useUserStore();
   const [clientData, setClientData] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-
   const [incomingBookings, setIncomingBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
 
@@ -48,14 +49,13 @@ export default function UserType() {
               : new Date(booking.bookingData?.toDate);
             return toDate >= now;
           });
-          
+
           const past = allBookings.filter((booking) => {
             const toDate = booking.bookingData?.toDate?.toDate
               ? booking.bookingData.toDate.toDate()
               : new Date(booking.bookingData?.toDate);
             return toDate < now;
           });
-          
 
           setIncomingBookings(incoming);
           setPastBookings(past);
@@ -196,7 +196,9 @@ export default function UserType() {
           </div>
           <FilledButton
             className="bg-primary-color rounded-3xl text-white-color transition-all duration-300 ease-in-out hover:bg-hover-color"
-            onClick=""
+            onClick={() => {
+              navigate("/Pet");
+            }}
           >
             Add Pet
           </FilledButton>
