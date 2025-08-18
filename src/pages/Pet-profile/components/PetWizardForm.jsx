@@ -9,6 +9,7 @@ import {
 } from "../../../schemas/petSchema.js";
 import useClientStore from "../../../store/clientStore.js";
 import { auth } from "../../../firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const schemas = {
   petProfile: petProfileSchema,
@@ -24,14 +25,28 @@ export default function PetWizardForm({ onStepChange }) {
   const setData = useClientStore(
     (s) => s[`set${step.key.charAt(0).toUpperCase() + step.key.slice(1)}`]
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (onStepChange) {
       onStepChange(step.title);
     }
   }, [stepIndex]);
+  // const initialValues = {};
+  // step.fields.forEach((f) => (initialValues[f.name] = ""));
+
   const initialValues = {};
-  step.fields.forEach((f) => (initialValues[f.name] = ""));
+  step.fields.forEach((f) => {
+    switch (f.type) {
+      case "checkbox":
+        initialValues[f.name] = [];
+        break;
+      case "file":
+        initialValues[f.name] = null;
+        break;
+      default:
+        initialValues[f.name] = "";
+    }
+  });
 
   const handleSubmit = async (values) => {
     const filteredValues = {};
@@ -55,11 +70,13 @@ export default function PetWizardForm({ onStepChange }) {
     if (!ok) return alert("Error saving pet");
 
     useClientStore.getState().resetFormProgress();
-    alert("Pet saved ");
+    // alert("Pet saved ");
+    navigate("/profile");
   };
 
   return (
     <PetFormStep
+      enableReinitialize
       step={step}
       stepIndex={stepIndex}
       initialValues={initialValues}

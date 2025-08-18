@@ -1,8 +1,10 @@
 import { Formik, Form } from "formik";
+import { ErrorMessage } from "formik";
 import InputField from "./InputField";
 import FilledButton from "../../../ui/Buttons/FilledButton";
 import MyFileInput from "../../../ui/Inputs/MyFileInput";
-
+import MyTextInput from "../../../ui/Inputs/MyTextInput";
+import { MyCheckboxInput } from "../../../ui/Inputs/MyCheckboxInput";
 export default function PetFormStep({
   step,
   stepIndex,
@@ -22,17 +24,41 @@ export default function PetFormStep({
         <Form className="space-y-6">
           {/* Loop through fields and render inputs */}
           {step.fields.map((field) => {
-            if (field.type === "file") {
-              return (
-                <MyFileInput
-                  key={field.name}
-                  label={field.label}
-                  name={field.name}
-                  type="file"
-                />
-              );
-            } else {
-              return <InputField key={field.name} {...field} />;
+            switch (field.type) {
+              case "file":
+                return (
+                  <MyFileInput
+                    key={field.name}
+                    label={field.label}
+                    name={field.name}
+                    type="file"
+                  />
+                );
+
+              case "checkbox":
+                return (
+                  <>
+                    <h1>{field.label}</h1>
+                    <div key={field.name} className="flex gap-4 flex-wrap">
+                      {field.options.map((opt) => (
+                        <MyCheckboxInput
+                          key={opt.value}
+                          name={field.name}
+                          value={opt.value}
+                          label={opt.label}
+                        />
+                      ))}
+                    </div>
+                    <ErrorMessage
+                      name={field.name}
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </>
+                );
+
+              default:
+                return <MyTextInput key={field.name} {...field} />;
             }
           })}
 

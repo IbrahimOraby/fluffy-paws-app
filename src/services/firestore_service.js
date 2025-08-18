@@ -7,6 +7,10 @@ import {
   updateDoc,
   collection,
   addDoc,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
@@ -222,5 +226,90 @@ export const addPetDoc = async (uid, petData) => {
   } catch (err) {
     console.error("Error adding pet:", err);
     throw err;
+  }
+};
+// Save a single review document under: organizations/{orgId}/reviews
+
+export const addOrganizationReview = async (orgId, reviewData) => {
+  const reviewsRef = collection(db, "organizations", orgId, "reviews");
+  await addDoc(reviewsRef, {
+    ...reviewData,
+    createdAt: serverTimestamp(),
+  });
+};
+// Real-time listener that returns the latest reviews (newest first)
+
+export const listenOrgReviews = (orgId, callback) => {
+  const q = query(
+    collection(db, "organizations", orgId, "reviews"),
+    orderBy("createdAt", "desc")
+  );
+  return onSnapshot(q, (snap) =>
+    callback(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+  );
+};
+
+export const listenOrgRating = (orgId, callback) => {
+  const q = query(collection(db, "organizations", orgId, "reviews"));
+  return onSnapshot(q, (snap) => {
+    let sum = 0,
+      count = 0;
+    const breakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    snap.forEach((d) => {
+      const r = Number(d.data()?.rating) || 0;
+      if (r >= 1 && r <= 5) {
+        sum += r;
+        count += 1;
+        breakdown[r] += 1;
+      }
+    });
+
+    const avg = count ? Number((sum / count).toFixed(2)) : 0;
+    callback({ avg, count, breakdown });
+  });
+};
+
+export const getOrganizationBookings = async (organizationId) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("shelterId", "==", organizationId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return bookings; 
+  } catch (error) {
+    console.error("Error fetching organization bookings:", error);
+    return [];
+  }
+};
+
+export const getClientBookings = async (userId) => {
+  try {
+    const bookingsRef = collection(db, "bookings");
+    const q = query(bookingsRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return bookings;
+  } catch (error) {
+    console.error("Error fetching client bookings:", error);
+    return [];
+  }
+};
+
+export const updateBookingStatus = async (bookingId, newStatus) => {
+  try {
+    const bookingRef = doc(db, "bookings", bookingId);
+    await updateDoc(bookingRef, { paymentStatus: newStatus });
+  } catch (error) {
+    console.error("Error updating booking status:", error);
+    throw error;
   }
 };

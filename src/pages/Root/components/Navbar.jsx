@@ -11,7 +11,7 @@ function Navbar() {
   let firstInitials;
 
   if (user) {
-    firstInitials = user.displayName.slice(0, 1).toUpperCase();
+    firstInitials = user.displayName?.slice(0, 1).toUpperCase();
   }
 
   return (

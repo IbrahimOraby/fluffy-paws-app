@@ -16,6 +16,7 @@ const colorTokens = [
 ];
 
 function Typography() {
+  console.log('bla')
   return (
     <div className="p-12 space-y-20">
       <section>

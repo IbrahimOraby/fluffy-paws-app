@@ -14,6 +14,7 @@ export default function Booking({ shelterData, role }) {
   const [price, setPrice] = useState(null);
   // const shelterData = data;
 
+  // Compute nightly rate directly from shelterData + role
   useEffect(() => {
     const newPrice =
       role === "organization"
@@ -46,7 +47,6 @@ export default function Booking({ shelterData, role }) {
 
       <Formik
         initialValues={{
-          petType: "",
           petCount: 1,
           fromDate: "",
           toDate: "",
@@ -68,7 +68,7 @@ export default function Booking({ shelterData, role }) {
         {({ values, setFieldValue, errors, touched }) => (
           <Form className="space-y-1">
             {/* Pet Type Dropdown */}
-            <div>
+            {/* <div>
               <Dropdown
                 name="petType"
                 options={["Cat", "Dog", "Kitten", "Puppy"]}
@@ -78,7 +78,7 @@ export default function Booking({ shelterData, role }) {
               {errors.petType && touched.petType && (
                 <div className="text-red-500 text-xs">{errors.petType}</div>
               )}
-            </div>
+            </div> */}
 
             {/* Pet Count NumberInput */}
             <div>
@@ -120,7 +120,7 @@ export default function Booking({ shelterData, role }) {
                   <FormikCalendarInput
                     name="toDate"
                     value={values.toDate}
-                    onChange={(val) => setFieldValue("fromDate", val)}
+                    onChange={(val) => setFieldValue("toDate", val)}
                   />
                 </div>
                 {errors.toDate && touched.toDate && (
