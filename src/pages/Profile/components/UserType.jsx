@@ -278,7 +278,7 @@ export default function UserType() {
       </div>
 
       {/* ############ Favourite Input ############ */}
-      <input
+      {/* <input
         type="radio"
         name="dashboard_tabs"
         className="tab text-lg"
@@ -302,7 +302,7 @@ export default function UserType() {
             description="Spacious facilities for all pets."
           />
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
