@@ -33,8 +33,8 @@ export default function App() {
           element: <PublicRoute />,
           children: [
             { path: "/signup", element: <Signup /> },
-            { path: "/signin", element: <Signin /> }
-          ]
+            { path: "/signin", element: <Signin /> },
+          ],
         },
 
         {
@@ -46,16 +46,16 @@ export default function App() {
               children: [
                 { path: "/select-role", element: <SelectRole /> },
                 { path: "/select-role/org", element: <OrganizationSetup /> },
-                { path: "/select-role/personal", element: <PersonalSetup /> }
-              ]
+                { path: "/select-role/personal", element: <PersonalSetup /> },
+              ],
             },
             { path: "/Pet", element: <PetWizardForm /> },
-            { path: "/shelters/:shelterId/add-review", element: <AddReview /> },
-            { path: "/booking", element: <Booking /> }
-          ]
-        }
-      ]
-    }
+            { path: "/shelter/:shelterId/add-review", element: <AddReview /> },
+            { path: "/booking", element: <Booking /> },
+          ],
+        },
+      ],
+    },
   ]);
   return <RouterProvider router={router}></RouterProvider>;
 }

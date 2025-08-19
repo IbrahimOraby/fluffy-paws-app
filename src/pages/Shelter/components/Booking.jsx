@@ -11,18 +11,6 @@ import { useEffect, useState } from "react";
 
 export default function Booking({ shelterData, role }) {
   const navigate = useNavigate();
-  const [price, setPrice] = useState(null);
-  // const shelterData = data;
-
-  // Compute nightly rate directly from shelterData + role
-  useEffect(() => {
-    const newPrice =
-      role === "organization"
-        ? shelterData?.info?.price
-        : shelterData?.experience?.price;
-
-    setPrice(newPrice);
-  }, [role, shelterData]);
 
   return (
     <div className="w-full max-w-sm border border-gray-300 rounded-xl p-4 shadow-sm bg-white">
@@ -53,10 +41,6 @@ export default function Booking({ shelterData, role }) {
         }}
         validationSchema={bookingSchema}
         onSubmit={(values) => {
-          const payload = {
-            shelter: shelterData,
-            bookingForm: values,
-          };
           navigate("/booking", {
             state: {
               shelter: { ...shelterData },
@@ -67,19 +51,6 @@ export default function Booking({ shelterData, role }) {
       >
         {({ values, setFieldValue, errors, touched }) => (
           <Form className="space-y-1">
-            {/* Pet Type Dropdown */}
-            {/* <div>
-              <Dropdown
-                name="petType"
-                options={["Cat", "Dog", "Kitten", "Puppy"]}
-                value={values.petType}
-                onChange={(val) => setFieldValue("petType", val)}
-              />
-              {errors.petType && touched.petType && (
-                <div className="text-red-500 text-xs">{errors.petType}</div>
-              )}
-            </div> */}
-
             {/* Pet Count NumberInput */}
             <div>
               <NumberInput
@@ -87,9 +58,6 @@ export default function Booking({ shelterData, role }) {
                 value={values.petCount}
                 onChange={(val) => setFieldValue("petCount", val)}
               />
-              {errors.petCount && touched.petCount && (
-                <div className="text-red-500 text-xs">{errors.petCount}</div>
-              )}
             </div>
 
             {/* From & To Date Pickers */}
@@ -105,11 +73,6 @@ export default function Booking({ shelterData, role }) {
                     onChange={(val) => setFieldValue("fromDate", val)}
                   />
                 </div>
-                {errors.fromDate && touched.fromDate && (
-                  <div className="text-red-500 text-xs text-center">
-                    {errors.fromDate}
-                  </div>
-                )}
               </div>
 
               <div className="w-full max-w-[160px]">
@@ -123,11 +86,6 @@ export default function Booking({ shelterData, role }) {
                     onChange={(val) => setFieldValue("toDate", val)}
                   />
                 </div>
-                {errors.toDate && touched.toDate && (
-                  <div className="text-red-500 text-xs text-center">
-                    {errors.toDate}
-                  </div>
-                )}
               </div>
             </div>
 

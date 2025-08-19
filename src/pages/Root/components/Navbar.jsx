@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import Heading from "../../../ui/Typography/Heading/Heading";
 import { StaticMenuIcon } from "../../../ui/Icons/StaticIcons";
 import useUserStore from "../../../store/useUserStore";
-
+import logo from "../../../assets/images/logo.png";
 function Navbar() {
   const user = useUserStore().user;
   let firstInitials;
@@ -18,9 +18,10 @@ function Navbar() {
     <header className="navbar flex items-center justify-center bg-base-100 shadow-sm min-h-[4rem] px-8">
       <div className="flex-1 flex items-center">
         <ActionLink to="/" className="">
-          <Heading type="h1" className="text-2xl">
+          {/* <Heading type="h1" className="text-2xl">
             Fluffy Paws
-          </Heading>
+          </Heading> */}
+          <img src={logo} alt="" className="h-15" />
         </ActionLink>
       </div>
 

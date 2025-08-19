@@ -31,8 +31,7 @@ export default function PetWizardForm({ onStepChange }) {
       onStepChange(step.title);
     }
   }, [stepIndex]);
-  // const initialValues = {};
-  // step.fields.forEach((f) => (initialValues[f.name] = ""));
+
 
   const initialValues = {};
   step.fields.forEach((f) => {
