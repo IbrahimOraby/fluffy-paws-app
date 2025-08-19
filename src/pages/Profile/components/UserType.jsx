@@ -235,7 +235,7 @@ export default function UserType() {
         <div className="flex justify-center space-x-4 my-6">
           <button
             onClick={() => setActiveTab("incoming")}
-            className={`px-6 py-2 cursor-pointer w-50 rounded-lg hover:bg-primary-color hover:text-white-color transition font-medium ${
+            className={`px-2 sm:px-6 py-2 sm:w-50 cursor-pointer  rounded-lg hover:bg-primary-color hover:text-white-color transition font-medium ${
               activeTab === "incoming"
                 ? "bg-primary-color text-white"
                 : "bg-gray-200 text-gray-700"
@@ -245,7 +245,7 @@ export default function UserType() {
           </button>
           <button
             onClick={() => setActiveTab("past")}
-            className={`px-6 py-2 w-50 hover:bg-primary-color hover:text-white-color transition  cursor-pointer rounded-lg font-medium ${
+            className={`px-2 sm:px-6 py-2 sm:w-50 hover:bg-primary-color hover:text-white-color transition  cursor-pointer rounded-lg font-medium ${
               activeTab === "past"
                 ? "bg-primary-color text-white"
                 : "bg-gray-200 text-gray-700"

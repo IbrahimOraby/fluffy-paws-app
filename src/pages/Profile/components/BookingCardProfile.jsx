@@ -6,7 +6,7 @@ export default function BookingCardProfile({ booking, status, statusType }) {
   const fromDate = booking.bookingData?.fromDate
     ? new Date(
         booking.bookingData.fromDate.toDate
-          ? booking.bookingData.fromDate.toDate() 
+          ? booking.bookingData.fromDate.toDate()
           : booking.bookingData.fromDate
       ).toLocaleDateString()
     : "N/A";
@@ -40,7 +40,10 @@ export default function BookingCardProfile({ booking, status, statusType }) {
           {dates}
         </Paragraph>
       </div>
-      <span className={`badge badge-${statusType}`}>{status}</span>
+      {/* <span className={`badge badge-${statusType}`}>{status}</span> */}
+      <span className="text-xs font-medium px-2 py-0.5 bg-primary-color text-white-color rounded-3xl">
+        {status}
+      </span>
     </li>
   );
 }
