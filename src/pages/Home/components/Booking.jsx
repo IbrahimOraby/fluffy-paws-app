@@ -11,7 +11,7 @@ export default function Booking() {
     <img
       src="https://www.madpaws.com.au/marketplace/images/ServiceLandingPages/TrustedSitters/TrustBuilding.webp"
       alt="Trust Building"
-      className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-full h-auto rounded-2xl shadow-lg object-cover"
+      className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-full h-90  rounded-2xl shadow-lg object-cover"
     />
   </div>
   <div className="w-full lg:w-1/2 bg-gray-50 px-4 sm:px-6 md:px-8 py-6 md:py-10 rounded-2xl space-y-5 md:space-y-6">

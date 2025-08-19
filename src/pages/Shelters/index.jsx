@@ -85,7 +85,9 @@ console.log(filteredShelters)
             </Heading>
           </div>
 
-          <div className="col-start-2 md:col-start-4">
+       <div className="col-span-12 sm:col-start-2 sm:col-span-10 px-4 sm:px-0  ">
+  <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 ">
+
             {filteredShelters.map((shelter) => {
               const isOrganization = Boolean(shelter.info);
               const data = isOrganization
@@ -112,9 +114,11 @@ console.log(filteredShelters)
                     experience: shelter.experience?.yearsExperience || "N/A",
                   };
 
-              return <ShelterCard key={data.id} {...data} />;
+              return  <ShelterCard key={data.id} {...data} />;
             })}
+         
           </div>
+             </div>
         </div>
       )}
       {loading && <LoadingSpinner />}

@@ -4,6 +4,7 @@ import FilledButton from '../../../ui/Buttons/FilledButton'
 import OptionButton from '../../../ui/Buttons/OptionButton'
 import Heading from '../../../ui/Typography/Heading/Heading'
 
+
 export default function Petstore() {
   return (
  <>
@@ -14,13 +15,16 @@ export default function Petstore() {
     <Heading className='text-primary-color '>Fluffy Paws   <Heading className='text-primary-color text-3xl '> Pet Store</Heading> </Heading>
    
     <Paragraph className='text-gray-600'>Fetch great savings on everything for happy, healthy pets</Paragraph>
-    <OptionButton title={'Visit Our Pet Store'} className='rounded-3xl
-     capitalize
-       bg-primary-color
-        border-0
-        text-white
-        hover:bg-hover-color
-    '/>
+  <a
+  href="https://petchemist.com.au/?utm_source=madpaws&utm_medium=futures&utm_campaign=homepage"
+  target="_blank"
+>
+  <OptionButton
+    title="Visit Our Pet Store"
+    className="rounded-3xl capitalize bg-primary-color border-0 text-white hover:bg-hover-color"
+  />
+</a>
+
   </div>
 
   {/* LEFT IMAGE SECTION */}

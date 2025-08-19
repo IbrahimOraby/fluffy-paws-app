@@ -2,7 +2,7 @@ import React from 'react'
 
 const Divider = () => {
   return (
-    <div className='my-35'></div>
+    <div className='h-5'></div>
   )
 }
 
