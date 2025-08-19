@@ -28,6 +28,7 @@ export default function UserType() {
   const [isEditing, setIsEditing] = useState(false);
   const [incomingBookings, setIncomingBookings] = useState([]);
   const [pastBookings, setPastBookings] = useState([]);
+  const [activeTab, setActiveTab] = useState("incoming");
 
   useEffect(() => {
     const fetchClientData = async () => {
@@ -230,50 +231,76 @@ export default function UserType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-        {/* Upcoming Bookings */}
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold text-primary-color mb-3">
-            Upcoming Bookings
-          </h3>
-          <ul className="space-y-3">
-            {incomingBookings.length > 0 ? (
-              incomingBookings.map((booking) => (
-                <BookingCardProfile
-                  key={booking.id}
-                  booking={booking}
-                  status="Confirmed"
-                  statusType="success"
-                />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                You have no upcoming bookings.
-              </Paragraph>
-            )}
-          </ul>
+
+        <div className="flex justify-center space-x-4 my-6">
+          <button
+            onClick={() => setActiveTab("incoming")}
+            className={`px-6 py-2 cursor-pointer w-50 rounded-lg hover:bg-primary-color hover:text-white-color transition font-medium ${
+              activeTab === "incoming"
+                ? "bg-primary-color text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            Incoming Booking
+          </button>
+          <button
+            onClick={() => setActiveTab("past")}
+            className={`px-6 py-2 w-50 hover:bg-primary-color hover:text-white-color transition  cursor-pointer rounded-lg font-medium ${
+              activeTab === "past"
+                ? "bg-primary-color text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            Past Booking
+          </button>
         </div>
 
-        {/* Past Bookings */}
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold text-header-color mb-3">
-            Past Bookings
-          </h3>
-          <ul className="space-y-3">
-            {pastBookings.length > 0 ? (
-              pastBookings.map((booking) => (
-                <BookingCardProfile
-                  key={booking.id}
-                  booking={booking}
-                  status="Completed"
-                  statusType="neutral"
-                />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No past bookings found.
-              </Paragraph>
-            )}
-          </ul>
+        <div className="w-full">
+          {activeTab === "incoming" ? (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold text-primary-color mb-3">
+                Upcoming Bookings
+              </h3>
+              <ul className="space-y-3">
+                {incomingBookings.length > 0 ? (
+                  incomingBookings.map((booking) => (
+                    <BookingCardProfile
+                      key={booking.id}
+                      booking={booking}
+                      status="Confirmed"
+                      statusType="success"
+                    />
+                  ))
+                ) : (
+                  <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                    You have no upcoming bookings.
+                  </Paragraph>
+                )}
+              </ul>
+            </div>
+          ) : (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold text-header-color mb-3">
+                Past Bookings
+              </h3>
+              <ul className="space-y-3">
+                {pastBookings.length > 0 ? (
+                  pastBookings.map((booking) => (
+                    <BookingCardProfile
+                      key={booking.id}
+                      booking={booking}
+                      status="Completed"
+                      statusType="neutral"
+                    />
+                  ))
+                ) : (
+                  <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+                    No past bookings found.
+                  </Paragraph>
+                )}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
 
