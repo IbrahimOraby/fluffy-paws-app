@@ -165,7 +165,7 @@ export default function Trustedsection() {
         <BackgroundImageCard
           img={homeImg}
           h="Trusted pet care, anytime, anywhere"
-          p="Find trusted pet sitters near you"
+          p="Find trusted pet sitters & dog walkers near you"
           buttonclass="hidden"
           imgclass="w-full h-[300px] sm:h-[400px] object-cover"
         />
@@ -180,29 +180,51 @@ export default function Trustedsection() {
           {/* Location + Dates */}
           <div className="flex flex-col gap-3 flex-1">
             {/* Dropdown Location */}
-           {/* Small screens */}
-<div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-full focus-within:border-[#BE5985] focus-within:ring-2 focus-within:ring-[#BE5985] focus-within:ring-offset-2">
-  <StaticMapIcon className="w-5 h-5 text-gray-500" />
-  <select
-    name="location"
-    value={formik.values.location}
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    className="w-full bg-transparent outline-none text-sm"
-  >
-    <option value="" disabled hidden>
-      Select your Location
-    </option>
-    {egyptGovernorates.map((gov) => (
-      <option key={gov} value={gov}>
-        {gov}
-      </option>
-    ))}
-  </select>
-</div>
+            <div
+              className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
+         focus-within:ring-2 
+         focus-within:ring-[#BE5985] 
+         focus-within:ring-offset-2 "
+            >
+              <StaticMapIcon className="w-5 h-5 text-gray-500" />
+              <select
+                name="location"
+                value={formik.values.location}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="w-full bg-transparent outline-none text-sm"
+              >
+                <option value="" disabled hidden>
+                  Select your Location
+                </option>
+                {egyptGovernorates.map((gov) => (
+                  <option key={gov} value={gov}>
+                    {gov}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            <div>
-            <button
+            {/* <div className="flex flex-col sm:flex-row gap-3">
+              <CalendarInput
+                placeholder="Start date"
+                name="startDate"
+                value={formik.values.startDate}
+                onChange={(val) => formik.setFieldValue("startDate", val)}
+                error={formik.touched.startDate && formik.errors.startDate}
+              />
+
+              <CalendarInput
+                placeholder="End date"
+                name="endDate"
+                value={formik.values.endDate}
+                onChange={(val) => formik.setFieldValue("endDate", val)}
+                error={formik.touched.endDate && formik.errors.endDate}
+              />
+            </div> */}
+          </div>
+
+          <button
             type="submit"
             className="flex cursor-pointer items-center justify-center gap-2 px-5 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 w-full"
             style={{ backgroundColor: "#BE5985" }}
@@ -210,10 +232,6 @@ export default function Trustedsection() {
             <SearchIcon className="w-4 h-4" />
             Search for a sitter
           </button>
-           </div>
-          </div>
-
-         
         </form>
       </div>
 
@@ -222,12 +240,12 @@ export default function Trustedsection() {
         <BackgroundImageCard
           img={homeImg}
           h="Trusted pet care, anytime, anywhere"
-          p="Find trusted pet sitters  near you"
+          p="Find trusted pet sitters & dog walkers near you"
           buttonclass="hidden"
           imgclass="w-full h-[600px] object-cover"
         />
 
-        <div className="absolute top-[400px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-1">
+        <div className="absolute top-[350px] left-1/2 transform -translate-x-1/2 bg-[#f4f4f4] rounded-xl p-6 shadow-lg w-[95%] max-w-5xl z-1">
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6">
             <div className="flex flex-col lg:flex-row gap-8">
               <AnimalSelection />
@@ -235,11 +253,9 @@ export default function Trustedsection() {
             </div>
 
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <div className="flex flex-row gap-5 flex-1">
+              <div className="flex flex-col gap-3 flex-1">
                 {/* Dropdown Location */}
-              <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm lg:w-180 md:w-120">
-
-
+                <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-150">
                   <StaticMapIcon className="w-5 h-5 text-gray-500" />
 
                   <select
@@ -266,8 +282,33 @@ export default function Trustedsection() {
                   )}
                 </div>
 
+                {/* <div className="flex flex-col sm:flex-row gap-3">
+                  <CalendarInput
+                    placeholder="Start date"
+                    name="startDate"
+                    value={formik.values.startDate}
+                    onChange={(val) => formik.setFieldValue("startDate", val)}
+                  />
+                  {formik.touched.startDate && formik.errors.startDate && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formik.errors.startDate}
+                    </p>
+                  )}
+                  <CalendarInput
+                    placeholder="End date"
+                    name="endDate"
+                    value={formik.values.endDate}
+                    onChange={(val) => formik.setFieldValue("endDate", val)}
+                  />
+                  {formik.touched.endDate && formik.errors.endDate && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formik.errors.endDate}
+                    </p>
+                  )}
+                </div> */}
+              </div>
+
               {/* Search Button */}
-              <div>
               <button
                 type="submit"
                 className="flex cursor-pointer items-center justify-center gap-2 px-6 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 md:w-auto"
@@ -276,10 +317,6 @@ export default function Trustedsection() {
                 <SearchIcon className="w-4 h-4" />
                 Search for a sitter
               </button>
-              </div>
-              </div>
-
-              
             </div>
           </form>
         </div>

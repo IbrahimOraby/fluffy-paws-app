@@ -68,7 +68,7 @@ export default function Services() {
   ]
 
   return (
-    <div className="px-6 py-12 md:mt-80 lg:mt-20 mb-10 ">
+    <div className="px-6 py-12 md:mt-90 lg:mt-60 mb-10 ">
       <Heading className="text-4xl mb-8 text-center  text-[#414141] ">
         A service for every occasion
       </Heading>

@@ -52,7 +52,7 @@ const ShelterCard = ({
           />
         </div>
 
-        <Paragraph className="text-paragraph-lg text-paragraph-color w-auto hidden sm:block">
+        <Paragraph className="text-paragraph-lg text-paragraph-color hidden sm:block">
           {description}
         </Paragraph>
 
