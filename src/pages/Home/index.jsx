@@ -24,7 +24,7 @@ const Home = () => {
       <Trustedsection></Trustedsection>
 
       <Services />
-      <Divider />
+      {/* <Divider /> */}
 
       <Howworksection />
       <Divider />

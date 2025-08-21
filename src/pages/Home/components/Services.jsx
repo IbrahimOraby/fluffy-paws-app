@@ -68,8 +68,10 @@ export default function Services() {
   ]
 
   return (
-    <div className="px-6 py-12 md:mt-90 lg:mt-60 mb-10 ">
-      <Heading className="text-4xl mb-8 text-center  text-[#414141] ">
+    <div className="grid grid-cols-12 px-4 md:px-0">
+          <div className=" col-span-12 col-start-1 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 mt-14 mb-20 pt-10 md:pt-0 border-t-1 md:border-t-0 border-light-color md:mt-70 lg:mt-30 md:mb-30">
+    {/* <div className="px-6 py-12 md:mt-90 lg:mt-60 mb-10 "> */}
+      <Heading className="text-4xl mb-12 text-center  text-[#414141] ">
         A service for every occasion
       </Heading>
 
@@ -84,6 +86,7 @@ export default function Services() {
             hclass='pb-2 text-[#565656]'
           />
         ))}
+      </div>
       </div>
     </div>
   )
