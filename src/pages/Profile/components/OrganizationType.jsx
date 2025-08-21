@@ -282,15 +282,70 @@ export default function OrganizationType() {
           <Heading className="text-header-sm mb-2 text-primary-color">
             Availability
           </Heading>
-          <Paragraph className="text-paragraph-color text-paragraph-sm">
-            From:{" "}
-            {new Date(organizationData.availableFrom).toLocaleDateString()}{" "}
-            <br />
-            To: {new Date(organizationData.availableTo).toLocaleDateString()}
-          </Paragraph>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              From:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {new Date(organizationData.availableFrom).toLocaleDateString()}
+            </Paragraph>
+          </div>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              To:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {new Date(organizationData.availableTo).toLocaleDateString()}{" "}
+            </Paragraph>
+          </div>
         </div>
 
-        
+        {/* Banking Information */}
+        <div className="mt-6">
+          <Heading className="text-header-sm mb-2 text-blue-900">
+            Banking Info
+          </Heading>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              Bank Name:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {organizationData.banking.bankName}
+            </Paragraph>
+          </div>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              Account Holder:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {organizationData.banking.accountHolderName}
+            </Paragraph>
+          </div>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              Account Number:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {organizationData.banking.accountNumber}
+            </Paragraph>
+          </div>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              IBAN:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {organizationData.banking.iban}
+            </Paragraph>
+          </div>
+          <div className="flex items-center gap-1">
+            <Paragraph className="text-paragraph-color text-paragraph-sm">
+              Routing Number:
+            </Paragraph>
+            <Paragraph className="text-header-color text-paragraph-md">
+              {organizationData.banking.bankRoutingNumber}
+            </Paragraph>
+          </div>
+        </div>
 
         {/* Documents */}
         <div className="mt-6">
