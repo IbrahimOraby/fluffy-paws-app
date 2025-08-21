@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Formik, Form } from "formik";
 import ProfileSectionHeader from "./ProfileSectionHeader";
 import UserProfileCard from "./UserProfileCard";
@@ -12,7 +12,6 @@ import {
   getOrginzationDoc,
   updateOrganizationGallery,
   getOrganizationBookings,
-  updateBookingStatus,
 } from "../../../services/firestore_service";
 import useUserStore from "../../../store/useUserStore";
 import MyMultiFileInput from "../../../ui/Inputs/MyMultiFileInput";
@@ -24,51 +23,32 @@ export default function OrganizationType() {
   const [organizationData, setOrganizationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditingGallery, setIsEditingGallery] = useState(false);
-
-  const [incomingBookings, setIncomingBookings] = useState([]);
-  const [pastBookings, setPastBookings] = useState([]);
-
   const [allBookings, setAllBookings] = useState([]);
+  const [activeTab, setActiveTab] = useState("incoming");
 
-  useEffect(() => {
-    const fetchOrganizationData = async () => {
-      if (user && userDoc && userDoc.role === "org") {
-        setLoading(true);
-        try {
-          const data = await getOrginzationDoc(user.uid);
-          setOrganizationData(data);
-
-          const allBookings = await getOrganizationBookings(user.uid);
-          setAllBookings(allBookings);
-
-          const now = new Date();
-
-          const incoming = allBookings.filter(
-            (booking) =>
-              booking.toDate && new Date(booking.toDate.toDate()) >= now
-          );
-
-          const past = allBookings.filter(
-            (booking) =>
-              booking.toDate && new Date(booking.toDate.toDate()) < now
-          );
-
-          setIncomingBookings(incoming);
-          setPastBookings(past);
-
-          console.log("Incoming Bookings:", incoming);
-          console.log("Past Bookings:", past);
-        } catch (error) {
-          console.error("Error fetching organization data:", error);
-        } finally {
-          setLoading(false);
-        }
-      } else {
+  const fetchOrganizationData = useCallback(async () => {
+    if (user && userDoc && userDoc.role === "org") {
+      setLoading(true);
+      try {
+        const [orgData, bookingsData] = await Promise.all([
+          getOrginzationDoc(user.uid),
+          getOrganizationBookings(user.uid),
+        ]);
+        setOrganizationData(orgData);
+        setAllBookings(bookingsData);
+      } catch (error) {
+        console.error("Error fetching organization data:", error);
+      } finally {
         setLoading(false);
       }
-    };
-    fetchOrganizationData();
+    } else {
+      setLoading(false);
+    }
   }, [user, userDoc]);
+
+  useEffect(() => {
+    fetchOrganizationData();
+  }, [fetchOrganizationData]);
 
   if (userLoading || loading) {
     return <div>Loading organization data...</div>;
@@ -78,9 +58,47 @@ export default function OrganizationType() {
     return <div>No organization data found.</div>;
   }
 
+  const now = new Date();
+  const incomingBookings = allBookings.filter(
+    (booking) => booking.toDate && new Date(booking.toDate.toDate()) >= now
+  );
+  const pastBookings = allBookings.filter(
+    (booking) => booking.toDate && new Date(booking.toDate.toDate()) < now
+  );
+
+  const renderBookingContent = () => {
+    const bookingsToShow =
+      activeTab === "incoming" ? incomingBookings : pastBookings;
+    const isIncoming = activeTab === "incoming";
+    const headerText = isIncoming ? "Incoming Bookings" : "Past Bookings";
+    const noBookingsText = isIncoming
+      ? "You have no incoming bookings."
+      : "No past bookings found.";
+    const BookingComponent = isIncoming ? ApprovedReq : PastReq;
+
+    return (
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold text-primary-color mb-3">
+          {headerText}
+        </h3>
+        <ul className="space-y-3">
+          {bookingsToShow.length > 0 ? (
+            bookingsToShow.map((booking) => (
+              <BookingComponent key={booking.id} booking={booking} />
+            ))
+          ) : (
+            <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
+              {noBookingsText}
+            </Paragraph>
+          )}
+        </ul>
+      </div>
+    );
+  };
+
   return (
     <>
-      {/* ############ MyProfile Input ############ */}
+      {/* ############ My Profile ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -102,7 +120,7 @@ export default function OrganizationType() {
         />
       </div>
 
-      {/* ############ Reservations Input ############ */}
+      {/* ############ Bookings ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -114,44 +132,34 @@ export default function OrganizationType() {
           title="Your Bookings"
           subTitle="View the status of your current and past boarding bookings."
         />
-        {/* Incoming Bookings */}
-        <div className="mt-6">
-          <Heading className="text-header-sm mb-3 text-primary-color">
-            Incoming Bookings
-          </Heading>
-          <div className="space-y-4">
-            {incomingBookings.length > 0 ? (
-              incomingBookings.map((booking) => (
-                <ApprovedReq key={booking.id} booking={booking} />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No incoming bookings.
-              </Paragraph>
-            )}
-          </div>
+
+        <div className="flex justify-center space-x-4 my-6">
+          <button
+            onClick={() => setActiveTab("incoming")}
+            className={`px-2 sm:px-6 py-2 sm:w-50 cursor-pointer rounded-lg hover:bg-primary-color hover:text-white-color transition font-medium ${
+              activeTab === "incoming"
+                ? "bg-primary-color text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            Incoming Booking
+          </button>
+          <button
+            onClick={() => setActiveTab("past")}
+            className={`px-2 sm:px-6 py-2 sm:w-50 hover:bg-primary-color hover:text-white-color transition cursor-pointer rounded-lg font-medium ${
+              activeTab === "past"
+                ? "bg-primary-color text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            Past Booking
+          </button>
         </div>
 
-        {/* Past Bookings */}
-        <div className="mt-10">
-          <Heading className="text-header-sm mb-3 text-header-color">
-            Past Bookings
-          </Heading>
-          <div className="space-y-4">
-            {pastBookings.length > 0 ? (
-              pastBookings.map((booking) => (
-                <PastReq key={booking.id} booking={booking} />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No past bookings yet.
-              </Paragraph>
-            )}
-          </div>
-        </div>
+        <div className="w-full">{renderBookingContent()}</div>
       </div>
 
-      {/* ############ Pets Dashboard Input ############ */}
+      {/* ############ Pets Dashboard ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -163,14 +171,10 @@ export default function OrganizationType() {
           title="Pets Dashboard"
           subTitle="View and manage details of all pets from pending and approved bookings."
         />
-        {/* <PetDashboard
-          // pendingBookings={pendingBookings}
-          // approvedBookings={approvedBookings}
-        /> */}
         <PetDashboard allBookings={allBookings} />
       </div>
 
-      {/* ############ Gallery Input ############ */}
+      {/* ############ Gallery ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -260,7 +264,7 @@ export default function OrganizationType() {
         )}
       </div>
 
-      {/* ############ More Info Input ############ */}
+      {/* ############ More Info ############ */}
       <input
         type="radio"
         name="dashboard_tabs"
@@ -286,19 +290,7 @@ export default function OrganizationType() {
           </Paragraph>
         </div>
 
-        {/* Banking Information */}
-        <div className="mt-6">
-          <Heading className="text-header-sm mb-2 text-blue-900">
-            Banking Info
-          </Heading>
-          <Paragraph className="text-paragraph-color text-paragraph-sm">
-            Bank Name: {organizationData.banking.bankName} <br />
-            Account Holder: {organizationData.banking.accountHolderName} <br />
-            Account Number: {organizationData.banking.accountNumber} <br />
-            IBAN: {organizationData.banking.iban} <br />
-            Routing Number: {organizationData.banking.bankRoutingNumber}
-          </Paragraph>
-        </div>
+        
 
         {/* Documents */}
         <div className="mt-6">
@@ -339,32 +331,6 @@ export default function OrganizationType() {
           </ul>
         </div>
       </div>
-
-      {/* ############ Messages Input ############ */}
-      {/* <input
-        type="radio"
-        name="dashboard_tabs"
-        className="tab text-lg"
-        aria-label="Messages"
-      />
-      <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Messages"
-          subTitle="Manage all your conversations with sitters and shelters here."
-        />
-        <ul className="mt-4 space-y-3">
-          <MessageItem
-            sender="Sitter John"
-            messageSnippet="Looking forward to boarding Buster!"
-            timestamp="2 hours ago"
-          />
-          <MessageItem
-            sender="Shelter Haven"
-            messageSnippet="Confirming your booking for Luna."
-            timestamp="Yesterday"
-          />
-        </ul>
-      </div> */}
     </>
   );
 }
