@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import Badge from "../../../ui/Badge/Badge";
 import ButtonWithIcon from "../../../ui/Buttons/ButtonWithIcon";
 import {
@@ -8,29 +8,19 @@ import {
 import Rating from "../../../ui/Rating/Rating";
 import Paragraph from "../../../ui/Typography/Paragraph/Paragraph";
 import SubHeading from "../../../ui/Typography/SubHeadings/SubHeading";
+import { calculateAverageRating } from "../../../utils/arrayHelpers";
 
 const ShelterCard = ({
   id,
   name,
   city,
-  distance,
   price,
-  rating,
-  reviewsNum,
   description,
   image,
+  reviews
 }) => {
-  console.log({
-    id,
-    name,
-    city,
-    distance,
-    price,
-    rating,
-    reviewsNum,
-    description,
-    image,
-  });
+  const avgRating = calculateAverageRating(reviews);
+
   return (
     <Link
       to={`/shelter/${id}`}
@@ -39,6 +29,7 @@ const ShelterCard = ({
       <img
         className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
         src={image}
+        alt={name}
       />
 
       <div className="flex flex-col flex-1 justify-between items-start">
@@ -65,7 +56,7 @@ const ShelterCard = ({
             £{price} / night
           </Paragraph>
           <div className="divider divider-horizontal"></div>
-          <Rating rating={rating} reviewsNum={reviewsNum} />
+          <Rating rating={avgRating} reviewsNum={reviews.length} /> 
         </div>
 
         <Badge
@@ -77,5 +68,6 @@ const ShelterCard = ({
     </Link>
   );
 };
+
 
 export default ShelterCard;

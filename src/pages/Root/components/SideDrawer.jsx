@@ -17,7 +17,7 @@ function SideDrawer() {
   let firstInitials;
 
   if (user) {
-    firstInitials = user.displayName.slice(0, 1).toUpperCase();
+    firstInitials = user.displayName?.slice(0, 1).toUpperCase();
   }
 
   const handleSignOut = async () => {

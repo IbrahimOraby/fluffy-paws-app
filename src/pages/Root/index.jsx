@@ -10,7 +10,6 @@ const Root = () => {
   const location = useLocation();
   const showNavFooter = !location.pathname.includes("/select-role");
   const user = useUserStore((state) => state.user);
-  const userDoc = useUserStore((state) => state.userDoc);
   const userDataLoading = useUserStore((state) => state.loading);
   const error = useUserStore((state) => state.error);
   const observeAuth = useUserStore((state) => state.observeAuth);
@@ -28,8 +27,6 @@ const Root = () => {
     }
   }, [user]);
 
-  console.log("User:", user);
-  console.log("User Document:", userDoc);
 
   if (userDataLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getAllCollectionDocs } from "../services/firestore_service";
+import { getAllCollectionDocs, getReviews } from "../services/firestore_service";
 
 const sheltersDataStore = create((set) => ({
   organizations: [],
@@ -11,7 +11,15 @@ const sheltersDataStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const data = await getAllCollectionDocs("organizations");
-      set({ organizations: data, loading: false });
+
+      const dataWithReviews = await Promise.all(
+        data.map(async (org) => ({
+          ...org,
+          reviews: await getReviews("organizations", org.id),
+        }))
+      );
+
+      set({ organizations: dataWithReviews, loading: false });
     } catch (err) {
       console.error("Failed to fetch organizations:", err);
       set({ error: err.message || "Unknown error", loading: false });
@@ -22,7 +30,15 @@ const sheltersDataStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const data = await getAllCollectionDocs("personalSitters");
-      set({ personalSitters: data, loading: false });
+
+      const dataWithReviews = await Promise.all(
+        data.map(async (sitter) => ({
+          ...sitter,
+          reviews: await getReviews("personalSitters", sitter.uid),
+        }))
+      );
+
+      set({ personalSitters: dataWithReviews, loading: false });
     } catch (err) {
       console.error("Failed to fetch personal sitters:", err);
       set({ error: err.message || "Unknown error", loading: false });
