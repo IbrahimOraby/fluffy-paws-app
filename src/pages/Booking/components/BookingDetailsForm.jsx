@@ -19,6 +19,7 @@ import PetSelectCard from "./PetSelectCard";
 
 export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
   const dailyRate = sitter.info.price || 99;
+  const shelterName = sitter.info.name;
   const firebaseUser = useUserStore((s) => s.user);
   const userDoc = useUserStore((s) => s.userDoc);
   const userId = firebaseUser?.uid || "";
@@ -67,6 +68,7 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
         toDate: defaultBooking.toDate ? new Date(defaultBooking.toDate) : "",
         petCount: defaultPetCount,
         selectedPetIds: [],
+        shelterName: "",
       }}
       validationSchema={bookingSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -81,6 +83,7 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
           const amount = nights * dailyRate * values.petCount;
           console.log(amount);
           console.log(defaultPetCount);
+          console.log(shelterName);
 
           //  pets selected (FULL DATA, not all pets!)
           const selectedIds = values.selectedPetIds || [];
@@ -107,6 +110,7 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
               petCount: values.petCount,
               petIds: selectedIds,
               pets: selectedPetsFull,
+              shelterName: shelterName,
             },
           };
 
@@ -167,7 +171,7 @@ export default function BookingDetailsForm({ sitter, defaultBooking = {} }) {
                 No pets found.
               </Paragraph>
             ) : (
-              <div className="flex justify-center gap-3">
+              <div className="flex justify-center gap-3 flex-wrap">
                 {pets.map((p, idx) => {
                   const id = p.id || p.uid || `pet-${idx}`;
                   const petName = p.name || "Pet";

@@ -37,10 +37,10 @@ const ShelterCard = ({
           <SubHeading type="h2" className="text-subheader-lg text-header-color">
             {name}
           </SubHeading>
-          <ButtonWithIcon
+          {/* <ButtonWithIcon
             className="hover:bg-light-hover-color"
             icon={<StaticHeartIcon size={18} color="#be5985" />}
-          />
+          /> */}
         </div>
 
         <Paragraph className="text-paragraph-lg text-paragraph-color hidden sm:block">

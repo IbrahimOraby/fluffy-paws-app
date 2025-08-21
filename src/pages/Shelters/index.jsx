@@ -64,6 +64,7 @@ const Shelters = () => {
       return matchesLocation && matchesAnimal && matchesShelterType;
     });
   }, [organizations, personalSitters, location, animal, shelterType, loading]);
+
   return (
     <>
       <FiltersMenu />

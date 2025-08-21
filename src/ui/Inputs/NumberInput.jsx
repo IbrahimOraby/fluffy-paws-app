@@ -5,7 +5,7 @@ import { StaticPawIcon } from "../Icons/StaticIcons";
 export default function NumberInputFormik({
   name,
   min = 1,
-  max = 3,
+  max = 6,
   icon = <StaticPawIcon color="#be5985" />,
 }) {
   const [field, meta, helpers] = useField(name);

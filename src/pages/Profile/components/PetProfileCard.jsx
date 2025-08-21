@@ -61,7 +61,8 @@ export default function PetProfileCard({ pet }) {
           <Paragraph className="text-sm">
             Weight:{" "}
             <span className="font-semibold text-header-color">
-              {health.weight} kg
+              {/* {health.weight} kg */}
+              {health?.weight ? `${health.weight} kg` : "N/A"}
             </span>
           </Paragraph>
         </div>
@@ -95,7 +96,8 @@ export default function PetProfileCard({ pet }) {
           <Paragraph className="text-sm">
             Health Status:{" "}
             <span className="font-semibold text-header-color">
-              {health.conditions}
+              {/* {health.conditions} */}
+              {health?.conditions || "N/A"}
             </span>
           </Paragraph>
         </div>
