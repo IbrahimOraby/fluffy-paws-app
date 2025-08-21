@@ -1,6 +1,9 @@
 import { Formik, Form } from "formik";
 import { loginSchema } from "../../schemas/userSchema";
-import { handleGoogleAuth, handleLoginSubmit } from "../../handlers/formHandlers";
+import {
+  handleGoogleAuth,
+  handleLoginSubmit,
+} from "../../handlers/formHandlers";
 
 import { GoogleStaticIcon } from "../../ui/Icons/StaticIcons";
 import GoogleAuthButton from "../../ui/Buttons/GoogleAuthButton";
@@ -8,7 +11,6 @@ import SubHeading from "../../ui/Typography/SubHeadings/SubHeading";
 import ActionLink from "../../ui/Links/ActionLink";
 import Paragraph from "./../../ui/Typography/Paragraph/Paragraph";
 import FilledButton from "../../ui/Buttons/FilledButton";
-
 
 import { useNavigate } from "react-router";
 import MyTextInput from "../../ui/Inputs/MyTextInput";
@@ -67,6 +69,12 @@ const Signin = () => {
                   name="password"
                   className="mb-0 w-full"
                 />
+                <ActionLink
+                  path="/forgot-password"
+                  className="text-paragraph-md"
+                >
+                  Forgot password?
+                </ActionLink>
                 {
                   /* Display general error if exists
                     e.g "service is down - invalid credential"
@@ -91,8 +99,10 @@ const Signin = () => {
               </div>
               <div className="divider">OR</div>
               <GoogleAuthButton
-              type="button"
-              onClick={()=>{handleGoogleAuth(setFieldError, navigate)}}
+                type="button"
+                onClick={() => {
+                  handleGoogleAuth(setFieldError, navigate);
+                }}
                 icon={<GoogleStaticIcon />}
                 className="btn bg-white text-black border-gray-400 hover:border-black w-full font-normal text-base"
               >

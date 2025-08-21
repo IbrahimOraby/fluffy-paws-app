@@ -86,7 +86,7 @@ export default function UserType() {
   });
 
   if (userLoading || loading) {
-    return <div>Loading organization data...</div>;
+    return <div>Loading user data...</div>;
   }
 
   if (!clientData) {
