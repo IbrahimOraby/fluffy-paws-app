@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FilledButton from "../../../ui/Buttons/FilledButton.jsx";
 import RatingStars from "./RatingStars";
 import PetIcon from "./PetIcon.jsx";
-
+import profileImg from "../../../assets/images/man-159847_1280.png";
 
 export default function Reviews({ shelterId }) {
   const [reviews, setReviews] = useState([]);
@@ -38,7 +38,7 @@ export default function Reviews({ shelterId }) {
           <div key={rv.id} className="pb-4 mb-4 border-b border-gray-400">
             <div className="flex gap-4">
               <img
-                src={rv.authorAvatar || "/placeholder-avatar.png"}
+                src={rv.authorAvatar || profileImg}
                 alt={rv.authorName}
                 className="w-12 h-12 rounded-full border"
               />

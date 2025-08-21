@@ -64,7 +64,7 @@ const Shelters = () => {
       return matchesLocation && matchesAnimal && matchesShelterType;
     });
   }, [organizations, personalSitters, location, animal, shelterType, loading]);
-console.log(filteredShelters)
+  console.log(filteredShelters);
   return (
     <>
       <FiltersMenu />
@@ -118,12 +118,7 @@ console.log(filteredShelters)
         </div>
       )}
       {loading && <LoadingSpinner />}
-      {(!loading&&filteredShelters.length === 0) && (
-        <EmptyShelters
-         
-        />
-      )}
-
+      {!loading && filteredShelters.length === 0 && <EmptyShelters />}
     </>
   );
 };
