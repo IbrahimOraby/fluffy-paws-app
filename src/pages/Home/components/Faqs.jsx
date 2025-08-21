@@ -50,7 +50,7 @@ export default function Faqs() {
   };
 
   return (
-    <div className="flex flex-col items-center px-6">
+    <div className="flex flex-col items-center px-6 mb-20">
       <Heading className="text-4xl mb-8 text-center text-[#414141]">FAQS</Heading>
 
       <div className="w-full max-w-2xl space-y-4">

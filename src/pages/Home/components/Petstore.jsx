@@ -7,7 +7,7 @@ import Heading from '../../../ui/Typography/Heading/Heading'
 export default function Petstore() {
   return (
  <>
-<div className="flex flex-col md:flex-col lg:flex-row justify-around items-center gap-13 bg-[#f4f4f4] py-10 px-4">
+<div className="flex flex-col md:flex-col lg:flex-row justify-around items-center gap-13 bg-[#f4f4f4] py-10 px-4 mb-16">
   {/* RIGHT SECTION */}
   <div className="flex flex-col items-center text-center gap-4 max-w-md">
     <div className="badge badge-soft badge-secondary">New</div>

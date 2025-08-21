@@ -27,19 +27,19 @@ const Home = () => {
       {/* <Divider /> */}
 
       <Howworksection />
-      <Divider />
+      {/* <Divider /> */}
 
       <Booking />
-      <Divider />
+      {/* <Divider /> */}
 
       <Faqs />
-      <Divider />
+      {/* <Divider /> */}
 
       <Petstore />
-      <Divider />
+      {/* <Divider /> */}
 
       <Brands />
-      <Divider />
+      {/* <Divider /> */}
     </>
   );
 };
