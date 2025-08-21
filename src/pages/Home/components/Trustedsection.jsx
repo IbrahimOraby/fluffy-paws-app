@@ -183,7 +183,7 @@ export default function Trustedsection() {
               <div className="flex flex-col gap-3 flex-1">
                 {/* Dropdown Location */}
                 <div
-                  className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
+                  className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-full  focus-within:border-[#BE5985] 
          focus-within:ring-2 
          focus-within:ring-[#BE5985] 
          focus-within:ring-offset-2 "
@@ -256,10 +256,10 @@ export default function Trustedsection() {
               <ProviderSelection />
             </div>
 
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div className="flex flex-col gap-3 flex-1">
                 {/* Dropdown Location */}
-                <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-150">
+                <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-118">
                   <StaticMapIcon className="w-5 h-5 text-gray-500" />
 
                   <select
