@@ -17,36 +17,36 @@ export default function ClientProfileCard({
         alt="User Avatar"
         className="rounded-full w-30 bg-light-color-300 object-cover"
       />
-      <div className="flex-1 w-full space-y-4">
-        <div>
-          <Paragraph className="text-paragraph-color text-paragraph-xs">
+      <div className="flex-1 w-full space-y-6">
+        <div className="space-y-1">
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
             Full Name
           </Paragraph>
-          <SubHeading className="text-header-color text-subheader-md">
+          <SubHeading className="text-header-color text-subheader-lg">
             {fullName || "N/A"}
           </SubHeading>
         </div>
-        <div>
-          <Paragraph className="text-paragraph-color text-paragraph-xs">
+        <div className="space-y-1">
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
             Email Address
           </Paragraph>
-          <SubHeading className="text-header-color text-subheader-md">
+          <SubHeading className="text-header-color text-subheader-lg">
             {email || "N/A"}
           </SubHeading>
         </div>
-        <div>
-          <Paragraph className="text-paragraph-color text-paragraph-xs">
+        <div className="space-y-1">
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
             Phone Number
           </Paragraph>
-          <SubHeading className="text-header-color text-subheader-md">
+          <SubHeading className="text-header-color text-subheader-lg">
             {phoneNumber || "N/A"}
           </SubHeading>
         </div>
         <div>
-          <Paragraph className="text-paragraph-color text-paragraph-xs">
+          <Paragraph className="text-paragraph-color text-paragraph-sm">
             Address
           </Paragraph>
-          <SubHeading className="text-header-color text-subheader-md">
+          <SubHeading className="text-header-color text-subheader-lg">
             {address || "N/A"}
           </SubHeading>
         </div>
