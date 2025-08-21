@@ -24,7 +24,7 @@ const ShelterCard = ({
   return (
     <Link
       to={`/shelter/${id}`}
-      className="flex mb-6 pb-6 gap-6 w-[75vw] max-w-[360px] sm:max-w-lg border-b border-base-300 cursor-pointer"
+      className="flex mb-6 pb-6 gap-6  border-b border-base-300 cursor-pointer"
     >
       <img
         className="sm:w-[185px] sm:h-[185px] rounded-lg object-cover w-[80px] h-[80px]"
