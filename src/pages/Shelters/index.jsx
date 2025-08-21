@@ -73,7 +73,7 @@ const Shelters = () => {
       )}
       {!loading && (
         <div className="grid grid-cols-12 gap-y-7">
-          <div className="col-start-2 col-span-full md:col-start-4">
+          <div className="col-start-3 col-span-full md:col-start-4">
             <Heading className="text-header-md text-header-color">
               Pet sitters in{" "}
               <span className="capitalize">
@@ -85,7 +85,7 @@ const Shelters = () => {
             </Heading>
           </div>
 
-          <div className="col-start-2 md:col-start-4">
+          <div className="col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
             {filteredShelters.map((shelter) => {
               const isOrganization = Boolean(shelter.info);
               const data = isOrganization
@@ -120,6 +120,7 @@ const Shelters = () => {
         </div>
       )}
       {loading && <LoadingSpinner />}
+      {!loading && filteredShelters.length === 0 && <EmptyShelters />}
       {!loading && filteredShelters.length === 0 && <EmptyShelters />}
     </>
   );
