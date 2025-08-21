@@ -280,7 +280,7 @@ export const getOrganizationBookings = async (organizationId) => {
       ...doc.data(),
     }));
 
-    return bookings; 
+    return bookings;
   } catch (error) {
     console.error("Error fetching organization bookings:", error);
     return [];
@@ -313,3 +313,22 @@ export const updateBookingStatus = async (bookingId, newStatus) => {
     throw error;
   }
 };
+
+
+export const getReviews = async(collectionName, docId) => {
+  try {
+    const reviewsRef = collection(db, collectionName, docId, "reviews");
+
+    const querySnapshot = await getDocs(reviewsRef);
+
+    const reviews = querySnapshot.docs.map(doc => ({
+      id: doc.id,  
+      ...doc.data()
+    }));
+
+    return reviews;
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    return [];
+  }
+}

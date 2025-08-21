@@ -56,6 +56,7 @@ export default function UserRoleSelection() {
   const currentUser = useUserStore((state) => state.user);
 
   const handleRoleSelect = async (role, path) => {
+    console.log(role, path, ' role clicked')
     await updateUserRole(currentUser.uid, role);
     navigate(path);
   };

@@ -64,7 +64,7 @@ const Shelters = () => {
       return matchesLocation && matchesAnimal && matchesShelterType;
     });
   }, [organizations, personalSitters, location, animal, shelterType, loading]);
-  console.log(filteredShelters);
+
   return (
     <>
       <FiltersMenu />
@@ -99,6 +99,7 @@ const Shelters = () => {
                     description: shelter.branding?.description || "",
                     price: shelter.info.price || "",
                     website: shelter.info.website || "",
+                    reviews: shelter.reviews,
                   }
                 : {
                     id: shelter.uid,
@@ -110,6 +111,7 @@ const Shelters = () => {
                     petTypes: shelter.petPreferences?.petTypes || [],
                     description: shelter.aboutMe?.bio || "",
                     experience: shelter.experience?.yearsExperience || "N/A",
+                    reviews: shelter.reviews,
                   };
 
               return <ShelterCard key={data.id} {...data} />;
