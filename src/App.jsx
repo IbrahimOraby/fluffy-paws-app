@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import RoleSetupRoute from "./components/RoleSetupRoute";
 import AddReview from "./pages/Shelter/components/AddReview";
+import ForgotPassword from "./pages/Signin/ForgotPassword";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -34,6 +35,7 @@ export default function App() {
           children: [
             { path: "/signup", element: <Signup /> },
             { path: "/signin", element: <Signin /> },
+            { path: "/forgot-password", element: <ForgotPassword /> },
           ],
         },
 

@@ -120,6 +120,7 @@ const Shelters = () => {
       )}
       {loading && <LoadingSpinner />}
       {!loading && filteredShelters.length === 0 && <EmptyShelters />}
+      {!loading && filteredShelters.length === 0 && <EmptyShelters />}
     </>
   );
 };
