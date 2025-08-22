@@ -24,22 +24,22 @@ const Home = () => {
       <Trustedsection></Trustedsection>
 
       <Services />
-      <Divider />
+      {/* <Divider /> */}
 
       <Howworksection />
-      <Divider />
+      {/* <Divider /> */}
 
       <Booking />
-      <Divider />
+      {/* <Divider /> */}
 
       <Faqs />
-      <Divider />
+      {/* <Divider /> */}
 
       <Petstore />
-      <Divider />
+      {/* <Divider /> */}
 
       <Brands />
-      <Divider />
+      {/* <Divider /> */}
     </>
   );
 };

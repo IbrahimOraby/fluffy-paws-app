@@ -170,42 +170,44 @@ export default function Trustedsection() {
           imgclass="w-full h-[300px] sm:h-[400px] object-cover"
         />
 
-        <form
-          onSubmit={formik.handleSubmit}
-          className="mt-6 px-4 flex flex-col gap-10"
-        >
-          <AnimalSelection />
-          <ProviderSelection />
+        <div className="grid grid-cols-12 px-4 md:px-0">
+          <div className=" col-span-12 col-start-1 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8">
+            <form
+              onSubmit={formik.handleSubmit}
+              className="mt-6 px-4 flex flex-col gap-10"
+            >
+              <AnimalSelection />
+              <ProviderSelection />
 
-          {/* Location + Dates */}
-          <div className="flex flex-col gap-3 flex-1">
-            {/* Dropdown Location */}
-            <div
-              className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-50  focus-within:border-[#BE5985] 
+              {/* Location + Dates */}
+              <div className="flex flex-col gap-3 flex-1">
+                {/* Dropdown Location */}
+                <div
+                  className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-full  focus-within:border-[#BE5985] 
          focus-within:ring-2 
          focus-within:ring-[#BE5985] 
          focus-within:ring-offset-2 "
-            >
-              <StaticMapIcon className="w-5 h-5 text-gray-500" />
-              <select
-                name="location"
-                value={formik.values.location}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="w-full bg-transparent outline-none text-sm"
-              >
-                <option value="" disabled hidden>
-                  Select your Location
-                </option>
-                {egyptGovernorates.map((gov) => (
-                  <option key={gov} value={gov}>
-                    {gov}
-                  </option>
-                ))}
-              </select>
-            </div>
+                >
+                  <StaticMapIcon className="w-5 h-5 text-gray-500" />
+                  <select
+                    name="location"
+                    value={formik.values.location}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="w-full bg-transparent outline-none text-sm"
+                  >
+                    <option value="" disabled hidden>
+                      Select your Location
+                    </option>
+                    {egyptGovernorates.map((gov) => (
+                      <option key={gov} value={gov}>
+                        {gov}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            {/* <div className="flex flex-col sm:flex-row gap-3">
+                {/* <div className="flex flex-col sm:flex-row gap-3">
               <CalendarInput
                 placeholder="Start date"
                 name="startDate"
@@ -222,17 +224,19 @@ export default function Trustedsection() {
                 error={formik.touched.endDate && formik.errors.endDate}
               />
             </div> */}
-          </div>
+              </div>
 
-          <button
-            type="submit"
-            className="flex cursor-pointer items-center justify-center gap-2 px-5 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 w-full"
-            style={{ backgroundColor: "#BE5985" }}
-          >
-            <SearchIcon className="w-4 h-4" />
-            Search for a sitter
-          </button>
-        </form>
+              <button
+                type="submit"
+                className="flex cursor-pointer items-center justify-center gap-2 px-5 py-3 text-sm text-white rounded-full shadow-sm hover:shadow-md transition duration-200 hover:opacity-90 w-full"
+                style={{ backgroundColor: "#BE5985" }}
+              >
+                <SearchIcon className="w-4 h-4" />
+                Search for a sitter
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
 
       {/* Large screens */}
@@ -252,10 +256,10 @@ export default function Trustedsection() {
               <ProviderSelection />
             </div>
 
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div className="flex flex-col gap-3 flex-1">
                 {/* Dropdown Location */}
-                <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-150">
+                <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md shadow-sm w-118">
                   <StaticMapIcon className="w-5 h-5 text-gray-500" />
 
                   <select

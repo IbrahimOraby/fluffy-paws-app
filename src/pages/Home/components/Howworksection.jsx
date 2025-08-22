@@ -6,10 +6,10 @@ import Options from './Options'
 
 export default function Howworksection() {
   return (
-    <div className=" px-4 flex flex-col items-center justify-center gap-6 ">
+    <div className=" px-4 flex flex-col items-center justify-center gap-6 mb-15">
       {/* Heading for small screens */}
       <Heading className="text-3xl font-bold text-black text-center mb-4 md:hidden">
-        How does <br /> Mad Paws work?
+        How does Mad Paws work?
       </Heading>
 
       {/* Image for small screens */}

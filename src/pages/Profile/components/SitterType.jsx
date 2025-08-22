@@ -105,85 +105,11 @@ export default function SitterType() {
         />
         <UserProfileCard
           avatarSrc={sitterData.profileSetup.profilePicture.cdnUrl}
-          // avatarSrc={sitterData.profileSetup.profilePicture.cdnUrl}
           fullName={`${userDoc.firstName} ${userDoc.lastName}`}
           email={userDoc.email}
           phoneNumber={sitterData.contact.phoneNumber}
           address={sitterData.contact.address}
         />
-      </div>
-
-      {/* ############ Reservations Input ############ */}
-      <input
-        type="radio"
-        name="dashboard_tabs"
-        className="tab text-lg"
-        aria-label="Reservations"
-      />
-      <div className="tab-content border-base-300 bg-base-100 p-10">
-        <ProfileSectionHeader
-          title="Your Bookings"
-          subTitle="View the status of your current and past boarding bookings."
-        />
-
-        {/* Pending Requests */}
-        <div className="mt-6">
-          <Heading className="text-header-sm mb-3 text-primary-color">
-            Pending Requests
-          </Heading>
-          <div className="space-y-4">
-            {pending.length > 0 ? (
-              pending.map((booking) => (
-                <PendingReq
-                  key={booking.id}
-                  booking={booking}
-                  onApprove={handleApprove}
-                  onDecline={handleDecline}
-                />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No pending requests.
-              </Paragraph>
-            )}
-          </div>
-        </div>
-
-        {/* Approved Bookings */}
-        <div className="mt-10">
-          <Heading className="text-header-sm mb-3 text-blue-900">
-            Upcoming Bookings
-          </Heading>
-          <div className="space-y-4">
-            {approved.length > 0 ? (
-              approved.map((booking) => (
-                <ApprovedReq key={booking.id} booking={booking} />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No upcoming bookings.
-              </Paragraph>
-            )}
-          </div>
-        </div>
-
-        {/* Past Bookings */}
-        <div className="mt-10">
-          <Heading className="text-header-sm mb-3 text-header-color">
-            Past Bookings
-          </Heading>
-          <div className="space-y-4">
-            {past.length > 0 ? (
-              past.map((booking) => (
-                <PastReq key={booking.id} booking={booking} />
-              ))
-            ) : (
-              <Paragraph className="text-paragraph-color text-paragraph-sm text-center">
-                No past bookings yet.
-              </Paragraph>
-            )}
-          </div>
-        </div>
       </div>
 
       {/* ############ Gallery Input ############ */}
